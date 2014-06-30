@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GUI_Button.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Amount_Adjustment.cs">
     <Files>
-      <File FileName="Assets/GUI_Button.cs" Line="21" Column="15" />
+      <File FileName="Assets/Amount_Adjustment.cs" Line="28" Column="32" />
+      <File FileName="Assets/GUI_Button.cs" Line="21" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
