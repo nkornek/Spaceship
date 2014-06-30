@@ -47,13 +47,13 @@ public class SetPivot : EditorWindow {
 				p.z = EditorGUILayout.Slider("Z", p.z, -1.0f, 1.0f);
 				if(p != last_p) { //Detects user input on any of the three sliders
 					//Only create instance of mesh when user changes pivot
-					if(pivotUnchanged) mesh = meshFilter.mesh; pivotUnchanged = false;
+					if(pivotUnchanged) mesh = meshFilter.sharedMesh; pivotUnchanged = false;
 					UpdatePivot();
 					last_p = p;
 				}
 				if(GUILayout.Button("Center")) { //Set pivot to the center of the mesh bounds
 					//Only create instance of mesh when user changes pivot
-					if(pivotUnchanged) mesh = meshFilter.mesh; pivotUnchanged = false;
+					if(pivotUnchanged) mesh = meshFilter.sharedMesh; pivotUnchanged = false;
 					p = Vector3.zero;
 					UpdatePivot();
 					last_p = p;
