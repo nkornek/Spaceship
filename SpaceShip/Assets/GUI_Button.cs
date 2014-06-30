@@ -6,7 +6,7 @@ public class GUI_Button : MonoBehaviour {
 	//Fields
 	public GUITexture buttonTexture;
 	public GUIText buttonText;
-	public bool enabled, clicked;
+	public bool enabled, clicked, hold;
 
 
 	// Use this for initialization
@@ -18,10 +18,10 @@ public class GUI_Button : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		CheckEnabled ();
-		CheckClicked ();
-		if (clicked) {
-			print ("Clicked");
-		}
+		CheckClickedHold ();
+//		if (clicked) {
+//			print ("Clicked");
+//		}
 	}
 
 
@@ -37,13 +37,21 @@ public class GUI_Button : MonoBehaviour {
 
 
 	//Check if the button is pressed
-	void CheckClicked () {
+	void CheckClickedHold () {
 		if (enabled && buttonTexture.HitTest (Input.mousePosition)
 		    && Input.GetMouseButtonDown(0)) {
 			clicked = true;
 		}
 		else {
 			clicked = false;
+		}
+
+		if (enabled && buttonTexture.HitTest (Input.mousePosition)
+		    && Input.GetMouseButton(0)) {
+			hold = true;
+		}
+		else {
+			hold = false;
 		}
 	}
 
