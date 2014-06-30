@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{F660AFC2-6570-A4EF-D3FF-5DDA69C50D50}") = "SpaceShip", "Assembly-CSharp-vs.csproj", "{62ADEEA1-99D8-AE3F-35AE-F7B49028108B}"
 EndProject
+Project("{F660AFC2-6570-A4EF-D3FF-5DDA69C50D50}") = "SpaceShip", "Assembly-CSharp-Editor-vs.csproj", "{D6CC51D9-184C-E0BE-0F78-94FFA2130808}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,11 +15,15 @@ Global
 		{62ADEEA1-99D8-AE3F-35AE-F7B49028108B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62ADEEA1-99D8-AE3F-35AE-F7B49028108B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62ADEEA1-99D8-AE3F-35AE-F7B49028108B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6CC51D9-184C-E0BE-0F78-94FFA2130808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6CC51D9-184C-E0BE-0F78-94FFA2130808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6CC51D9-184C-E0BE-0F78-94FFA2130808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6CC51D9-184C-E0BE-0F78-94FFA2130808}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-				GlobalSection(MonoDevelopProperties) = preSolution
+						GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
