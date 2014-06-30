@@ -47,7 +47,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\AICountry.cs" />
+     <Compile Include="Assets\Amount_Adjustment.cs" />
      <Compile Include="Assets\DyingStar.cs" />
+     <Compile Include="Assets\GUI_Button.cs" />
+     <Compile Include="Assets\GuiTest.cs" />
      <Compile Include="Assets\PlayerCountry.cs" />
      <Compile Include="Assets\Ship.cs" />
   </ItemGroup>
