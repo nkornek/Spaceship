@@ -14,18 +14,13 @@ public class Country : MonoBehaviour {
 	public GameObject roadToFe, roadToOF, roadToUAT, roadToRN;
 	public GameObject populationBar, militaryBar;
 	public GameObject foodBar, waterBar, oilBar, metalBar;
-	public int resourceCap, resourceBarCap, populationCap, populationBarCap, militaryCap, militaryBarCap, shipCap, shipBarCap;
+	public int resourceCap, resourceBarCap, populationCap, populationBarCap, militaryCap, militaryBarCap;
 	public int maxResourceGainedPerTurn, sufficientPopulation;
 	bool hasUpdated;
 	string metal;
 	string water;
 	string food;
 	string oil;
-
-	//SHIP
-	public int shipCompletion;
-	public int shipWater, shipOil, shipMetal, shipFood;
-	public GameObject shipBar;
 
 
 	//Start Function
@@ -100,10 +95,6 @@ public class Country : MonoBehaviour {
 		Vector3 militaryBarScale = militaryBar.transform.localScale;
 		militaryBarScale.y = (float)military / militaryCap * militaryBarCap;
 		militaryBar.transform.localScale = militaryBarScale;
-
-		Vector3 shipBarScale = shipBar.transform.localScale;
-		shipBarScale.y = (float)shipCompletion / shipCap * shipBarCap;
-		shipBar.transform.localScale = shipBarScale;
 	}
 
 

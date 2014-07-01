@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerScript : MonoBehaviour {
 
 	//Fields
-	public Country ownedCountry;
+	public GameVariableManager.CountryType myCountry;
 
 
 	// Use this for initialization
@@ -13,8 +13,8 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		if(GUI.Button (new Rect(10, 100, 150, 100), "Send Food"))
-			ownedCountry.stockFood -= 50;
+		if(GUI.Button (new Rect(10, 100, 150, 100), "BECOME OF"))
+		myCountry = GameVariableManager.CountryType.OF;
 	}
 
 
