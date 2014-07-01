@@ -12,12 +12,10 @@ public class DyingStar : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		if (GUI.Button (new Rect(10, 100, 50, 50), "New Week")){
+		if (GUI.Button (new Rect(10, 100, 150, 100), "New Week")){
 		//mainCam.Transform.position =
-
-
 		Vector3 starScale = gameObject.transform.localScale;
-		starScale = new Vector3 (10,10,10);
+		starScale = new Vector3 (5,5,5);
 		gameObject.transform.localScale += starScale;
 		}
 	}
