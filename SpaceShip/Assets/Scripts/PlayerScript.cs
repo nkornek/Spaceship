@@ -15,8 +15,8 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		if(GUI.Button (new Rect(10, 100, 150, 100), "BECOME OF"))
-		myCountry = GameVariableManager.CountryType.OF;
+		//if(GUI.Button (new Rect(10, 100, 150, 100), "BECOME OF"))
+		//myCountry = GameVariableManager.CountryType.OF;
 	}
 
 
