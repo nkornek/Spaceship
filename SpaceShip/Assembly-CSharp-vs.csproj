@@ -47,10 +47,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Amount_Adjustment.cs" />
+     <Compile Include="Assets\BeginWeekReport.cs" />
      <Compile Include="Assets\Country.cs" />
+     <Compile Include="Assets\CrisisInterface.cs" />
      <Compile Include="Assets\DyingStar.cs" />
      <Compile Include="Assets\GUI_Button.cs" />
+     <Compile Include="Assets\GameManager.cs" />
+     <Compile Include="Assets\GameVariableManager.cs" />
      <Compile Include="Assets\GuiTest.cs" />
+     <Compile Include="Assets\PlayerScript.cs" />
      <Compile Include="Assets\Ship.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
