@@ -22,7 +22,10 @@ public class PlayerScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (GameObject.Find("Country Selector"))
+		{
 		myCountry = GameObject.Find ("Country Selector").GetComponent<Country_Selector> ().myCountry;
+		}
 	
 	}
 }
