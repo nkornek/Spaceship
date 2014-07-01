@@ -16,6 +16,7 @@ public class Country : MonoBehaviour {
 	public GameObject foodBar, waterBar, oilBar, metalBar;
 	public int resourceCap, resourceBarCap, populationCap, populationBarCap, militaryCap, militaryBarCap, shipCap, shipBarCap;
 	public int maxResourceGainedPerTurn, sufficientPopulation;
+	public bool isAI;
 	bool hasUpdated;
 	string metal;
 	string water;
