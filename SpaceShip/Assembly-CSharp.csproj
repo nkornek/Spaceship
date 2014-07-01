@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Amount_Adjustment.cs" />
      <Compile Include="Assets\Scripts\BeginWeekReport.cs" />
      <Compile Include="Assets\Scripts\Country.cs" />
+     <Compile Include="Assets\Scripts\Country_Selector.cs" />
      <Compile Include="Assets\Scripts\CrisisInterface.cs" />
      <Compile Include="Assets\Scripts\DyingStar.cs" />
      <Compile Include="Assets\Scripts\GUI_Button.cs" />
