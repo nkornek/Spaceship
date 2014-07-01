@@ -65,6 +65,13 @@ public class Country : MonoBehaviour {
 
 	//Update the graphics bars (ressources, population and military)
 	void UpdateGraphicsBars () {
+		//ensure that no stock can be shown below 0
+		//need to add code later so that players cannot give away more stock than they have
+		if (stockFood < 0) {stockFood = 0;}
+		if (stockMetal < 0) {stockMetal = 0;}
+		if (stockOil < 0) {stockOil = 0;}
+		if (stockWater < 0) {stockWater = 0;}
+
 		Vector3 foodBarScale = foodBar.transform.localScale;
 		foodBarScale.y = (float)stockFood / resourceCap * resourceBarCap;
 		foodBar.transform.localScale = foodBarScale;
