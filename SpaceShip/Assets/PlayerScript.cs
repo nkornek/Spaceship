@@ -12,6 +12,11 @@ public class PlayerScript : MonoBehaviour {
 		
 	}
 
+	void OnGUI () {
+		if(GUI.Button (new Rect(10, 100, 150, 100), "Send Food"))
+			ownedCountry.stockFood -= 50;
+	}
+
 
 	// Update is called once per frame
 	void Update () {
