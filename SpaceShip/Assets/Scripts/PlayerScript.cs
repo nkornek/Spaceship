@@ -7,6 +7,8 @@ public class PlayerScript : MonoBehaviour {
 	public GameVariableManager.CountryType myCountry;
 
 
+
+
 	// Use this for initialization
 	void Start () {
 		
@@ -20,6 +22,7 @@ public class PlayerScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		myCountry = GameObject.Find ("Country Selector").GetComponent<Country_Selector> ().myCountry;
 	
 	}
 }
