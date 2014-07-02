@@ -27,6 +27,9 @@ public class Country : MonoBehaviour {
 	public int foodToUAT, waterToUAT, oilToUAT, metalToUAT;
 	public int foodToRN, waterToRN, oilToRN, metalToRN;
 	public int foodToShip, waterToShip, oilToShip, metalToShip;
+	//Amount of resources sent and received
+	public int receivedFood, receivedWater, receivedOil, receivedMetal;
+	public int sentFood, sentWater, sentOil, sentMetal;
 	//Variables needed for limiting harvest rate
 	public int limitHarvestRateCounter; 
 	public float limitedPercentage;
