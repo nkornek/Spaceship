@@ -7,6 +7,7 @@ public class Resource_alloc_country : MonoBehaviour {
 	public GUIText fdLabel, waLabel, mtLabel, fuLabel, cntryLabel;
 	public Country chosenCountry;
 	public int selfCountry;
+	public int sentFood, sentWater, sentMetal, sentOil;
 
 	// Use this for initialization
 	void OnEnable () {
@@ -28,112 +29,149 @@ public class Resource_alloc_country : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		CountryResources(selfCountry);
+		sentFood = chosenCountry.foodToShip + chosenCountry.foodToFE + chosenCountry.foodToOF + chosenCountry.foodToUAT + chosenCountry.foodToRN;
+		sentWater = chosenCountry.waterToShip + chosenCountry.waterToFE + chosenCountry.waterToOF + chosenCountry.waterToUAT + chosenCountry.waterToRN;	
+		sentMetal = chosenCountry.metalToShip + chosenCountry.metalToFE + chosenCountry.metalToOF + chosenCountry.metalToUAT + chosenCountry.metalToRN;	
+		sentOil = chosenCountry.oilToShip + chosenCountry.oilToFE + chosenCountry.oilToOF + chosenCountry.oilToUAT + chosenCountry.oilToRN;
+
 	}
 
 	//set button to correct country
 	void CountryResources(int countryButtons){
 		switch (countryButtons){
-			case 1:
-			if (fdUP.hold) {
+		case 1:
+			if (fdUP.hold & chosenCountry.stockFood > 0 & sentFood < chosenCountry.stockFood) 
+			{
 				chosenCountry.foodToFE += 1;
 			}
-			if (fdDN.hold) {
+			if (fdDN.hold & chosenCountry.foodToFE > 0) 
+			{
 				chosenCountry.foodToFE -= 1;
 			}
-			if (waUP.hold) {
+			if (waUP.hold & chosenCountry.stockWater > 0 & sentWater < chosenCountry.stockWater) 
+			{
 				chosenCountry.waterToFE += 1;
 			}
-			if (waDN.hold) {
+			if (waDN.hold & chosenCountry.waterToFE > 0) 
+			{
 				chosenCountry.waterToFE -= 1;
 			}
-			if (mtUP.hold) {
+			if (mtUP.hold & chosenCountry.stockMetal > 0 & sentMetal < chosenCountry.stockMetal) 
+			{
 				chosenCountry.metalToFE += 1;
 			}
-			if (mtDN.hold) {
+			if (mtDN.hold & chosenCountry.metalToFE > 0)
+			{
 				chosenCountry.metalToFE -= 1;
 			}
-			if (fuUP.hold) {
+			if (fuUP.hold & chosenCountry.stockOil > 0 & sentOil < chosenCountry.stockOil) 
+			{
 				chosenCountry.oilToFE += 1;
 			}
-			if (fuDN.hold) {
+			if (fuDN.hold & chosenCountry.oilToFE > 0) 
+			{
 				chosenCountry.oilToFE -= 1;
 			}
 			break;
 		case 2:
-			if (fdUP.hold) {
+			if (fdUP.hold & chosenCountry.stockFood > 0 & sentFood < chosenCountry.stockFood) 
+			{
 				chosenCountry.foodToOF += 1;
 			}
-			if (fdDN.hold) {
+			if (fdDN.hold & chosenCountry.foodToOF > 0) 
+			{
 				chosenCountry.foodToOF -= 1;
 			}
-			if (waUP.hold) {
+			if (waUP.hold & chosenCountry.stockWater > 0 & sentWater < chosenCountry.stockWater) 
+			{
 				chosenCountry.waterToOF += 1;
 			}
-			if (waDN.hold) {
+			if (waDN.hold & chosenCountry.waterToOF > 0) 
+			{
 				chosenCountry.waterToOF -= 1;
 			}
-			if (mtUP.hold) {
+			if (mtUP.hold & chosenCountry.stockMetal > 0 & sentMetal < chosenCountry.stockMetal) 
+			{
 				chosenCountry.metalToOF += 1;
 			}
-			if (mtDN.hold) {
+			if (mtDN.hold & chosenCountry.metalToOF > 0)
+			{
 				chosenCountry.metalToOF -= 1;
 			}
-			if (fuUP.hold) {
+			if (fuUP.hold & chosenCountry.stockOil > 0 & sentOil < chosenCountry.stockOil) 
+			{
 				chosenCountry.oilToOF += 1;
 			}
-			if (fuDN.hold) {
+			if (fuDN.hold & chosenCountry.oilToOF > 0) 
+			{
 				chosenCountry.oilToOF -= 1;
 			}
 			break;
 		case 3:
-			if (fdUP.hold) {
+			if (fdUP.hold & chosenCountry.stockFood > 0 & sentFood < chosenCountry.stockFood) 
+			{
 				chosenCountry.foodToUAT += 1;
 			}
-			if (fdDN.hold) {
+			if (fdDN.hold & chosenCountry.foodToUAT > 0) 
+			{
 				chosenCountry.foodToUAT -= 1;
 			}
-			if (waUP.hold) {
+			if (waUP.hold & chosenCountry.stockWater > 0 & sentWater < chosenCountry.stockWater) 
+			{
 				chosenCountry.waterToUAT += 1;
 			}
-			if (waDN.hold) {
+			if (waDN.hold & chosenCountry.waterToUAT > 0) 
+			{
 				chosenCountry.waterToUAT -= 1;
 			}
-			if (mtUP.hold) {
+			if (mtUP.hold & chosenCountry.stockMetal > 0 & sentMetal < chosenCountry.stockMetal) 
+			{
 				chosenCountry.metalToUAT += 1;
 			}
-			if (mtDN.hold) {
+			if (mtDN.hold & chosenCountry.metalToUAT > 0)
+			{
 				chosenCountry.metalToUAT -= 1;
 			}
-			if (fuUP.hold) {
+			if (fuUP.hold & chosenCountry.stockOil > 0 & sentOil < chosenCountry.stockOil) 
+			{
 				chosenCountry.oilToUAT += 1;
 			}
-			if (fuDN.hold) {
+			if (fuDN.hold & chosenCountry.oilToUAT > 0) 
+			{
 				chosenCountry.oilToUAT -= 1;
 			}
 			break;
 		case 4:
-			if (fdUP.hold) {
+			if (fdUP.hold & chosenCountry.stockFood > 0 & sentFood < chosenCountry.stockFood) 
+			{
 				chosenCountry.foodToRN += 1;
 			}
-			if (fdDN.hold) {
+			if (fdDN.hold & chosenCountry.foodToRN > 0) 
+			{
 				chosenCountry.foodToRN -= 1;
 			}
-			if (waUP.hold) {
+			if (waUP.hold & chosenCountry.stockWater > 0 & sentWater < chosenCountry.stockWater) 
+			{
 				chosenCountry.waterToRN += 1;
 			}
-			if (waDN.hold) {
+			if (waDN.hold & chosenCountry.waterToRN > 0) 
+			{
 				chosenCountry.waterToRN -= 1;
 			}
-			if (mtUP.hold) {
+			if (mtUP.hold & chosenCountry.stockMetal > 0 & sentMetal < chosenCountry.stockMetal) 
+			{
 				chosenCountry.metalToRN += 1;
 			}
-			if (mtDN.hold) {
+			if (mtDN.hold & chosenCountry.metalToRN > 0)
+			{
 				chosenCountry.metalToRN -= 1;
 			}
-			if (fuUP.hold) {
+			if (fuUP.hold & chosenCountry.stockOil > 0 & sentOil < chosenCountry.stockOil) 
+			{
 				chosenCountry.oilToRN += 1;
 			}
-			if (fuDN.hold) {
+			if (fuDN.hold & chosenCountry.oilToRN > 0) 
+			{
 				chosenCountry.oilToRN -= 1;
 			}
 			break;

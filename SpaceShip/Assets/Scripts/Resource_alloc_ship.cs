@@ -7,6 +7,7 @@ public class Resource_alloc_ship : MonoBehaviour {
 	public int foodSent, waterSent, metalSent, fuelSent;
 	public GUIText fdLabel, waLabel, mtLabel, fuLabel;
 	public Country chosenCountry;
+	public int sentFood, sentWater, sentMetal, sentOil;
 
 	// Use this for initialization
 	void OnEnable () {	
@@ -15,29 +16,34 @@ public class Resource_alloc_ship : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		sentFood = chosenCountry.foodToShip + chosenCountry.foodToFE + chosenCountry.foodToOF + chosenCountry.foodToUAT + chosenCountry.foodToRN;
+		sentWater = chosenCountry.waterToShip + chosenCountry.waterToFE + chosenCountry.waterToOF + chosenCountry.waterToUAT + chosenCountry.waterToRN;	
+		sentMetal = chosenCountry.metalToShip + chosenCountry.metalToFE + chosenCountry.metalToOF + chosenCountry.metalToUAT + chosenCountry.metalToRN;	
+		sentOil = chosenCountry.oilToShip + chosenCountry.oilToFE + chosenCountry.oilToOF + chosenCountry.oilToUAT + chosenCountry.oilToRN;
 
-		if (fdUP.hold) {
+		if (fdUP.hold & chosenCountry.stockFood > 0 & sentFood < chosenCountry.stockFood) 
+		{
 			chosenCountry.foodToShip += 1;
 		}
-		if (fdDN.hold) {
+		if (fdDN.hold & chosenCountry.foodToShip > 0) {
 			chosenCountry.foodToShip -= 1;
 		}
-		if (waUP.hold) {
+		if (waUP.hold & chosenCountry.stockWater > 0 & sentWater < chosenCountry.stockWater) {
 			chosenCountry.waterToShip += 1;
 		}
-		if (waDN.hold) {
+		if (waDN.hold & chosenCountry.waterToShip > 0) {
 			chosenCountry.waterToShip -= 1;
 		}
-		if (mtUP.hold) {
+		if (mtUP.hold & chosenCountry.stockMetal > 0 & sentMetal < chosenCountry.stockMetal) {
 			chosenCountry.metalToShip += 1;
 		}
-		if (mtDN.hold) {
+		if (mtDN.hold & chosenCountry.metalToShip > 0) {
 			chosenCountry.metalToShip -= 1;
 		}
-		if (fuUP.hold) {
+		if (fuUP.hold & chosenCountry.stockOil > 0 & sentOil < chosenCountry.stockOil) {
 			chosenCountry.oilToShip += 1;
 		}
-		if (fuDN.hold) {
+		if (fuDN.hold & chosenCountry.oilToShip > 0) {
 			chosenCountry.oilToShip -= 1;
 		}
 	
