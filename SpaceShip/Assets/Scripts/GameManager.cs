@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
 
 	//The game's game state
 	public GameVariableManager.GameState gameState;
+	//The four countries
+	public Country FE, OF, UAT, RN;
 	//The game's total week number (starts with 1)
 	public int weekNumber;
 
@@ -39,7 +41,10 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		switch (_pInstance.gameState) {
-
+		case GameVariableManager.GameState.TransferResources:
+			FE.stockFood = FE.stockFood - FE.foodToFE - FE.foodToOF - FE.foodTOUAT - FE.foodToShip;
+			//FE.stockWater = FE.stockWater - 
+			break;
 		}
 	}
 }
