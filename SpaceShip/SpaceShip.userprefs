@@ -1,15 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Ship.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Country.cs">
     <Files>
-      <File FileName="Assets\Ship.cs" Line="30" Column="9" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Amount_Adjustment.cs">
-    <Files>
-      <File FileName="Assets/Amount_Adjustment.cs" Line="28" Column="32" />
-      <File FileName="Assets/GUI_Button.cs" Line="21" Column="19" />
->>>>>>> 9bf6776aea9f72137d084a0d3adb7e2b81d93af7
+      <File FileName="Assets\Scripts\Amount_Adjustment.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerScript.cs" Line="7" Column="15" />
+      <File FileName="Assets\Scripts\Country.cs" Line="6" Column="17" />
+      <File FileName="Assets\Scripts\Country_Selector.cs" Line="7" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

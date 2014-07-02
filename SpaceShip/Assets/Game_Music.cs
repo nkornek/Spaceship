@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AICountry : MonoBehaviour {
+public class Game_Music : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

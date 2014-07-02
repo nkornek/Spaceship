@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+//Not used in final game (I think)
 public class GuiTest : MonoBehaviour {
 
 	// Use this for initialization
