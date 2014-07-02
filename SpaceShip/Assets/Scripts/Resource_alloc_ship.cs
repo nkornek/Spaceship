@@ -5,6 +5,7 @@ public class Resource_alloc_ship : MonoBehaviour {
 
 	public GUI_Button fdUP, fdDN, waUP, waDN, mtUP, mtDN, fuUP, fuDN;
 	public int foodSent, waterSent, metalSent, fuelSent;
+	public GUIText fdLabel, waLabel, mtLabel, fuLabel;
 	public Country chosenCountry;
 
 	// Use this for initialization
@@ -40,5 +41,14 @@ public class Resource_alloc_ship : MonoBehaviour {
 			chosenCountry.oilToShip -= 1;
 		}
 	
+	}
+
+	void OnGUI (){
+		{
+			fdLabel.text = chosenCountry.foodToShip.ToString();
+			waLabel.text = chosenCountry.waterToShip.ToString();
+			mtLabel.text = chosenCountry.metalToShip.ToString();
+			fuLabel.text = chosenCountry.oilToShip.ToString();
+		}
 	}
 }
