@@ -4,8 +4,8 @@ using System.Collections;
 public class Country_Selector : MonoBehaviour {
 
 	public bool countrySelected;
-	public GameVariableManager.CountryType myCountry;
 	public GUI_Button OFbutton, FEbutton, RNbutton, UATbutton;
+	public Country FE, OF, UAT, RN;
 
 	// Use this for initialization
 	void Start () {
@@ -22,7 +22,7 @@ public class Country_Selector : MonoBehaviour {
 		if(OFbutton.clicked == true)
 		{
 			countrySelected = true;
-			myCountry = GameVariableManager.CountryType.OF;
+			GameObject.Find ("Player").GetComponent<PlayerScript>().country = OF;
 			GameObject.Find("FE").GetComponent<Country>().isAI = true;
 			GameObject.Find("RN").GetComponent<Country>().isAI = true;
 			GameObject.Find("UAT").GetComponent<Country>().isAI = true;
@@ -30,16 +30,15 @@ public class Country_Selector : MonoBehaviour {
 		if(FEbutton.clicked == true)
 		{
 			countrySelected = true;
-			myCountry = GameVariableManager.CountryType.FE;
+			GameObject.Find ("Player").GetComponent<PlayerScript>().country = FE;
 			GameObject.Find("OF").GetComponent<Country>().isAI = true;
 			GameObject.Find("RN").GetComponent<Country>().isAI = true;
 			GameObject.Find("UAT").GetComponent<Country>().isAI = true;
 		}
 		if(RNbutton.clicked == true)
 		{
-			countrySelected = true;
-			myCountry = GameVariableManager.CountryType.RN;
-			
+			countrySelected = true;	
+			GameObject.Find ("Player").GetComponent<PlayerScript>().country = RN;		
 			GameObject.Find("FE").GetComponent<Country>().isAI = true;
 			GameObject.Find("OF").GetComponent<Country>().isAI = true;
 			GameObject.Find("UAT").GetComponent<Country>().isAI = true;
@@ -47,7 +46,7 @@ public class Country_Selector : MonoBehaviour {
 		if(UATbutton.clicked == true)
 		{
 			countrySelected = true;
-			myCountry = GameVariableManager.CountryType.UAT;
+			GameObject.Find ("Player").GetComponent<PlayerScript>().country = UAT;
 			GameObject.Find("FE").GetComponent<Country>().isAI = true;
 			GameObject.Find("RN").GetComponent<Country>().isAI = true;
 			GameObject.Find("OF").GetComponent<Country>().isAI = true;

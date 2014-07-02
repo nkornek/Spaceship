@@ -5,6 +5,8 @@ public class PlayerScript : MonoBehaviour {
 
 	//Fields
 	public GameVariableManager.CountryType myCountry;
+	public Country country;
+
 
 
 
