@@ -5,7 +5,16 @@ public class PlayerScript : MonoBehaviour {
 
 	//Fields
 	public GameVariableManager.CountryType myCountry;
+	public Country country;
+	public int C1, C2, C3;
 
+	/*
+	 * 1= FE
+	 * 2= OF
+	 * 3= UAT
+	 * 4= RN
+	 * 
+	 */
 
 
 
@@ -22,10 +31,6 @@ public class PlayerScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (GameObject.Find("Country Selector"))
-		{
-		myCountry = GameObject.Find ("Country Selector").GetComponent<Country_Selector> ().myCountry;
-		}
 	
 	}
 }

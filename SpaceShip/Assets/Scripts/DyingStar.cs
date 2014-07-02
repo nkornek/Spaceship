@@ -8,12 +8,16 @@ public class DyingStar : MonoBehaviour {
 	public float smooth;
 	private static Vector3 newPos;
 	private Vector3 startPos;
+
+	private Vector3 explodeScale;
 	public GameObject UICam;
 
 	// Use this for initialization
 	void Start () {
 	startPos = new Vector3 (7,11,-17);
 	newPos = new Vector3 (7,11,-17);
+
+	explodeScale = new Vector3 (3,3,3);
 	}
 
 	void FixedUpdate(){
@@ -38,7 +42,10 @@ public class DyingStar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		//GAME OVER STATE
+		if (gameObject.transform.localScale.x >= explodeScale.x){
+			Debug.Log("GAME OVER");
+		}
 	}
 
 	public IEnumerator backToLand() {

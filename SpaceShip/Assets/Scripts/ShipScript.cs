@@ -28,7 +28,7 @@ public class ShipScript : MonoBehaviour {
 			break;
 		}
 
-		if (shipCompletion >= 1000){
+		if (shipCompletion >= 200){
 			Debug.Log("SHIP COMPLETE");
 		}
 	
