@@ -4,7 +4,7 @@ using System.Collections;
 public class Resource_alloc_country : MonoBehaviour {
 	public GUI_Button fdUP, fdDN, waUP, waDN, mtUP, mtDN, fuUP, fuDN;
 	public int foodSent, waterSent, metalSent, fuelSent;
-	public GUIText fdLabel, waLabel, mtLabel, fuLabel;
+	public GUIText fdLabel, waLabel, mtLabel, fuLabel, cntryLabel;
 	public Country chosenCountry;
 	public int selfCountry;
 
@@ -34,106 +34,106 @@ public class Resource_alloc_country : MonoBehaviour {
 	void CountryResources(int countryButtons){
 		switch (countryButtons){
 			case 1:
-			if (fdUP.clicked) {
+			if (fdUP.hold) {
 				chosenCountry.foodToFE += 1;
 			}
-			if (fdDN.clicked) {
+			if (fdDN.hold) {
 				chosenCountry.foodToFE -= 1;
 			}
-			if (waUP.clicked) {
+			if (waUP.hold) {
 				chosenCountry.waterToFE += 1;
 			}
-			if (waDN.clicked) {
+			if (waDN.hold) {
 				chosenCountry.waterToFE -= 1;
 			}
-			if (mtUP.clicked) {
+			if (mtUP.hold) {
 				chosenCountry.metalToFE += 1;
 			}
-			if (mtDN.clicked) {
+			if (mtDN.hold) {
 				chosenCountry.metalToFE -= 1;
 			}
-			if (fuUP.clicked) {
+			if (fuUP.hold) {
 				chosenCountry.oilToFE += 1;
 			}
-			if (fuDN.clicked) {
+			if (fuDN.hold) {
 				chosenCountry.oilToFE -= 1;
 			}
 			break;
 		case 2:
-			if (fdUP.clicked) {
+			if (fdUP.hold) {
 				chosenCountry.foodToOF += 1;
 			}
-			if (fdDN.clicked) {
+			if (fdDN.hold) {
 				chosenCountry.foodToOF -= 1;
 			}
-			if (waUP.clicked) {
+			if (waUP.hold) {
 				chosenCountry.waterToOF += 1;
 			}
-			if (waDN.clicked) {
+			if (waDN.hold) {
 				chosenCountry.waterToOF -= 1;
 			}
-			if (mtUP.clicked) {
+			if (mtUP.hold) {
 				chosenCountry.metalToOF += 1;
 			}
-			if (mtDN.clicked) {
+			if (mtDN.hold) {
 				chosenCountry.metalToOF -= 1;
 			}
-			if (fuUP.clicked) {
+			if (fuUP.hold) {
 				chosenCountry.oilToOF += 1;
 			}
-			if (fuDN.clicked) {
+			if (fuDN.hold) {
 				chosenCountry.oilToOF -= 1;
 			}
 			break;
 		case 3:
-			if (fdUP.clicked) {
+			if (fdUP.hold) {
 				chosenCountry.foodToUAT += 1;
 			}
-			if (fdDN.clicked) {
+			if (fdDN.hold) {
 				chosenCountry.foodToUAT -= 1;
 			}
-			if (waUP.clicked) {
+			if (waUP.hold) {
 				chosenCountry.waterToUAT += 1;
 			}
-			if (waDN.clicked) {
+			if (waDN.hold) {
 				chosenCountry.waterToUAT -= 1;
 			}
-			if (mtUP.clicked) {
+			if (mtUP.hold) {
 				chosenCountry.metalToUAT += 1;
 			}
-			if (mtDN.clicked) {
+			if (mtDN.hold) {
 				chosenCountry.metalToUAT -= 1;
 			}
-			if (fuUP.clicked) {
+			if (fuUP.hold) {
 				chosenCountry.oilToUAT += 1;
 			}
-			if (fuDN.clicked) {
+			if (fuDN.hold) {
 				chosenCountry.oilToUAT -= 1;
 			}
 			break;
 		case 4:
-			if (fdUP.clicked) {
+			if (fdUP.hold) {
 				chosenCountry.foodToRN += 1;
 			}
-			if (fdDN.clicked) {
+			if (fdDN.hold) {
 				chosenCountry.foodToRN -= 1;
 			}
-			if (waUP.clicked) {
+			if (waUP.hold) {
 				chosenCountry.waterToRN += 1;
 			}
-			if (waDN.clicked) {
+			if (waDN.hold) {
 				chosenCountry.waterToRN -= 1;
 			}
-			if (mtUP.clicked) {
+			if (mtUP.hold) {
 				chosenCountry.metalToRN += 1;
 			}
-			if (mtDN.clicked) {
+			if (mtDN.hold) {
 				chosenCountry.metalToRN -= 1;
 			}
-			if (fuUP.clicked) {
+			if (fuUP.hold) {
 				chosenCountry.oilToRN += 1;
 			}
-			if (fuDN.clicked) {
+			if (fuDN.hold) {
 				chosenCountry.oilToRN -= 1;
 			}
 			break;
@@ -146,6 +146,8 @@ public class Resource_alloc_country : MonoBehaviour {
 			waLabel.text = chosenCountry.waterToFE.ToString();
 			mtLabel.text = chosenCountry.metalToFE.ToString();
 			fuLabel.text = chosenCountry.oilToFE.ToString();
+			cntryLabel.text = "FE";
+
 		}
 		else if (selfCountry == 2)
 		{
@@ -153,6 +155,7 @@ public class Resource_alloc_country : MonoBehaviour {
 			waLabel.text = chosenCountry.waterToOF.ToString();
 			mtLabel.text = chosenCountry.metalToOF.ToString();
 			fuLabel.text = chosenCountry.oilToOF.ToString();
+			cntryLabel.text = "OF";
 		}
 		else if (selfCountry == 3)
 		{
@@ -160,6 +163,7 @@ public class Resource_alloc_country : MonoBehaviour {
 			waLabel.text = chosenCountry.waterToUAT.ToString();
 			mtLabel.text = chosenCountry.metalToUAT.ToString();
 			fuLabel.text = chosenCountry.oilToUAT.ToString();
+			cntryLabel.text = "UAT";
 		}
 		else if (selfCountry == 4)
 		{
@@ -167,6 +171,7 @@ public class Resource_alloc_country : MonoBehaviour {
 			waLabel.text = chosenCountry.waterToRN.ToString();
 			mtLabel.text = chosenCountry.metalToRN.ToString();
 			fuLabel.text = chosenCountry.oilToRN.ToString();
+			cntryLabel.text = "RN";
 		}
 
 	}
