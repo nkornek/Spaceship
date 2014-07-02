@@ -8,6 +8,7 @@ public class DyingStar : MonoBehaviour {
 	public float smooth;
 	private static Vector3 newPos;
 	private Vector3 startPos;
+	public GameObject UICam;
 
 	// Use this for initialization
 	void Start () {
@@ -28,8 +29,10 @@ public class DyingStar : MonoBehaviour {
 		StartCoroutine(backToLand());
 		//mainCam.Transform.position =
 		Vector3 starScale = gameObject.transform.localScale;
-		starScale = new Vector3 (5,5,5);
+		starScale = new Vector3 (1.1f,1.1f,1.1f);
 		gameObject.transform.localScale += starScale;
+		GameObject.Find ("_GameManager").GetComponent<GameManager>().weekNumber += 1;
+		UICam.SetActive(false);
 		}
 	}
 	
@@ -42,5 +45,10 @@ public class DyingStar : MonoBehaviour {
 		newPos = new Vector3 (0,45,0);
 		yield return new WaitForSeconds(5.0f);
 		newPos = startPos;
+		Invoke ("resetUI", 3);
 	}
+
+	void resetUI (){
+		UICam.SetActive(true);
+		}
 }
