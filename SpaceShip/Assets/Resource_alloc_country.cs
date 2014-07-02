@@ -4,7 +4,7 @@ using System.Collections;
 public class Resource_alloc_country : MonoBehaviour {
 	public GUI_Button fdUP, fdDN, waUP, waDN, mtUP, mtDN, fuUP, fuDN;
 	public int foodSent, waterSent, metalSent, fuelSent;
-	public GUIText fdLabel, waLabel, mtLabel, fuLabel;
+	public GUIText fdLabel, waLabel, mtLabel, fuLabel, cntryLabel;
 	public Country chosenCountry;
 	public int selfCountry;
 
@@ -146,6 +146,8 @@ public class Resource_alloc_country : MonoBehaviour {
 			waLabel.text = chosenCountry.waterToFE.ToString();
 			mtLabel.text = chosenCountry.metalToFE.ToString();
 			fuLabel.text = chosenCountry.oilToFE.ToString();
+			cntryLabel.text = "FE";
+
 		}
 		else if (selfCountry == 2)
 		{
@@ -153,6 +155,7 @@ public class Resource_alloc_country : MonoBehaviour {
 			waLabel.text = chosenCountry.waterToOF.ToString();
 			mtLabel.text = chosenCountry.metalToOF.ToString();
 			fuLabel.text = chosenCountry.oilToOF.ToString();
+			cntryLabel.text = "OF";
 		}
 		else if (selfCountry == 3)
 		{
@@ -160,6 +163,7 @@ public class Resource_alloc_country : MonoBehaviour {
 			waLabel.text = chosenCountry.waterToUAT.ToString();
 			mtLabel.text = chosenCountry.metalToUAT.ToString();
 			fuLabel.text = chosenCountry.oilToUAT.ToString();
+			cntryLabel.text = "UAT";
 		}
 		else if (selfCountry == 4)
 		{
@@ -167,6 +171,7 @@ public class Resource_alloc_country : MonoBehaviour {
 			waLabel.text = chosenCountry.waterToRN.ToString();
 			mtLabel.text = chosenCountry.metalToRN.ToString();
 			fuLabel.text = chosenCountry.oilToRN.ToString();
+			cntryLabel.text = "RN";
 		}
 
 	}
