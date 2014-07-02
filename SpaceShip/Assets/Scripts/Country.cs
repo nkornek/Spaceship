@@ -18,6 +18,15 @@ public class Country : MonoBehaviour {
 	public int maxResourceGainedPerTurn, sufficientPopulation;
 	public bool isAI;
 	bool hasUpdated;
+	//Determine how much the population increases/decreases every week
+	//prevPopulationStat: <0: decreasing / >0: increasing / =0: no change
+	int prevPopulationStat, populationChange;
+	//Amount transfered to other countries and the ship
+	public int foodToFE, waterToFE, oilToFE, metalToFE;
+	public int foodToOF, waterToOF, oilToOF, metalToOF;
+	public int foodTOUAT, waterToUAT, oilToUAT, metalToUAT;
+	public int foodToRN, waterToRN, oilToRN, metalToRN;
+	public int foodToShip, waterToShip, oilToShip, metalToShip;
 	string metal;
 	string water;
 	string food;
@@ -26,9 +35,10 @@ public class Country : MonoBehaviour {
 
 	//Start Function
 	void Start () {
-		//Debug code----------------------------------------------------------
-		//stockFood = stockWater = stockOil = stockMetal = 100;
-		//population = military = 100;
+		//Initiate the countries' values at the start of the game-------------
+		stockFood = stockWater = stockOil = stockMetal = 100;
+		population = 100;
+		military = 0;
 		//--------------------------------------------------------------------
 
 		switch (countryType) {
@@ -99,8 +109,64 @@ public class Country : MonoBehaviour {
 	}
 
 
-	//Update the resource stats of the country at the beginning of a new week
+	//Update the resource stats, population and military values of the country at the beginning of a new week
+	//And consumes resources for population
 	public void NewWeekUpdate () {
+		//Consume resources
+		if (stockFood >= 50) {
+			stockFood -= 50;
+		}
+		else {
+			stockFood = 0;
+		}
+		if (stockWater >= 50) {
+			stockWater -= 50;
+		}
+		else {
+			stockWater = 0;
+		}
+		if (stockOil >= 25) {
+			stockOil -= 25;
+		}
+		else {
+			stockOil = 0;
+		}
+		if (stockMetal >= 25) {
+			stockMetal -= 25;
+		}
+		else {
+			stockMetal = 0;
+		}
+
+		//Update population
+		//Population Increased
+		if (stockFood >= 75 && stockWater >= 75 && stockMetal >= 50 && stockOil >= 50) {
+			if (populationChange > 0) {
+				populationChange *= 2;
+			}
+			else {
+				populationChange = 1;
+			}
+		}
+		//Population Decreased
+		else if (stockFood <= 50 || stockWater <= 50 || stockMetal <= 25 || stockOil <= 25) {
+			if (populationChange < 0) {
+				populationChange *= 2;
+			}
+			else {
+				populationChange = -1;
+			}
+		}
+		//Population Stays the same
+		else {
+			populationChange = 0;
+		}
+		population += populationChange;
+		if (population > populationCap) {
+			population = populationCap;
+		}
+
+		//Update resources harvested
 		switch (ownedResourceType) {
 		case GameVariableManager.OwnedResourceType.Food:
 			stockFood += (int)(Mathf.Min((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn);
@@ -115,6 +181,9 @@ public class Country : MonoBehaviour {
 			stockMetal += (int)(Mathf.Min ((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn);
 			break;
 		}
+
+		//Update military
+
 	}
 
 //	void givePlayerResource(int i, string t, Country c)
