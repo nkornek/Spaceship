@@ -27,6 +27,8 @@ public class Country : MonoBehaviour {
 	public int foodTOUAT, waterToUAT, oilToUAT, metalToUAT;
 	public int foodToRN, waterToRN, oilToRN, metalToRN;
 	public int foodToShip, waterToShip, oilToShip, metalToShip;
+	//Variables needed for limiting harvest rate
+	public int limitHarvestRateCounter, limitedPercentage;
 	string metal;
 	string water;
 	string food;
@@ -167,20 +169,40 @@ public class Country : MonoBehaviour {
 		}
 
 		//Update resources harvested
-		switch (ownedResourceType) {
-		case GameVariableManager.OwnedResourceType.Food:
-			stockFood += (int)(Mathf.Min((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn);
-			break;
-		case GameVariableManager.OwnedResourceType.Water:
-			stockWater += (int)(Mathf.Min ((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn);
-			break;
-		case GameVariableManager.OwnedResourceType.Oil:
-			stockOil += (int)(Mathf.Min ((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn);
-			break;
-		case GameVariableManager.OwnedResourceType.Metal:
-			stockMetal += (int)(Mathf.Min ((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn);
-			break;
+		if (limitHarvestRateCounter > 0) {
+			limitHarvestRateCounter--;
+			switch (ownedResourceType) {
+			case GameVariableManager.OwnedResourceType.Food:
+				stockFood += (int)(Mathf.Min((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn * limitedPercentage);
+				break;
+			case GameVariableManager.OwnedResourceType.Water:
+				stockWater += (int)(Mathf.Min ((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn * limitedPercentage);
+				break;
+			case GameVariableManager.OwnedResourceType.Oil:
+				stockOil += (int)(Mathf.Min ((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn * limitedPercentage);
+				break;
+			case GameVariableManager.OwnedResourceType.Metal:
+				stockMetal += (int)(Mathf.Min ((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn * limitedPercentage);
+				break;
+			}
 		}
+		else {
+			switch (ownedResourceType) {
+			case GameVariableManager.OwnedResourceType.Food:
+				stockFood += (int)(Mathf.Min((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn);
+				break;
+			case GameVariableManager.OwnedResourceType.Water:
+				stockWater += (int)(Mathf.Min ((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn);
+				break;
+			case GameVariableManager.OwnedResourceType.Oil:
+				stockOil += (int)(Mathf.Min ((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn);
+				break;
+			case GameVariableManager.OwnedResourceType.Metal:
+				stockMetal += (int)(Mathf.Min ((float)population / sufficientPopulation, 1f) * maxResourceGainedPerTurn);
+				break;
+			}
+		}
+
 
 		//Update military
 
