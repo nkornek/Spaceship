@@ -8,7 +8,7 @@ public class Country : MonoBehaviour {
 	//Fields
 	//Don't delete anything from here, still work in progress
 	public GameVariableManager.CountryType countryType;
-	private GameVariableManager.OwnedResourceType ownedResourceType;
+	public GameVariableManager.OwnedResourceType ownedResourceType;
 	public int population, military, stockWater, stockOil, stockFood, stockMetal;
 	private int relationshipFE, relationshipOF, relationshipUAT, relationshipRN;
 	public GameObject roadToFe, roadToOF, roadToUAT, roadToRN;
@@ -24,11 +24,12 @@ public class Country : MonoBehaviour {
 	//Amount transfered to other countries and the ship
 	public int foodToFE, waterToFE, oilToFE, metalToFE;
 	public int foodToOF, waterToOF, oilToOF, metalToOF;
-	public int foodTOUAT, waterToUAT, oilToUAT, metalToUAT;
+	public int foodToUAT, waterToUAT, oilToUAT, metalToUAT;
 	public int foodToRN, waterToRN, oilToRN, metalToRN;
 	public int foodToShip, waterToShip, oilToShip, metalToShip;
 	//Variables needed for limiting harvest rate
-	public int limitHarvestRateCounter, limitedPercentage;
+	public int limitHarvestRateCounter; 
+	public float limitedPercentage;
 	string metal;
 	string water;
 	string food;
