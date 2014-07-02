@@ -16,28 +16,28 @@ public class Resource_alloc_ship : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (fdUP.clicked) {
+		if (fdUP.hold) {
 			chosenCountry.foodToShip += 1;
 		}
-		if (fdDN.clicked) {
+		if (fdDN.hold) {
 			chosenCountry.foodToShip -= 1;
 		}
-		if (waUP.clicked) {
+		if (waUP.hold) {
 			chosenCountry.waterToShip += 1;
 		}
-		if (waDN.clicked) {
+		if (waDN.hold) {
 			chosenCountry.waterToShip -= 1;
 		}
-		if (mtUP.clicked) {
+		if (mtUP.hold) {
 			chosenCountry.metalToShip += 1;
 		}
-		if (mtDN.clicked) {
+		if (mtDN.hold) {
 			chosenCountry.metalToShip -= 1;
 		}
-		if (fuUP.clicked) {
+		if (fuUP.hold) {
 			chosenCountry.oilToShip += 1;
 		}
-		if (fuDN.clicked) {
+		if (fuDN.hold) {
 			chosenCountry.oilToShip -= 1;
 		}
 	
