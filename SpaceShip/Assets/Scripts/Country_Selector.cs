@@ -6,10 +6,12 @@ public class Country_Selector : MonoBehaviour {
 	public bool countrySelected;
 	public GUI_Button OFbutton, FEbutton, RNbutton, UATbutton;
 	public Country FE, OF, UAT, RN;
+	public GameObject player;
 
 	// Use this for initialization
 	void Start () {
 		countrySelected = false;
+
 	
 	}
 	
@@ -22,7 +24,10 @@ public class Country_Selector : MonoBehaviour {
 		if(OFbutton.clicked == true)
 		{
 			countrySelected = true;
-			GameObject.Find ("Player").GetComponent<PlayerScript>().country = OF;
+			player.GetComponent<PlayerScript>().country = OF;
+			player.GetComponent<PlayerScript>().C1 = 1;
+			player.GetComponent<PlayerScript>().C2 = 4;
+			player.GetComponent<PlayerScript>().C3 = 3;
 			GameObject.Find("FE").GetComponent<Country>().isAI = true;
 			GameObject.Find("RN").GetComponent<Country>().isAI = true;
 			GameObject.Find("UAT").GetComponent<Country>().isAI = true;
@@ -30,7 +35,10 @@ public class Country_Selector : MonoBehaviour {
 		if(FEbutton.clicked == true)
 		{
 			countrySelected = true;
-			GameObject.Find ("Player").GetComponent<PlayerScript>().country = FE;
+			player.GetComponent<PlayerScript>().country = FE;
+			player.GetComponent<PlayerScript>().C1 = 2;
+			player.GetComponent<PlayerScript>().C2 = 4;
+			player.GetComponent<PlayerScript>().C3 = 3;
 			GameObject.Find("OF").GetComponent<Country>().isAI = true;
 			GameObject.Find("RN").GetComponent<Country>().isAI = true;
 			GameObject.Find("UAT").GetComponent<Country>().isAI = true;
@@ -38,7 +46,10 @@ public class Country_Selector : MonoBehaviour {
 		if(RNbutton.clicked == true)
 		{
 			countrySelected = true;	
-			GameObject.Find ("Player").GetComponent<PlayerScript>().country = RN;		
+			player.GetComponent<PlayerScript>().country = RN;
+			player.GetComponent<PlayerScript>().C1 = 1;
+			player.GetComponent<PlayerScript>().C2 = 2;
+			player.GetComponent<PlayerScript>().C3 = 3;		
 			GameObject.Find("FE").GetComponent<Country>().isAI = true;
 			GameObject.Find("OF").GetComponent<Country>().isAI = true;
 			GameObject.Find("UAT").GetComponent<Country>().isAI = true;
@@ -46,7 +57,10 @@ public class Country_Selector : MonoBehaviour {
 		if(UATbutton.clicked == true)
 		{
 			countrySelected = true;
-			GameObject.Find ("Player").GetComponent<PlayerScript>().country = UAT;
+			player.GetComponent<PlayerScript>().country = UAT;
+			player.GetComponent<PlayerScript>().C1 = 1;
+			player.GetComponent<PlayerScript>().C2 = 4;
+			player.GetComponent<PlayerScript>().C3 = 2;
 			GameObject.Find("FE").GetComponent<Country>().isAI = true;
 			GameObject.Find("RN").GetComponent<Country>().isAI = true;
 			GameObject.Find("OF").GetComponent<Country>().isAI = true;
