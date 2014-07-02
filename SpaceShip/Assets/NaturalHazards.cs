@@ -12,7 +12,35 @@ public class NaturalHazards : MonoBehaviour {
 	public int numOfPlayers; //affected by the hazard
 	public string hazardName;
 
-
+	// Use this for initialization
+	void Start () {
+		Random.seed = 3123;
+		
+		totalPlayers = 4;
+		hazardOfTheWeek = 0; // default, nothing happens
+		maxHarzardOfWeek = 13;
+		playerAffected = -1;//no one is affected.
+		numOfPlayers = 0; // no one is affected by anything yet
+		hazardName = " ";
+		player = new Country[totalPlayers];
+		
+		for(int i = 0; i < player.Length; i++)
+		{
+			player[i] = new Country();
+		}
+		
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+		//old system.
+		//setAffectedPlayers();
+		//new system.
+		setHazard();
+		
+	}
 	//just in case we need it again
 	/*
 	void setHazardOfTheWeek(int [] plrArr){
@@ -169,7 +197,7 @@ public class NaturalHazards : MonoBehaviour {
 		{
 			if(player[i].ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
 			{
-				EarthquakeDamage(player[i]);
+				EarthQuakeDamage(player[i]);
 			}
 		}
 	}
@@ -244,8 +272,8 @@ public class NaturalHazards : MonoBehaviour {
 	}
 
 	public void Revolt(){
-		int [] ppl = determineAffectedPlayers(1);
-		RevoltDamage(player[ppl[0]]);
+		int [] ppl = determineAffectedPlayers(2);
+		RevoltDamage(player[ppl[0]], player[ppl[1]]);
 	}
 
 	public void Peace(){
@@ -338,7 +366,7 @@ public class NaturalHazards : MonoBehaviour {
 		m.limitHarvestRateCounter = 3;
 	}
 
-	void HurricaineDamage(Country r1, Country r2){
+	void HurricaneDamage(Country r1, Country r2){
 		r1.stockOil -= (r1.stockOil/2);
 		r2.stockOil -= (r2.stockOil/2);
 	}
@@ -369,20 +397,20 @@ public class NaturalHazards : MonoBehaviour {
 		//for 3 weeks.
 	}
 
-	void ReVoltDamage(Country r1, Country r2){
+	void RevoltDamage(Country r1, Country r2){
 		r1.limitedPercentage = 0.5f;
 		r2.limitedPercentage = 0.5f;
 		r1.limitHarvestRateCounter = 4;
 		r2.limitHarvestRateCounter = 4;
 	}
 
-
+	/*
 	void setAffectedPlayers()
 	{
 		int affectedPlayer = Random.Range (0, 5);
 		setHazardOfTheWeek(determineAffectedPlayers(affectedPlayer));
 	}
-
+*/
 
 	//algorithm to make sure each array has unique value for more (number of people between 2-3) 
 	//hasn't been tested yet.
@@ -423,33 +451,5 @@ public class NaturalHazards : MonoBehaviour {
 
 
 
-	// Use this for initialization
-	void Start () {
-		Random.seed = 3123;
 
-			totalPlayers = 4;
-			hazardOfTheWeek = 0; // default, nothing happens
-			maxHarzardOfWeek = 13;
-			playerAffected = -1;//no one is affected.
-			numOfPlayers = 0; // no one is affected by anything yet
-			hazardName = " ";
-			player = new Country[totalPlayers];
-			
-			for(int i = 0; i < player.Length; i++)
-			{
-				player[i] = new Country();
-			}
-
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-		//old system.
-		//setAffectedPlayers();
-		//new system.
-		setHazard();
-	
-}
 }
