@@ -13,8 +13,8 @@ public class NaturalHazards : MonoBehaviour {
 	public string hazardName;
 
 
-
-
+	//just in case we need it again
+	/*
 	void setHazardOfTheWeek(int [] plrArr){
 		if(plrArr.Length ==1)
 		{
@@ -107,13 +107,153 @@ public class NaturalHazards : MonoBehaviour {
 		else
 			newHazardOfTheWeek(0);
 	}
-
+*/
+	/*
 	void setNumPlayersAffected(){ //make crisis generate random affected country + possible default affect
 		//country with it.
 		numOfPlayers = Random.Range (0,totalPlayers+1);
+
+
+	}*/
+
+	public void setHazard(){
+		int die = Random.Range (0, 16);
+		newHazardOfTheWeek(die);
+		switch(die)
+		{
+			case 1: Tornado(); break;
+			case 2: Drought(); break;
+			case 3: Volcano(); break;
+			case 4: Earthquake(); break;
+			case 5: Plague(); break;
+			case 6: WildFire(); break;
+			case 7: Flood(); break;
+			case 8: HeatWave(); break;
+			case 9: Hurricane(); break;
+			case 10: StagnantWater(); break;
+			case 11: SolarFlare(); break;
+			case 12: ContaminatedCrops(); break;
+			case 13: MassLooting(); break;
+			case 14: Riot(); break;
+			case 15: Revolt(); break;
+			default: Peace(); break;
+		}
+	}
+	
+
+	public void Tornado()
+	{
+		int [] ppl = determineAffectedPlayers(2);
+		TornadoDamage(player[ppl[0]],player[ppl[1]]);
 	}
 
-	void newHazardOfTheWeek(int i){
+	public void Drought(){
+		int [] ppl = determineAffectedPlayers(1);
+		for(int i = 0; i < 4; i++)
+		{
+			if(player[i].ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+			{
+				DroughtDamage(player[ppl[0]], player[i]);
+			}
+		}
+	}
+
+	public void Volcano(){
+
+		int [] ppl = determineAffectedPlayers(2);
+		VolcanoDamage(player[ppl[0]], player[ppl[1]]);
+	}
+
+	public void Earthquake(){
+		for(int i = 0; i < 4; i++)
+		{
+			if(player[i].ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+			{
+				EarthquakeDamage(player[i]);
+			}
+		}
+	}
+
+	public void Plague(){
+		int [] ppl = determineAffectedPlayers(3);
+		PlagueDamage(player[ppl[0]], player[ppl[1]], player[ppl[2]]);
+	}
+
+	public void WildFire(){
+		int [] ppl = determineAffectedPlayers(2);
+		WildFireDamage(player[ppl[0]], player[ppl[1]]);
+	}
+
+	public void Flood(){
+		int [] ppl = determineAffectedPlayers(1);
+		for(int i = 0; i < 4; i++)
+		{
+			if(player[i].ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+			{
+				DroughtDamage(player[ppl[0]], player[i]);
+			}
+		}
+	}
+
+	public void HeatWave(){
+		int [] ppl = determineAffectedPlayers(1);
+		for(int i = 0; i < 4; i++)
+		{
+			if(player[i].ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+			{
+				DroughtDamage(player[ppl[0]], player[i]);
+			}
+		}
+	}
+
+	public void Hurricane(){
+		int [] ppl = determineAffectedPlayers(2);
+		HurricaneDamage(player[ppl[0]], player[ppl[1]]);
+	}
+
+	public void StagnantWater(){
+		for(int i = 0; i < 4; i++)
+		{
+			if(player[i].ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+			{
+				StagnantWaterDamage(player[i]);
+			}
+		}
+	}
+
+	public void SolarFlare(){
+		for(int i = 0; i < 4; i++)
+		{
+			if(player[i].ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+			{
+				SolarFlareDamage( player[i]);
+			}
+		}
+	}
+
+	public void ContaminatedCrops(){ //blank for now
+
+	}
+
+	public void MassLooting(){
+		MassLootDamage(player[0], player[1], player[2], player[3]);
+	}
+
+	public void Riot(){// not done for now
+
+	}
+
+	public void Revolt(){
+		int [] ppl = determineAffectedPlayers(1);
+		RevoltDamage(player[ppl[0]]);
+	}
+
+	public void Peace(){
+
+
+	}
+
+	public void newHazardOfTheWeek(int i){
 		switch(i)
 		{
 		case 0: hazardName = "Quiet"; break;
@@ -150,7 +290,7 @@ public class NaturalHazards : MonoBehaviour {
 		r.stockWater -= (r.stockWater/2); //for random country
 		//water prod country reduce. water prod. by 1/2 for 3 weeks
 		w.limitHarvestRateCounter = 3;
-		w.limitedPercentage = 0.5;
+		w.limitedPercentage = 0.5f;
 
 	}
 
@@ -167,7 +307,7 @@ public class NaturalHazards : MonoBehaviour {
 		//modifier to add where country prod. only 1 metal per country. 
 	//ex: 100 ppl, prod. 100 metal
 		m.limitHarvestRateCounter = 4;
-		m.limitedPercentage = 0.25;
+		m.limitedPercentage = 0.25f;
 	}
 
 	
@@ -187,14 +327,14 @@ public class NaturalHazards : MonoBehaviour {
 	void FloodDamage(Country r1, Country f){
 		r1.stockFood -= (r1.stockFood/2); // random country loses 1/2 their food supply
 		//modifier: food prod. country will prod. 1/2 their amount of food for 3 weeks
-		f.limitedPercentage = 0.5;
+		f.limitedPercentage = 0.5f;
 		f.limitHarvestRateCounter = 3;
 	}
 
 	void HeatwaveDamage(Country r1, Country m){
 		r1.stockMetal -= (r1.stockMetal/2);
 		//modifier: metal country produces 1/2 metal for 3 weeks.
-		m.limitedPercentage = 0.5;
+		m.limitedPercentage = 0.5f;
 		m.limitHarvestRateCounter = 3;
 	}
 
@@ -230,7 +370,10 @@ public class NaturalHazards : MonoBehaviour {
 	}
 
 	void ReVoltDamage(Country r1, Country r2){
-		//modifier: 2 random countries produce 2 resources/1 citizen for 4 weeks
+		r1.limitedPercentage = 0.5f;
+		r2.limitedPercentage = 0.5f;
+		r1.limitHarvestRateCounter = 4;
+		r2.limitHarvestRateCounter = 4;
 	}
 
 
@@ -274,7 +417,7 @@ public class NaturalHazards : MonoBehaviour {
 
 			}
 		}
-
+		//if ppl.length = 0, it will be an empty array
 		return ppl;
 	}
 
@@ -302,10 +445,11 @@ public class NaturalHazards : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//setHazardOfTheWeek();
-		setNumPlayersAffected();
-		//Debug.Log ("Players: "+numOfPlayers);
-		
-	//	Debug.Log ("hazard of week: "+hazardOfTheWeek);
-	}
+
+		//old system.
+		//setAffectedPlayers();
+		//new system.
+		setHazard();
+	
+}
 }
