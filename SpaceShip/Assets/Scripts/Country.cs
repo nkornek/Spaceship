@@ -28,7 +28,8 @@ public class Country : MonoBehaviour {
 	public int foodToRN, waterToRN, oilToRN, metalToRN;
 	public int foodToShip, waterToShip, oilToShip, metalToShip;
 	//Variables needed for limiting harvest rate
-	public int limitHarvestRateCounter, limitedPercentage;
+	public int limitHarvestRateCounter; 
+	public float limitedPercentage;
 	string metal;
 	string water;
 	string food;
