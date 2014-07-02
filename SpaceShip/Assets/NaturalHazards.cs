@@ -18,16 +18,94 @@ public class NaturalHazards : MonoBehaviour {
 	void setHazardOfTheWeek(int [] plrArr){
 		if(plrArr.Length ==1)
 		{
-			if(player[0].Owned
-			EarthQuakeDamage
-			StagnantWaterDamage
-			SolarFlareDamage
-			RiotDamage
+			if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal){
+				EarthQuakeDamage(player[plrArr[0]]);
+				newHazardOfTheWeek(4);
+			}
+			else
+				if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Water){
+				StagnantWaterDamage(player[plrArr[0]]);
+				newHazardOfTheWeek(10);
+			}
+			else
+				if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil){
+				SolarFlareDamage(player[plrArr[0]]);
+				newHazardOfTheWeek(11);
+			}
+			else 
+			{
+				RiotDamage(player[plrArr[0]]);
+				newHazardOfTheWeek(14);
+			}
+		}
+		else
+		if(plrArr.Length == 2){
+		
 
+				if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Water ||
+				   player[plrArr[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+					{
+						if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+							DroughtDamage(player[plrArr[0]],player[plrArr[1]]);
+						else
+						DroughtDamage(player[plrArr[1]],player[plrArr[0]]);
+						newHazardOfTheWeek(2);
+					}
+				else
+				if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Food ||
+				   player[plrArr[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+				{
+					if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+						FloodDamage(player[plrArr[0]],player[plrArr[1]]);
+					else
+						FloodDamage(player[plrArr[1]],player[plrArr[0]]);
+					newHazardOfTheWeek(7);
+				}
+				else
+				if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal ||
+				   player[plrArr[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+						HeatwaveDamage(player[plrArr[0]],player[plrArr[1]]);
+					else
+						HeatwaveDamage(player[plrArr[1]],player[plrArr[0]]);
+						newHazardOfTheWeek(8);
+				}
+				else
+				{
+					int randomDamage = Random.Range(1, 4);
+					if(randomDamage == 1)
+					{
+						HurricaineDamage(player[plrArr[0]], player[plrArr[1]]); // random
+					newHazardOfTheWeek(9);
+					}	
+					else
+					if(randomDamage == 2){
+						ReVoltDamage(player[plrArr[1]],player[plrArr[0]]); // random
+						newHazardOfTheWeek(15);
+					}
+					else
+					{
+						TornadoDamage(player[plrArr[0]], player[plrArr[1]]); // random
+						newHazardOfTheWeek(1);
+					}
+			}
 
 		}
-		//hazardOfTheWeek = Random.Range(0,maxHarzardOfWeek+1);
-		//newHazardOfTheWeek(hazardOfTheWeek); //setting the string to display on screen
+		else
+		if(plrArr.Length == 3)
+		{
+			PlagueDamage(player[plrArr[0]], player[plrArr[1]], player[plrArr[2]]);
+			newHazardOfTheWeek(5);
+		}
+		else
+		if(plrArr.Length ==4)
+		{
+				MassLootDamage(player[plrArr[0]], player[plrArr[1]], player[plrArr[2]], player[plrArr[3]]);
+			newHazardOfTheWeek(13);
+		}
+		else
+			newHazardOfTheWeek(0);
 	}
 
 	void setNumPlayersAffected(){ //make crisis generate random affected country + possible default affect
@@ -59,33 +137,7 @@ public class NaturalHazards : MonoBehaviour {
 		default: hazardName = "Quiet"; break;
 		}
 	}
-
-	//need to figure out how to incorporate more than 1 random country to damage
-	/*
-	void HazardDamage(int i, Country p){
-		switch(i)
-		{
-		case 0: ; break;
-		case 1: TornadoDamage (p); break;
-		case 2: DroughtDamage(p); break;
-		case 3: VolcanoDamage(p); break;
-		case 4: EarthQuakeDamage(p);break;
-		case 5: PlagueDamage(p); break;
-		case 6: WildFireDamage(p);break;
-		case 7: FloodDamage(p);break;
-		case 8: HeatwaveDamage(p); break;
-		case 9: HurricaineDamage(p); break;
-		case 10: StagnantWaterDamage(p); break;
-		case 11: SolarFlareDamage(p); break;
-		case 12: ContaminatedCropDamage(p); break;
-		case 13: MassLootDamage(p); break;
-		case 14: RiotDamage(p); break;
-		case 15: RevoltDamage(p); break;
-		default: ; break;
-		}
-	}
-*/
-
+		
 	void TornadoDamage(Country r, Country c) //country loses 1/2 their food supply
 	{	
 		r.stockFood -= (r.stockFood/2);
@@ -94,9 +146,12 @@ public class NaturalHazards : MonoBehaviour {
 
 	
 	void DroughtDamage(Country r, Country w) 
-	{//population, military, stockWater, stockOil, stockFood, stockMetal;
+	{
 		r.stockWater -= (r.stockWater/2); //for random country
-		//need to add modifier water prod country reduce. water prod. by 1/2 for 3 weeks
+		//water prod country reduce. water prod. by 1/2 for 3 weeks
+		w.limitHarvestRateCounter = 3;
+		w.limitedPercentage = 0.5;
+
 	}
 
 	
@@ -111,6 +166,8 @@ public class NaturalHazards : MonoBehaviour {
 	{
 		//modifier to add where country prod. only 1 metal per country. 
 	//ex: 100 ppl, prod. 100 metal
+		m.limitHarvestRateCounter = 4;
+		m.limitedPercentage = 0.25;
 	}
 
 	
@@ -130,11 +187,15 @@ public class NaturalHazards : MonoBehaviour {
 	void FloodDamage(Country r1, Country f){
 		r1.stockFood -= (r1.stockFood/2); // random country loses 1/2 their food supply
 		//modifier: food prod. country will prod. 1/2 their amount of food for 3 weeks
+		f.limitedPercentage = 0.5;
+		f.limitHarvestRateCounter = 3;
 	}
 
 	void HeatwaveDamage(Country r1, Country m){
 		r1.stockMetal -= (r1.stockMetal/2);
 		//modifier: metal country produces 1/2 metal for 3 weeks.
+		m.limitedPercentage = 0.5;
+		m.limitHarvestRateCounter = 3;
 	}
 
 	void HurricaineDamage(Country r1, Country r2){
@@ -144,11 +205,15 @@ public class NaturalHazards : MonoBehaviour {
 
 	void StagnantWaterDamage(Country r){
 		//modifier: country produces nothing for 3 weeks
+		r.limitedPercentage = 0;
+		r.limitHarvestRateCounter = 3;
 	}
 
 	void SolarFlareDamage(Country f){
 		f.stockOil -= f.stockOil; //fuel country loses all their fuel
 		//modifier: fuel country doesn't produce anything for 3 weeks
+		f.limitedPercentage = 0;
+		f.limitHarvestRateCounter = 3;
 	}
 
 	void ContaminatedCropDamage(Country pr){
@@ -172,13 +237,7 @@ public class NaturalHazards : MonoBehaviour {
 	void setAffectedPlayers()
 	{
 		int affectedPlayer = Random.Range (0, 5);
-		//int [] pplRef = determineAffectedPlayers(affectedPlayer);
-
 		setHazardOfTheWeek(determineAffectedPlayers(affectedPlayer));
-		//need to figure out how to incorporate more than 1 player
-		//for the hazard damage.
-
-		//HazardDamage(hazardOfTheWeek, player[affectedPlayer]);
 	}
 
 
@@ -189,11 +248,12 @@ public class NaturalHazards : MonoBehaviour {
 
 		int []ppl;
 		int num = -1;
+		num = Random.Range(0,5);
+		ppl = new int[ num ];
+
 		bool [] pplIndex = {false,false,false,false};
 		if(nOfPl > 0 && nOfPl != 4)
 		{
-			num = Random.Range(1,4);
-			ppl = new int[ num ];
 
 			for(int i = 0; i < ppl.Length; i++)
 			{
@@ -242,7 +302,7 @@ public class NaturalHazards : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		setHazardOfTheWeek();
+		//setHazardOfTheWeek();
 		setNumPlayersAffected();
 		//Debug.Log ("Players: "+numOfPlayers);
 		
