@@ -5,8 +5,9 @@ public class GUI_Button : MonoBehaviour {
 
 	//Fields
 	public GUITexture buttonTexture;
+	public GUITexture hoverTexture;
 	public GUIText buttonText;
-	public bool enabled, clicked, hold;
+	public bool enabled, clicked, hold, hovered;
 
 
 	// Use this for initialization
@@ -19,6 +20,7 @@ public class GUI_Button : MonoBehaviour {
 	void Update () {
 		CheckEnabled ();
 		CheckClickedHold ();
+		Hover();
 //		if (clicked) {
 //			print ("Clicked");
 //		}
@@ -32,6 +34,18 @@ public class GUI_Button : MonoBehaviour {
 		}
 		else {
 			buttonText.enabled = buttonTexture.enabled = false;
+		}
+	}
+
+	void Hover() {
+		if (enabled && buttonTexture.HitTest (Input.mousePosition)){
+			hovered = true;
+			buttonTexture.enabled = false;
+			hoverTexture.enabled = true;
+		} else {
+			hovered = false;
+			buttonTexture.enabled = true;
+			hoverTexture.enabled = false;
 		}
 	}
 
