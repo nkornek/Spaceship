@@ -1,13 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ShipScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameManager.cs" Line="106" Column="1" />
-      <File FileName="Assets\Scripts\Resource_alloc_ship.cs" Line="27" Column="22" />
-      <File FileName="Assets\Scripts\Country.cs" Line="358" Column="1" />
-      <File FileName="Assets\Scripts\Country_Selector.cs" Line="38" Column="31" />
-      <File FileName="Assets\Scripts\PlayerScript.cs" Line="8" Column="25" />
-      <File FileName="Assets\Scripts\ShipScript.cs" Line="31" Column="26" />
+      <File FileName="Assets/Scripts/Resource_alloc_ship.cs" Line="18" Column="22" />
+      <File FileName="Assets/Scripts/Country.cs" Line="32" Column="53" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="139" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
