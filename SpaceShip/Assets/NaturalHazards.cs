@@ -15,12 +15,23 @@ public class NaturalHazards : MonoBehaviour {
 
 
 
-	void setHazardOfTheWeek(){
-		hazardOfTheWeek = Random.Range(0,maxHarzardOfWeek+1);
-		newHazardOfTheWeek(hazardOfTheWeek);
+	void setHazardOfTheWeek(int [] plrArr){
+		if(plrArr.Length ==1)
+		{
+			if(player[0].Owned
+			EarthQuakeDamage
+			StagnantWaterDamage
+			SolarFlareDamage
+			RiotDamage
+
+
+		}
+		//hazardOfTheWeek = Random.Range(0,maxHarzardOfWeek+1);
+		//newHazardOfTheWeek(hazardOfTheWeek); //setting the string to display on screen
 	}
 
-	void setNumPlayersAffected(){
+	void setNumPlayersAffected(){ //make crisis generate random affected country + possible default affect
+		//country with it.
 		numOfPlayers = Random.Range (0,totalPlayers+1);
 	}
 
@@ -116,8 +127,7 @@ public class NaturalHazards : MonoBehaviour {
 	}
 
 	
-	void FloodDamage(Country r1, Country f)
-	{
+	void FloodDamage(Country r1, Country f){
 		r1.stockFood -= (r1.stockFood/2); // random country loses 1/2 their food supply
 		//modifier: food prod. country will prod. 1/2 their amount of food for 3 weeks
 	}
@@ -162,7 +172,9 @@ public class NaturalHazards : MonoBehaviour {
 	void setAffectedPlayers()
 	{
 		int affectedPlayer = Random.Range (0, 5);
-		setHazardOfTheWeek();
+		//int [] pplRef = determineAffectedPlayers(affectedPlayer);
+
+		setHazardOfTheWeek(determineAffectedPlayers(affectedPlayer));
 		//need to figure out how to incorporate more than 1 player
 		//for the hazard damage.
 
@@ -172,7 +184,7 @@ public class NaturalHazards : MonoBehaviour {
 
 	//algorithm to make sure each array has unique value for more (number of people between 2-3) 
 	//hasn't been tested yet.
-	/*
+
 	public int [] determineAffectedPlayers(int nOfPl){
 
 		int []ppl;
@@ -205,7 +217,7 @@ public class NaturalHazards : MonoBehaviour {
 
 		return ppl;
 	}
-*/
+
 
 
 	// Use this for initialization
