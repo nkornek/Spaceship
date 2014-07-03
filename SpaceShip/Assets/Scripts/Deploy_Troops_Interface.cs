@@ -59,17 +59,17 @@ public class Deploy_Troops_Interface : MonoBehaviour {
 				SendTroops(C3);
 				troopsToC3 += 1;
 			}
-			if (c1Dec.hold & sentTroops > 0) 
+			if (c1Dec.hold & sentTroops > 0 & troopsToC1 > 0) 
 			{
 				PullTroops(C1);
 				troopsToC1 -= 1;
 			}
-			if (c2Dec.hold & sentTroops > 0) 
+			if (c2Dec.hold & sentTroops > 0 & troopsToC2 > 0) 
 			{
 				PullTroops(C2);
 				troopsToC2 -= 1;
 			}
-			if (c3Dec.hold & sentTroops > 0) 
+			if (c3Dec.hold & sentTroops > 0 & troopsToC3 > 0) 
 			{
 				PullTroops(C3);
 				troopsToC3 -= 1;
