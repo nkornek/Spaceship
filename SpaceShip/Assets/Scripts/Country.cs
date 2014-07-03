@@ -38,7 +38,7 @@ public class Country : MonoBehaviour {
 	string food;
 	string oil;
 	public float militaryMetalReserve, militaryOilReserve, metalToMilitary, oilToMilitary, militaryBuilt;
-	public int reserveTroops, sentTroops, troopsFromFE, troopsFromOF, troopsFromUAT, troopsFromRN, occupyingTroops;
+	public int reserveTroops, sentTroops, troopsFromFE, troopsFromOF, troopsFromUAT, troopsFromRN, occupyingTroops, foodStolen, waterStolen, metalStolen, oilStolen;
 
 	//troop deployment variables
 	public int troopsToFE, troopsToOF, troopsToUAT, troopsToRN;
@@ -288,18 +288,105 @@ public class Country : MonoBehaviour {
 			occupyingTroops -= (int) Mathf.Ceil(occupyingTroops/5);
 			military -= (int) Mathf.Floor(reserveTroops/3);
 		}
-		if (occupyingTroops < reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
+		else if (occupyingTroops < reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
 		{
 			occupyingTroops -= (int) Mathf.Ceil(occupyingTroops/3);
 			military -= (int) Mathf.Floor(reserveTroops/5);
 		}
 		//kill population
-		if (occupyingTroops > 0)
+		if (occupyingTroops > 0 & reserveTroops > 0 & population > 2)
 		{
-
+			population -= 2;
 		}
-
+		else if (occupyingTroops > 0 & population > 5)
+		{
+			population -= 5;
 		}
+		//steal resources
 
+		//steal metal from FE
+		if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+			{
+			if (troopsFromOF > troopsFromUAT & troopsFromOF > troopsFromRN)
+				{
+				GameObject.Find ("OF").GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
+				stockMetal = (int) Mathf.Ceil(stockMetal / 2);
+				}
+			else if (troopsFromUAT > troopsFromOF & troopsFromUAT > troopsFromRN)
+				{
+				GameObject.Find ("UAT").GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
+				stockMetal = (int) Mathf.Ceil(stockMetal / 2);
+				}
+			else if (troopsFromRN > troopsFromOF & troopsFromRN > troopsFromUAT)
+				{
+				GameObject.Find ("RN").GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
+				stockMetal = (int) Mathf.Ceil(stockMetal / 2);
+				}
+			}
+		//steal water from OF
+		if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+		{
+			if (troopsFromFE > troopsFromUAT & troopsFromFE > troopsFromRN)
+			{
+				GameObject.Find ("FE").GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
+				stockWater = (int) Mathf.Ceil(stockWater / 2);
+			}
+			else if (troopsFromUAT > troopsFromFE & troopsFromUAT > troopsFromRN)
+			{
+				GameObject.Find ("UAT").GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
+				stockWater = (int) Mathf.Ceil(stockWater / 2);
+			}
+			else if (troopsFromRN > troopsFromFE & troopsFromRN > troopsFromUAT)
+			{
+				GameObject.Find ("RN").GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
+				stockWater = (int) Mathf.Ceil(stockWater / 2);
+			}
+		}
+		//steal food from UAT
+		if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+		{
+			if (troopsFromFE > troopsFromOF & troopsFromFE > troopsFromRN)
+			{
+				GameObject.Find ("FE").GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
+				stockFood = (int) Mathf.Ceil(stockFood / 2);
+			}
+			else if (troopsFromOF > troopsFromFE & troopsFromOF > troopsFromRN)
+			{
+				GameObject.Find ("OF").GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
+				stockFood = (int) Mathf.Ceil(stockFood / 2);
+			}
+			else if (troopsFromRN > troopsFromFE & troopsFromRN > troopsFromOF)
+			{
+				GameObject.Find ("RN").GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
+				stockFood = (int) Mathf.Ceil(stockFood / 2);
+			}
+		}
+		//steal fuel from RN
+		if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+		{
+			if (troopsFromFE > troopsFromOF & troopsFromFE > troopsFromUAT)
+			{
+				GameObject.Find ("FE").GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
+				stockOil = (int) Mathf.Ceil(stockOil / 2);
+			}
+			else if (troopsFromOF > troopsFromFE & troopsFromOF > troopsFromUAT)
+			{
+				GameObject.Find ("OF").GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
+				stockOil = (int) Mathf.Ceil(stockOil / 2);
+			}
+			else if (troopsFromUAT > troopsFromFE & troopsFromUAT > troopsFromOF)
+			{
+				GameObject.Find ("UAT").GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
+				stockOil = (int) Mathf.Ceil(stockOil / 2);
+			}
+		}
+		//add own stolen resources into stock
+		stockFood += foodStolen;
+		stockWater += waterStolen;
+		stockMetal += metalStolen;
+		stockOil += oilStolen;
+		
+	}
+	
 
 }
