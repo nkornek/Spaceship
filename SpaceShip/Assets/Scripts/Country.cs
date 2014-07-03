@@ -37,7 +37,10 @@ public class Country : MonoBehaviour {
 	string water;
 	string food;
 	string oil;
-	public float militaryMetalReserve, militaryOilReserve, militaryNumbers, metalToMilitary, oilToMilitary, militaryBuilt;
+	public float militaryMetalReserve, militaryOilReserve, metalToMilitary, oilToMilitary, militaryBuilt;
+
+	//troop deployment variables
+	public int troopsToFE, troopsToOF, troopsToUAT, troopsToRN;
 
 
 	//Start Function
@@ -156,20 +159,19 @@ public class Country : MonoBehaviour {
 			if (militaryMetalReserve >= militaryOilReserve)
 			{
 				militaryBuilt = Mathf.Floor(militaryOilReserve / 5);
-				militaryNumbers += militaryBuilt;
+				military += (int)militaryBuilt;
 				militaryMetalReserve -= militaryBuilt * 5;
 				militaryOilReserve -= militaryBuilt * 5;
 			}
 			else if (militaryMetalReserve < militaryOilReserve)
 			{
 				militaryBuilt = Mathf.Floor(militaryMetalReserve / 5);
-				militaryNumbers += militaryBuilt;
+				military += (int)militaryBuilt;
 				militaryMetalReserve -= militaryBuilt * 5;
 				militaryOilReserve -= militaryBuilt * 5;
 			}
 		}
 
-		military = (int)militaryNumbers;
 		//Update population
 		//Population Increased
 		if (stockFood >= 75 && stockWater >= 75 && stockMetal >= 50 && stockOil >= 50) {
