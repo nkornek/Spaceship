@@ -69,6 +69,7 @@
      <Compile Include="Assets\Scripts\Road.cs" />
      <Compile Include="Assets\Scripts\Ship.cs" />
      <Compile Include="Assets\Scripts\ShipScript.cs" />
+     <Compile Include="Assets\Scripts\WarOrPeaceBar.cs" />
      <Compile Include="Assets\Scripts\resource_alloc_military.cs" />
      <Compile Include="Assets\Scripts\week_display.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\NFAA.shader" />
