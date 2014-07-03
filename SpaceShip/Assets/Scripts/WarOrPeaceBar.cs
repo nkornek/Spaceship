@@ -68,7 +68,7 @@ public class WarOrPeaceBar : MonoBehaviour {
 	//Update the ambientlight based on the civilization scale
 	public void UpdateAmbientLight() {
 		Color temp = RenderSettings.ambientLight;
-		temp.r = ambientLightRed * ((float)civilizedMeter / 100f);
+		temp.r = temp.r +  (1f - (float)civilizedMeter / 100f);
 		RenderSettings.ambientLight = temp;
 	}
 
