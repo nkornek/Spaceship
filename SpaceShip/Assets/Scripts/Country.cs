@@ -38,10 +38,13 @@ public class Country : MonoBehaviour {
 	string food;
 	string oil;
 	public float militaryMetalReserve, militaryOilReserve, metalToMilitary, oilToMilitary, militaryBuilt;
-	public int reserveTroops, sentTroops, troopsFromFE, troopsFromOF, troopsFromUAT, troopsFromRN, occupyingTroops;
+	public int reserveTroops, sentTroops, troopsFromFE, troopsFromOF, troopsFromUAT, troopsFromRN, occupyingTroops, foodStolen, waterStolen, metalStolen, oilStolen;
 
 	//troop deployment variables
 	public int troopsToFE, troopsToOF, troopsToUAT, troopsToRN;
+
+	//Civilization Scale
+	public WarOrPeaceBar civilizationScale;
 
 
 	//Start Function
@@ -67,6 +70,8 @@ public class Country : MonoBehaviour {
 			ownedResourceType = GameVariableManager.OwnedResourceType.Oil;
 			break;
 		}
+
+		civilizationScale = GameObject.Find ("Civilization_Scale").GetComponent<WarOrPeaceBar> ();
 	}
 
 
@@ -254,25 +259,53 @@ public class Country : MonoBehaviour {
 				metalToOF = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_OF / 100);
 				metalToUAT = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_UAT / 100);
 				metalToRN = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_RN / 100);
-				metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
+				int restOfMetal = stockMetal - 75 - metalToOF - metalToUAT - metalToRN;
+				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
+				metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
+				metalToMilitary = restOfMetal - metalToShip;
+				int restOfOil = stockOil - 75 - oilToOF - oilToUAT - oilToRN;
+				oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
+				oilToMilitary = restOfOil - metalToMilitary;
+
 				break;
 			case GameVariableManager.CountryType.OF:
 				waterToFE = (int)((stockWater - 75f) / 4 * GameManager.instance.FE_OF / 100);
 				waterToUAT = (int)((stockWater - 75f) / 4 * GameManager.instance.OF_UAT / 100);
 				waterToRN = (int)((stockWater - 75f) / 4 * GameManager.instance.OF_RN / 100);
 				waterToShip = (int)(stockWater - 75 - waterToFE - waterToUAT - waterToRN);
+				restOfMetal = stockMetal - 75 - metalToFE - metalToUAT - metalToRN;
+				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
+				metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
+				metalToMilitary = restOfMetal - metalToShip;
+				restOfOil = stockOil - 75 - oilToFE - oilToUAT - oilToRN;
+				oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
+				oilToMilitary = restOfOil - metalToMilitary;
 				break;
 			case GameVariableManager.CountryType.UAT:
 				foodToFE = (int)((stockFood - 75f) / 4 * GameManager.instance.FE_UAT / 100);
 				foodToOF = (int)((stockFood - 75f) / 4 * GameManager.instance.OF_UAT / 100);
 				foodToRN = (int)((stockFood - 75f) / 4 * GameManager.instance.UAT_RN / 100);
 				foodToShip = (int)(stockFood - 75 - foodToFE - foodToOF - foodToRN);
+				restOfMetal = stockMetal - 75 - metalToFE - metalToOF - metalToRN;
+				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
+				metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
+				metalToMilitary = restOfMetal - metalToShip;
+				restOfOil = stockOil - 75 - oilToFE - oilToOF - oilToRN;
+				oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
+				oilToMilitary = restOfOil - metalToMilitary;
 				break;
 			case GameVariableManager.CountryType.RN:
 				oilToFE = (int)((stockOil - 75f) / 4 * GameManager.instance.FE_RN / 100);
 				oilToOF = (int)((stockOil - 75f) / 4 * GameManager.instance.OF_RN / 100);
 				oilToUAT = (int)((stockOil - 75f) / 4 * GameManager.instance.UAT_RN / 100);
 				oilToShip = (int)(stockOil - 75 - oilToFE - oilToOF - oilToUAT);
+				restOfMetal = stockMetal - 75 - metalToFE - metalToOF - metalToUAT;
+				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
+				metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
+				metalToMilitary = restOfMetal - metalToShip;
+				restOfOil = stockOil - 75 - oilToFE - oilToOF - oilToUAT;
+				oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
+				oilToMilitary = restOfOil - metalToMilitary;
 				break;
 			}
 		}
@@ -285,21 +318,127 @@ public class Country : MonoBehaviour {
 		//kill troops on both sides
 		if (occupyingTroops > reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
 		{
-			occupyingTroops -= (int) Mathf.Ceil(occupyingTroops/5);
+			if (troopsFromFE > 0)
+			{
+				GameObject.Find ("FE").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
+				troopsFromFE -= (int) Mathf.Ceil(troopsFromFE/5);
+			}
+			if (troopsFromOF > 0)
+			{
+				GameObject.Find ("OF").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
+				troopsFromOF -= (int) Mathf.Ceil(troopsFromOF/5);
+			}
+			if (troopsFromUAT > 0)
+			{
+				GameObject.Find ("UAT").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
+				troopsFromUAT -= (int) Mathf.Ceil(troopsFromUAT/5);
+			}
+			if (troopsFromRN > 0)
+			{
+				GameObject.Find ("RN").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
+				troopsFromRN -= (int) Mathf.Ceil(troopsFromRN/5);
+			}
 			military -= (int) Mathf.Floor(reserveTroops/3);
 		}
-		if (occupyingTroops < reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
+		else if (occupyingTroops < reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
 		{
 			occupyingTroops -= (int) Mathf.Ceil(occupyingTroops/3);
 			military -= (int) Mathf.Floor(reserveTroops/5);
 		}
 		//kill population
-		if (occupyingTroops > 0)
+		if (occupyingTroops > 0 & reserveTroops > 0 & population > 2)
 		{
-
+			population -= 2;
 		}
-
+		else if (occupyingTroops > 0 & population > 5)
+		{
+			population -= 5;
 		}
+		//steal resources
 
+		//steal metal from FE
+		if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+			{
+			if (troopsFromOF > troopsFromUAT & troopsFromOF > troopsFromRN)
+				{
+				GameObject.Find ("OF").GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
+				stockMetal = (int) Mathf.Ceil(stockMetal / 2);
+				}
+			else if (troopsFromUAT > troopsFromOF & troopsFromUAT > troopsFromRN)
+				{
+				GameObject.Find ("UAT").GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
+				stockMetal = (int) Mathf.Ceil(stockMetal / 2);
+				}
+			else if (troopsFromRN > troopsFromOF & troopsFromRN > troopsFromUAT)
+				{
+				GameObject.Find ("RN").GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
+				stockMetal = (int) Mathf.Ceil(stockMetal / 2);
+				}
+			}
+		//steal water from OF
+		if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+		{
+			if (troopsFromFE > troopsFromUAT & troopsFromFE > troopsFromRN)
+			{
+				GameObject.Find ("FE").GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
+				stockWater = (int) Mathf.Ceil(stockWater / 2);
+			}
+			else if (troopsFromUAT > troopsFromFE & troopsFromUAT > troopsFromRN)
+			{
+				GameObject.Find ("UAT").GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
+				stockWater = (int) Mathf.Ceil(stockWater / 2);
+			}
+			else if (troopsFromRN > troopsFromFE & troopsFromRN > troopsFromUAT)
+			{
+				GameObject.Find ("RN").GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
+				stockWater = (int) Mathf.Ceil(stockWater / 2);
+			}
+		}
+		//steal food from UAT
+		if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+		{
+			if (troopsFromFE > troopsFromOF & troopsFromFE > troopsFromRN)
+			{
+				GameObject.Find ("FE").GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
+				stockFood = (int) Mathf.Ceil(stockFood / 2);
+			}
+			else if (troopsFromOF > troopsFromFE & troopsFromOF > troopsFromRN)
+			{
+				GameObject.Find ("OF").GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
+				stockFood = (int) Mathf.Ceil(stockFood / 2);
+			}
+			else if (troopsFromRN > troopsFromFE & troopsFromRN > troopsFromOF)
+			{
+				GameObject.Find ("RN").GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
+				stockFood = (int) Mathf.Ceil(stockFood / 2);
+			}
+		}
+		//steal fuel from RN
+		if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+		{
+			if (troopsFromFE > troopsFromOF & troopsFromFE > troopsFromUAT)
+			{
+				GameObject.Find ("FE").GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
+				stockOil = (int) Mathf.Ceil(stockOil / 2);
+			}
+			else if (troopsFromOF > troopsFromFE & troopsFromOF > troopsFromUAT)
+			{
+				GameObject.Find ("OF").GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
+				stockOil = (int) Mathf.Ceil(stockOil / 2);
+			}
+			else if (troopsFromUAT > troopsFromFE & troopsFromUAT > troopsFromOF)
+			{
+				GameObject.Find ("UAT").GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
+				stockOil = (int) Mathf.Ceil(stockOil / 2);
+			}
+		}
+		//add own stolen resources into stock
+		stockFood += foodStolen;
+		stockWater += waterStolen;
+		stockMetal += metalStolen;
+		stockOil += oilStolen;
+		
+	}
+	
 
 }
