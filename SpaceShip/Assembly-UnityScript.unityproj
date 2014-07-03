@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{62ADEEA1-99D8-AE3F-35AE-F7B49028108B}</ProjectGuid>
+	<ProjectGuid>{F63155D8-8824-C096-16CD-0AF7FBCECAC8}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-UnityScript</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,31 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\NaturalHazards.cs" />
-     <Compile Include="Assets\Pic.cs" />
-     <Compile Include="Assets\Scripts\Amount_Adjustment.cs" />
-     <Compile Include="Assets\Scripts\BeginWeekReport.cs" />
-     <Compile Include="Assets\Scripts\Country.cs" />
-     <Compile Include="Assets\Scripts\Country_Selector.cs" />
-     <Compile Include="Assets\Scripts\CrisisInterface.cs" />
-     <Compile Include="Assets\Scripts\Deploy_Troops_Interface.cs" />
-     <Compile Include="Assets\Scripts\DyingStar.cs" />
-     <Compile Include="Assets\Scripts\EndWeekInterface.cs" />
-     <Compile Include="Assets\Scripts\GUI_Button.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\GameVariableManager.cs" />
-     <Compile Include="Assets\Scripts\Game_Music.cs" />
-     <Compile Include="Assets\Scripts\GuiTest.cs" />
-     <Compile Include="Assets\Scripts\ManagementInterface.cs" />
-     <Compile Include="Assets\Scripts\PlayerScript.cs" />
-     <Compile Include="Assets\Scripts\ResourceRecapInterface.cs" />
-     <Compile Include="Assets\Scripts\Resource_alloc_country.cs" />
-     <Compile Include="Assets\Scripts\Resource_alloc_ship.cs" />
-     <Compile Include="Assets\Scripts\Road.cs" />
-     <Compile Include="Assets\Scripts\Ship.cs" />
-     <Compile Include="Assets\Scripts\ShipScript.cs" />
-     <Compile Include="Assets\Scripts\resource_alloc_military.cs" />
-     <Compile Include="Assets\Scripts\week_display.cs" />
+     <Compile Include="Assets\flagPic.js" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\NFAA.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\SSAA.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset3.shader" />
