@@ -102,7 +102,14 @@ public class ManagementInterface : MonoBehaviour {
 			}
 
 			if (endManagement.clicked) {
-				GameManager.instance.gameState = GameVariableManager.GameState.TransferResources;
+				if (chosenCountry.military == 0)
+				{
+					GameManager.instance.gameState = GameVariableManager.GameState.TransferResources;
+				}
+				else
+				{
+					GameManager.instance.gameState = GameVariableManager.GameState.DeployTroops;
+				}
 			}
 		}
 		else {
