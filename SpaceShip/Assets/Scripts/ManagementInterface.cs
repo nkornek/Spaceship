@@ -11,6 +11,7 @@ public class ManagementInterface : MonoBehaviour {
 	public GUI_Button endManagement;
 	public GameObject ship, C1, C2, C3;
 	public Country chosenCountry;
+	public int sentFood, sentWater, sentOil, sentMetal;
 
 	// Use this for initialization
 //	void OnEnable () {
@@ -66,15 +67,21 @@ public class ManagementInterface : MonoBehaviour {
 			//Resets resources to zero if there's not enough
 			chosenCountry = GameObject.Find ("Player").GetComponent<PlayerScript>().country;
 			//reset stocks if sent is greater than stock
-			if (chosenCountry.GetComponent<Country>().sentFood > chosenCountry.stockFood)
+			sentFood = chosenCountry.foodToShip + chosenCountry.foodToFE + chosenCountry.foodToOF + chosenCountry.foodToUAT + chosenCountry.foodToRN;
+			sentWater = chosenCountry.waterToShip + chosenCountry.waterToFE + chosenCountry.waterToOF + chosenCountry.waterToUAT + chosenCountry.waterToRN;	
+			sentMetal = chosenCountry.metalToShip + chosenCountry.metalToFE + chosenCountry.metalToOF + chosenCountry.metalToUAT + chosenCountry.metalToRN + (int)chosenCountry.metalToMilitary;	
+			sentOil = chosenCountry.oilToShip + chosenCountry.oilToFE + chosenCountry.oilToOF + chosenCountry.oilToUAT + chosenCountry.oilToRN + (int)chosenCountry.oilToMilitary;
+
+			if (sentFood > chosenCountry.stockFood)
 			{
 				chosenCountry.foodToShip = 0;
 				chosenCountry.foodToFE = 0;
 				chosenCountry.foodToOF = 0;
 				chosenCountry.foodToUAT = 0;
 				chosenCountry.foodToRN = 0;
+
 			}
-			if (chosenCountry.GetComponent<Country>().sentWater > chosenCountry.stockWater)
+			if (sentWater > chosenCountry.stockWater)
 			{
 				chosenCountry.waterToShip = 0;
 				chosenCountry.waterToFE = 0;
@@ -82,7 +89,7 @@ public class ManagementInterface : MonoBehaviour {
 				chosenCountry.waterToUAT = 0;
 				chosenCountry.waterToRN = 0;
 			}
-			if (chosenCountry.GetComponent<Country>().sentMetal > chosenCountry.stockMetal)
+			if (sentMetal > chosenCountry.stockMetal)
 			{
 				chosenCountry.metalToShip = 0;
 				chosenCountry.metalToFE = 0;
@@ -91,7 +98,7 @@ public class ManagementInterface : MonoBehaviour {
 				chosenCountry.metalToRN = 0;
 				chosenCountry.metalToMilitary = 0;
 			}
-			if (chosenCountry.GetComponent<Country>().sentOil > chosenCountry.stockOil)
+			if (sentOil > chosenCountry.stockOil)
 			{
 				chosenCountry.oilToShip = 0;
 				chosenCountry.oilToFE = 0;
