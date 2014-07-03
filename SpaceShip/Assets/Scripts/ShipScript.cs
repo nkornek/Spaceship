@@ -18,6 +18,7 @@ public class ShipScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		UpdateShip ();
+		CheckCompletion ();
 		switch (GameManager.instance.gameState) {
 		case GameVariableManager.GameState.BeginWeekUpdate:
 			if (!hasUpdated) {
@@ -43,6 +44,12 @@ public class ShipScript : MonoBehaviour {
 	}
 
 	void CheckCompletion () {
-
+		if (shipWater >= 1000 && shipFood >= 1000
+		    && shipMetal >= 1000 && shipOil >= 1000) {
+			GameManager.instance.shipCompleted = true;
+		}
+		else {
+			GameManager.instance.shipCompleted = false;
+		}
 	}
 }

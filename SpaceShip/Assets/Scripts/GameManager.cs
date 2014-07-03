@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 	//The game's game state
 	public GameVariableManager.GameState gameState;
 	//The four countries and the ship
-	public Country FE, OF, UAT, RN;
+	public Country FE, OF, UAT, RN, WonCountry;
 	public ShipScript ship;
 	//The game's total week number (starts with 1)
 	public int weekNumber;
@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour {
 	public PlayerScript player;
 	//Relationships between the countries
 	public int FE_RN, FE_OF, FE_UAT, OF_UAT, OF_RN, UAT_RN;
+	//If the ship is completed and civilized or not
+	public bool shipCompleted, civilized;
 
 
 
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour {
 		_pInstance.player = GameObject.Find ("Player").GetComponent<PlayerScript> ();
 		_pInstance.FE_OF = _pInstance.FE_RN = _pInstance.FE_UAT = _pInstance.OF_RN =
 			_pInstance.OF_UAT = _pInstance.UAT_RN = 100;
+		_pInstance.civilized = true;
 	}
 
 
@@ -59,7 +62,45 @@ public class GameManager : MonoBehaviour {
 		switch (_pInstance.gameState) {
 		case GameVariableManager.GameState.TransferResources:
 			TransferResources ();
-			_pInstance.gameState = GameVariableManager.GameState.ResourceRecap;
+			if (_pInstance.shipCompleted) {
+				if (_pInstance.civilized) {
+					int FEScore, OFScore, UATScore, RNScore;
+					FEScore = _pInstance.FE_OF + _pInstance.FE_RN + _pInstance.FE_UAT;
+					OFScore = _pInstance.OF_RN + _pInstance.OF_UAT + _pInstance.FE_OF;
+					UATScore = _pInstance.FE_UAT + _pInstance.OF_UAT + _pInstance.UAT_RN;
+					RNScore = _pInstance.FE_RN + _pInstance.OF_RN + _pInstance.UAT_RN;
+					if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == FEScore) {
+						WonCountry = FE;
+					}
+					else if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == OFScore) {
+						WonCountry = OF;
+					}
+					else if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == UATScore) {
+						WonCountry = UAT;
+					}
+					else if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == RNScore) {
+						WonCountry = RN;
+					}
+				}
+				else {
+					if (Mathf.Max (FE.military , OF.military, UAT.military, RN.military) == FE.military) {
+						WonCountry = FE;
+					}
+					else if (Mathf.Max (FE.military , OF.military, UAT.military, RN.military) == OF.military) {
+						WonCountry = OF;
+					}
+					else if (Mathf.Max (FE.military , OF.military, UAT.military, RN.military) == UAT.military) {
+						WonCountry = UAT;
+					}
+					else if (Mathf.Max (FE.military , OF.military, UAT.military, RN.military) == RN.military) {
+						WonCountry = RN;
+					}
+				}
+				_pInstance.gameState = GameVariableManager.GameState.EndGame;
+			}
+			else {
+				_pInstance.gameState = GameVariableManager.GameState.ResourceRecap;
+			}
 			break;
 		case GameVariableManager.GameState.AIReact:
 			UpdateRelationShips();
