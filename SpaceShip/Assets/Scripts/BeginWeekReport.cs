@@ -7,18 +7,23 @@ public class BeginWeekReport : MonoBehaviour {
 
 	//Fields
 	public GUI_Button reportPrompt;
+	public PlayerScript player;
 
 
 	// Use this for initialization
 	void Start () {
-	
+		player = GameManager.instance.player;
 	}
 
 
 	// Update is called once per frame
 	void Update () {
+		player = GameManager.instance.player;
 		if (GameManager.instance.gameState == GameVariableManager.GameState.BeginWeekUpdate) {
 			reportPrompt.enabled = true;
+			reportPrompt.buttonText.text = "Weekly Report: " + 
+				"\n\t\t\tPopulation Change: " + player.country.populationChange + 
+					"\n\t\t\tMilitary Built: " + player.country.militaryBuilt;
 			if (reportPrompt.clicked) {
 				GameManager.instance.gameState = GameVariableManager.GameState.Management;
 			}
