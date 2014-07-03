@@ -11,6 +11,7 @@ public class DyingStar : MonoBehaviour {
 
 	private Vector3 explodeScale;
 	public GameObject UICam;
+	bool coroutineStarted;
 
 	// Use this for initialization
 	void Start () {
@@ -21,24 +22,20 @@ public class DyingStar : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-	//	if (newPos == startPos){
-		
-	//} else {
 		mainCam.transform.position = Vector3.Lerp(mainCam.transform.position, newPos, smooth * Time.deltaTime);
-	//}
 	}
 
-	void OnGUI() {
-		if (GUI.Button (new Rect(10, 100, 150, 100), "New Week")){
-		StartCoroutine(backToLand());
-		//mainCam.Transform.position =
-		Vector3 starScale = gameObject.transform.localScale;
-		starScale = new Vector3 (1.1f,1.1f,1.1f);
-		gameObject.transform.localScale += starScale;
-		GameObject.Find ("_GameManager").GetComponent<GameManager>().weekNumber += 1;
-		UICam.SetActive(false);
-		}
-	}
+//	void OnGUI() {
+//		if (GUI.Button (new Rect(10, 100, 150, 100), "New Week")){
+//		StartCoroutine(backToLand());
+//		//mainCam.Transform.position =
+//		Vector3 starScale = gameObject.transform.localScale;
+//		starScale = new Vector3 (1.1f,1.1f,1.1f);
+//		gameObject.transform.localScale += starScale;
+//		GameObject.Find ("_GameManager").GetComponent<GameManager>().weekNumber += 1;
+//		UICam.SetActive(false);
+//		}
+//	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -46,16 +43,33 @@ public class DyingStar : MonoBehaviour {
 		if (gameObject.transform.localScale.x >= explodeScale.x){
 			Debug.Log("GAME OVER");
 		}
+
+		if (GameManager.instance.gameState == GameVariableManager.GameState.LookAtStar) {
+			if (!coroutineStarted) {
+				coroutineStarted = true;
+				StartCoroutine(backToLand());
+				UICam.SetActive(false);
+			}
+		}
 	}
 
 	public IEnumerator backToLand() {
 		newPos = new Vector3 (0,45,0);
-		yield return new WaitForSeconds(5.0f);
+		//Vector3 starScale = gameObject.transform.localScale;
+		//starScale = new Vector3 (1.1f,1.1f,1.1f);
+		gameObject.transform.localScale += new Vector3 (0.25f, 0.25f, 0.25f);
+		GameManager.instance.weekNumber += 1;
+		yield return new WaitForSeconds(3.0f);
 		newPos = startPos;
-		Invoke ("resetUI", 3);
+		//Invoke ("resetUI", 3);
+		yield return new WaitForSeconds(3.0f);
+		GameManager.instance.gameState = GameVariableManager.GameState.Crisis;
+		UICam.SetActive(true);
+		coroutineStarted = false;
 	}
 
 	void resetUI (){
 		UICam.SetActive(true);
-		}
+
+	}
 }

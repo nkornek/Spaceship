@@ -7,6 +7,8 @@ public class Resource_alloc_ship : MonoBehaviour {
 	public int foodSent, waterSent, metalSent, fuelSent;
 	public GUIText fdLabel, waLabel, mtLabel, fuLabel;
 	public Country chosenCountry;
+	public int sentFood, sentWater, sentMetal, sentOil;
+	public GUITexture backgroundTexture;
 
 	// Use this for initialization
 	void OnEnable () {	
@@ -15,40 +17,57 @@ public class Resource_alloc_ship : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//if (GameManager.instance.gameState == GameVariableManager.GameState.Management) {
+			//gameObject.SetActive(true);
+			//backgroundTexture.enabled = true;
+			sentFood = chosenCountry.foodToShip + chosenCountry.foodToFE + chosenCountry.foodToOF + chosenCountry.foodToUAT + chosenCountry.foodToRN;
+			sentWater = chosenCountry.waterToShip + chosenCountry.waterToFE + chosenCountry.waterToOF + chosenCountry.waterToUAT + chosenCountry.waterToRN;	
+			sentMetal = chosenCountry.metalToShip + chosenCountry.metalToFE + chosenCountry.metalToOF + chosenCountry.metalToUAT + chosenCountry.metalToRN;	
+			sentOil = chosenCountry.oilToShip + chosenCountry.oilToFE + chosenCountry.oilToOF + chosenCountry.oilToUAT + chosenCountry.oilToRN;
 
-		if (fdUP.hold) {
-			chosenCountry.foodToShip += 1;
-		}
-		if (fdDN.hold) {
-			chosenCountry.foodToShip -= 1;
-		}
-		if (waUP.hold) {
-			chosenCountry.waterToShip += 1;
-		}
-		if (waDN.hold) {
-			chosenCountry.waterToShip -= 1;
-		}
-		if (mtUP.hold) {
-			chosenCountry.metalToShip += 1;
-		}
-		if (mtDN.hold) {
-			chosenCountry.metalToShip -= 1;
-		}
-		if (fuUP.hold) {
-			chosenCountry.oilToShip += 1;
-		}
-		if (fuDN.hold) {
-			chosenCountry.oilToShip -= 1;
-		}
-	
-	}
+			if (fdUP.hold & chosenCountry.stockFood > 0 & sentFood < chosenCountry.stockFood) 
+			{
+				chosenCountry.foodToShip += 1;
+			}
+			if (fdDN.hold & chosenCountry.foodToShip > 0) {
+				chosenCountry.foodToShip -= 1;
+			}
+			if (waUP.hold & chosenCountry.stockWater > 0 & sentWater < chosenCountry.stockWater) {
+				chosenCountry.waterToShip += 1;
+			}
+			if (waDN.hold & chosenCountry.waterToShip > 0) {
+				chosenCountry.waterToShip -= 1;
+			}
+			if (mtUP.hold & chosenCountry.stockMetal > 0 & sentMetal < chosenCountry.stockMetal) {
+				chosenCountry.metalToShip += 1;
+			}
+			if (mtDN.hold & chosenCountry.metalToShip > 0) {
+				chosenCountry.metalToShip -= 1;
+			}
+			if (fuUP.hold & chosenCountry.stockOil > 0 & sentOil < chosenCountry.stockOil) {
+				chosenCountry.oilToShip += 1;
+			}
+			if (fuDN.hold & chosenCountry.oilToShip > 0) {
+				chosenCountry.oilToShip -= 1;
+			}
 
-	void OnGUI (){
-		{
 			fdLabel.text = chosenCountry.foodToShip.ToString();
 			waLabel.text = chosenCountry.waterToShip.ToString();
 			mtLabel.text = chosenCountry.metalToShip.ToString();
 			fuLabel.text = chosenCountry.oilToShip.ToString();
-		}
+		//}
+//		else {
+//			gameObject.SetActive (false);
+//			backgroundTexture.enabled = false;
+//		}
 	}
+
+//	void OnGUI (){
+//		{
+//			fdLabel.text = chosenCountry.foodToShip.ToString();
+//			waLabel.text = chosenCountry.waterToShip.ToString();
+//			mtLabel.text = chosenCountry.metalToShip.ToString();
+//			fuLabel.text = chosenCountry.oilToShip.ToString();
+//		}
+//	}
 }

@@ -43,6 +43,7 @@ public class Country : MonoBehaviour {
 	void Start () {
 		//Initiate the countries' values at the start of the game-------------
 		stockFood = stockWater = stockOil = stockMetal = 100;
+		relationshipFE = relationshipOF = relationshipRN = relationshipUAT = 100;
 		population = 100;
 		military = 0;
 		//--------------------------------------------------------------------
@@ -75,6 +76,9 @@ public class Country : MonoBehaviour {
 				NewWeekUpdate ();
 				hasUpdated = true;
 			}
+			break;
+		case GameVariableManager.GameState.Management:
+			DistributeResources ();
 			break;
 		}
 	}
@@ -209,152 +213,41 @@ public class Country : MonoBehaviour {
 
 
 		//Update military
+	}
+
+
+	//Update relationShips
+	void UpdateRelationships () {
 
 	}
 
-//	void givePlayerResource(int i, string t, Country c)
-//	{
-//		switch(t)
-//		{
-//		case "Oil": oil -= 1; break;
-//		case "Water": subWater(i); break;
-//		case "Food": subFood(i); break;
-//		case "Metal": subMetal(i); break;
-//		default: ; break;
-//		}
-//		
-//		switch(t)
-//		{
-//		case "Oil": c.addOil(i); break;
-//		case "Water": c.addWater(i); break;
-//		case "Food": c.addFood(i); break;
-//		case "Metal": c.addMetal(i); break;
-//		default: ; break;
-//		}
-//	}
-//	
-//	public void giveShipResource(int i, string t)
-//	{
-//		switch(t)
-//		{
-//		case "Oil": subOil(i); break;
-//		case "Water": subWater(i); break;
-//		case "Food": subFood(i); break;
-//		case "Metal": subMetal(i); break;
-//		default: ; break;
-//		}
-//	}
+	//Calculate how to distribute the resources
+	void DistributeResources () {
+		if (isAI) {
+			switch (countryType) {
+			case GameVariableManager.CountryType.FE:
+				metalToOF = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_OF / 100);
+				metalToUAT = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_UAT / 100);
+				metalToRN = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_RN / 100);
+				break;
+			case GameVariableManager.CountryType.OF:
+				waterToFE = (int)((stockWater - 75f) / 4 * GameManager.instance.FE_OF / 100);
+				waterToUAT = (int)((stockWater - 75f) / 4 * GameManager.instance.OF_UAT / 100);
+				waterToRN = (int)((stockWater - 75f) / 4 * GameManager.instance.OF_RN / 100);
+				break;
+			case GameVariableManager.CountryType.UAT:
+				foodToFE = (int)((stockFood - 75f) / 4 * GameManager.instance.FE_UAT / 100);
+				foodToOF = (int)((stockFood - 75f) / 4 * GameManager.instance.OF_UAT / 100);
+				foodToRN = (int)((stockFood - 75f) / 4 * GameManager.instance.UAT_RN / 100);
+				break;
+			case GameVariableManager.CountryType.RN:
+				oilToFE = (int)((stockOil - 75f) / 4 * GameManager.instance.FE_RN / 100);
+				oilToOF = (int)((stockOil - 75f) / 4 * GameManager.instance.OF_RN / 100);
+				oilToUAT = (int)((stockOil - 75f) / 4 * GameManager.instance.UAT_RN / 100);
+				break;
+			}
+		}
+	}
 
-	//Code not needed, for now
-//	Country()
-//	{ 
-//		population = 0;
-//		military = 0;
-//		stockWater = 0;
-//		stockOil = 0;
-//		stockFood = 0;
-//		stockMetal = 0;
-//		water = "Water";
-//		food = "Food";
-//		oil = "Oil";
-//		metal = "Metal";
-//	}
-//
-//	void addPopulation(int i){
-//		population+=i;
-//	}
-//
-//	void addArmy(int i){
-//		military+=i;
-//	}
-//
-//	void addWater(int i){
-//		stockWater+=i;
-//	}
-//
-//	void addOil(int i){
-//		stockOil+=i;
-//	}
-//
-//	void addMetal(int i){
-//		stockMetal+=i;
-//	}
-//
-//	void addFood(int i){
-//		stockFood+=i;
-//	}//
-//
-//	void subPopulation(int i){
-//		population+=i;
-//	}
-//
-//	
-//	void subWater(int i){
-//		stockWater-=i;
-//	}
-//	
-//	void subOil(int i){
-//		stockOil-=i;
-//	}
-//	
-//	void subFood(int i){
-//		stockFood-=i;
-//	}
-//
-//	void subMetal(int i){
-//		stockMetal -=i;
-//	}
-//	
-//	void subArmy(int i){
-//		military -=i;
-//	}
-//
-//
-//
-//	void calculateNeededResources() //empty, for now
-//	{
-//
-//	}
-//
-//	int getFoodQuantity(){
-//		return stockFood;
-//	}
-//
-//	
-//	int getWaterQuantity(){
-//		return stockWater;
-//	}
-//	
-//	int getMetalQuantity(){
-//		return stockMetal;
-//	}
-//	
-//	int getOilQuantity(){
-//		return stockOil;
-//	}
-//
-//	
-//	int getPopulation(){
-//		return population;
-//	}
-//	
-//
-//
-//	int getArmy(){
-//		return military;
-//	}
-//
-//	string getSTR_food(){
-//		return food;
-//	}
-//	string getSTR_metal(){
-//		return metal;
-//	}
-//	string getSTR_water(){
-//		return water;
-//	}
-//	string getSTR_oil(){
-//		return oil;
-//	}
 
 }

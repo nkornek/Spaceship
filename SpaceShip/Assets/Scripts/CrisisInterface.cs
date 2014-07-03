@@ -22,7 +22,7 @@ public class CrisisInterface : MonoBehaviour {
 		CheckEnabled ();
 		if (GameManager.instance.gameState == GameVariableManager.GameState.Crisis) {
 			enabled = true;
-			if (solution1.clicked) {
+			if (situation.clicked) {
 				GameManager.instance.gameState = GameVariableManager.GameState.BeginWeekUpdate;
 			}
 		}
