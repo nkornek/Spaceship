@@ -318,7 +318,26 @@ public class Country : MonoBehaviour {
 		//kill troops on both sides
 		if (occupyingTroops > reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
 		{
-			occupyingTroops -= (int) Mathf.Ceil(occupyingTroops/5);
+			if (troopsFromFE > 0)
+			{
+				GameObject.Find ("FE").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
+				troopsFromFE -= (int) Mathf.Ceil(troopsFromFE/5);
+			}
+			if (troopsFromOF > 0)
+			{
+				GameObject.Find ("OF").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
+				troopsFromOF -= (int) Mathf.Ceil(troopsFromOF/5);
+			}
+			if (troopsFromUAT > 0)
+			{
+				GameObject.Find ("UAT").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
+				troopsFromUAT -= (int) Mathf.Ceil(troopsFromUAT/5);
+			}
+			if (troopsFromRN > 0)
+			{
+				GameObject.Find ("RN").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
+				troopsFromRN -= (int) Mathf.Ceil(troopsFromRN/5);
+			}
 			military -= (int) Mathf.Floor(reserveTroops/3);
 		}
 		else if (occupyingTroops < reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
