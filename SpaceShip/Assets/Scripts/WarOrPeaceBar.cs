@@ -24,6 +24,7 @@ public class WarOrPeaceBar : MonoBehaviour {
 		{
 			civilized = false;
 		}
+		GameManager.instance.civilized = civilized;
 
 		if (GameManager.instance.gameState == GameVariableManager.GameState.LookAtStar) {
 			if (!hasUpdated) {

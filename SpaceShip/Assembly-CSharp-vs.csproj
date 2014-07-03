@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Combat_Report.cs" />
      <Compile Include="Assets\NaturalHazards.cs" />
      <Compile Include="Assets\Scripts\Amount_Adjustment.cs" />
      <Compile Include="Assets\Scripts\BeginWeekReport.cs" />
