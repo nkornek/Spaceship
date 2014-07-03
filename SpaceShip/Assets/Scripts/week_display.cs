@@ -12,7 +12,7 @@ public class week_display : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		weekNum = GameManager.instance.weekNumber;
-		gameObject.GetComponent<TextMesh> ().text = "Week " + weekNum.ToString();
+		gameObject.GetComponent<TextMesh> ().text = "W E E K   " + weekNum.ToString();
 	
 	}
 }
