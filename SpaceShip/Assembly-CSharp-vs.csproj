@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\NaturalHazards.cs" />
+     <Compile Include="Assets\Pic.cs" />
      <Compile Include="Assets\Resource_alloc_country.cs" />
      <Compile Include="Assets\Scripts\Amount_Adjustment.cs" />
      <Compile Include="Assets\Scripts\BeginWeekReport.cs" />

@@ -5,6 +5,7 @@ public class Resource_alloc_country : MonoBehaviour {
 	public GUI_Button fdUP, fdDN, waUP, waDN, mtUP, mtDN, fuUP, fuDN;
 	public int foodSent, waterSent, metalSent, fuelSent;
 	public GUIText fdLabel, waLabel, mtLabel, fuLabel, cntryLabel;
+	public GUITexture cntryPic;
 	public Country chosenCountry;
 	public int selfCountry;
 	public int sentFood, sentWater, sentMetal, sentOil;
@@ -45,6 +46,7 @@ public class Resource_alloc_country : MonoBehaviour {
 				mtLabel.text = chosenCountry.metalToFE.ToString();
 				fuLabel.text = chosenCountry.oilToFE.ToString();
 				cntryLabel.text = "FE";
+				cntryPic.texture = cntryPic.GetComponent<Pic>().Textures[0];
 				
 			}
 			else if (selfCountry == 2)
@@ -54,6 +56,7 @@ public class Resource_alloc_country : MonoBehaviour {
 				mtLabel.text = chosenCountry.metalToOF.ToString();
 				fuLabel.text = chosenCountry.oilToOF.ToString();
 				cntryLabel.text = "OF";
+				cntryPic.texture = cntryPic.GetComponent<Pic>().Textures[1];
 			}
 			else if (selfCountry == 3)
 			{
@@ -62,6 +65,7 @@ public class Resource_alloc_country : MonoBehaviour {
 				mtLabel.text = chosenCountry.metalToUAT.ToString();
 				fuLabel.text = chosenCountry.oilToUAT.ToString();
 				cntryLabel.text = "UAT";
+				cntryPic.texture = cntryPic.GetComponent<Pic>().Textures[3];
 			}
 			else if (selfCountry == 4)
 			{
@@ -70,6 +74,7 @@ public class Resource_alloc_country : MonoBehaviour {
 				mtLabel.text = chosenCountry.metalToRN.ToString();
 				fuLabel.text = chosenCountry.oilToRN.ToString();
 				cntryLabel.text = "RN";
+				cntryPic.texture = cntryPic.GetComponent<Pic>().Textures[2];
 			}
 		//}
 //		else {
