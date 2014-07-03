@@ -20,7 +20,9 @@ public class GUI_Button : MonoBehaviour {
 	void Update () {
 		CheckEnabled ();
 		CheckClickedHold ();
-		Hover();
+		if (hoverTexture) {
+			Hover();
+		}
 //		if (clicked) {
 //			print ("Clicked");
 //		}

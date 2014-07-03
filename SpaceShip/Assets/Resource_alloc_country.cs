@@ -12,6 +12,7 @@ public class Resource_alloc_country : MonoBehaviour {
 	// Use this for initialization
 	void OnEnable () {
 		chosenCountry = GameObject.Find ("Player").GetComponent<PlayerScript> ().country;
+		//print (gameObject.tag);
 		if (gameObject.tag == "C1")
 		{
 			selfCountry = GameObject.Find ("Player").GetComponent<PlayerScript> ().C1;
@@ -24,16 +25,56 @@ public class Resource_alloc_country : MonoBehaviour {
 		{
 			selfCountry = GameObject.Find ("Player").GetComponent<PlayerScript> ().C3;
 		}
+		//print (selfCountry);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		CountryResources(selfCountry);
-		sentFood = chosenCountry.foodToShip + chosenCountry.foodToFE + chosenCountry.foodToOF + chosenCountry.foodToUAT + chosenCountry.foodToRN;
-		sentWater = chosenCountry.waterToShip + chosenCountry.waterToFE + chosenCountry.waterToOF + chosenCountry.waterToUAT + chosenCountry.waterToRN;	
-		sentMetal = chosenCountry.metalToShip + chosenCountry.metalToFE + chosenCountry.metalToOF + chosenCountry.metalToUAT + chosenCountry.metalToRN;	
-		sentOil = chosenCountry.oilToShip + chosenCountry.oilToFE + chosenCountry.oilToOF + chosenCountry.oilToUAT + chosenCountry.oilToRN;
+//		if (GameManager.instance.gameState == GameVariableManager.GameState.Management) {
+			//gameObject.SetActive (true);
+			CountryResources(selfCountry);
+			sentFood = chosenCountry.foodToShip + chosenCountry.foodToFE + chosenCountry.foodToOF + chosenCountry.foodToUAT + chosenCountry.foodToRN;
+			sentWater = chosenCountry.waterToShip + chosenCountry.waterToFE + chosenCountry.waterToOF + chosenCountry.waterToUAT + chosenCountry.waterToRN;	
+			sentMetal = chosenCountry.metalToShip + chosenCountry.metalToFE + chosenCountry.metalToOF + chosenCountry.metalToUAT + chosenCountry.metalToRN;	
+			sentOil = chosenCountry.oilToShip + chosenCountry.oilToFE + chosenCountry.oilToOF + chosenCountry.oilToUAT + chosenCountry.oilToRN;
 
+			if (selfCountry == 1)
+			{
+				fdLabel.text = chosenCountry.foodToFE.ToString();
+				waLabel.text = chosenCountry.waterToFE.ToString();
+				mtLabel.text = chosenCountry.metalToFE.ToString();
+				fuLabel.text = chosenCountry.oilToFE.ToString();
+				cntryLabel.text = "FE";
+				
+			}
+			else if (selfCountry == 2)
+			{
+				fdLabel.text = chosenCountry.foodToOF.ToString();
+				waLabel.text = chosenCountry.waterToOF.ToString();
+				mtLabel.text = chosenCountry.metalToOF.ToString();
+				fuLabel.text = chosenCountry.oilToOF.ToString();
+				cntryLabel.text = "OF";
+			}
+			else if (selfCountry == 3)
+			{
+				fdLabel.text = chosenCountry.foodToUAT.ToString();
+				waLabel.text = chosenCountry.waterToUAT.ToString();
+				mtLabel.text = chosenCountry.metalToUAT.ToString();
+				fuLabel.text = chosenCountry.oilToUAT.ToString();
+				cntryLabel.text = "UAT";
+			}
+			else if (selfCountry == 4)
+			{
+				fdLabel.text = chosenCountry.foodToRN.ToString();
+				waLabel.text = chosenCountry.waterToRN.ToString();
+				mtLabel.text = chosenCountry.metalToRN.ToString();
+				fuLabel.text = chosenCountry.oilToRN.ToString();
+				cntryLabel.text = "RN";
+			}
+		//}
+//		else {
+//			gameObject.SetActive (false);
+//		}
 	}
 
 	//set button to correct country
@@ -177,40 +218,40 @@ public class Resource_alloc_country : MonoBehaviour {
 			break;
 		}
 	}
-	void OnGUI (){
-		if (selfCountry == 1)
-		{
-			fdLabel.text = chosenCountry.foodToFE.ToString();
-			waLabel.text = chosenCountry.waterToFE.ToString();
-			mtLabel.text = chosenCountry.metalToFE.ToString();
-			fuLabel.text = chosenCountry.oilToFE.ToString();
-			cntryLabel.text = "FE";
-
-		}
-		else if (selfCountry == 2)
-		{
-			fdLabel.text = chosenCountry.foodToOF.ToString();
-			waLabel.text = chosenCountry.waterToOF.ToString();
-			mtLabel.text = chosenCountry.metalToOF.ToString();
-			fuLabel.text = chosenCountry.oilToOF.ToString();
-			cntryLabel.text = "OF";
-		}
-		else if (selfCountry == 3)
-		{
-			fdLabel.text = chosenCountry.foodToUAT.ToString();
-			waLabel.text = chosenCountry.waterToUAT.ToString();
-			mtLabel.text = chosenCountry.metalToUAT.ToString();
-			fuLabel.text = chosenCountry.oilToUAT.ToString();
-			cntryLabel.text = "UAT";
-		}
-		else if (selfCountry == 4)
-		{
-			fdLabel.text = chosenCountry.foodToRN.ToString();
-			waLabel.text = chosenCountry.waterToRN.ToString();
-			mtLabel.text = chosenCountry.metalToRN.ToString();
-			fuLabel.text = chosenCountry.oilToRN.ToString();
-			cntryLabel.text = "RN";
-		}
-
-	}
+//	void OnGUI (){
+//		if (selfCountry == 1)
+//		{
+//			fdLabel.text = chosenCountry.foodToFE.ToString();
+//			waLabel.text = chosenCountry.waterToFE.ToString();
+//			mtLabel.text = chosenCountry.metalToFE.ToString();
+//			fuLabel.text = chosenCountry.oilToFE.ToString();
+//			cntryLabel.text = "FE";
+//
+//		}
+//		else if (selfCountry == 2)
+//		{
+//			fdLabel.text = chosenCountry.foodToOF.ToString();
+//			waLabel.text = chosenCountry.waterToOF.ToString();
+//			mtLabel.text = chosenCountry.metalToOF.ToString();
+//			fuLabel.text = chosenCountry.oilToOF.ToString();
+//			cntryLabel.text = "OF";
+//		}
+//		else if (selfCountry == 3)
+//		{
+//			fdLabel.text = chosenCountry.foodToUAT.ToString();
+//			waLabel.text = chosenCountry.waterToUAT.ToString();
+//			mtLabel.text = chosenCountry.metalToUAT.ToString();
+//			fuLabel.text = chosenCountry.oilToUAT.ToString();
+//			cntryLabel.text = "UAT";
+//		}
+//		else if (selfCountry == 4)
+//		{
+//			fdLabel.text = chosenCountry.foodToRN.ToString();
+//			waLabel.text = chosenCountry.waterToRN.ToString();
+//			mtLabel.text = chosenCountry.metalToRN.ToString();
+//			fuLabel.text = chosenCountry.oilToRN.ToString();
+//			cntryLabel.text = "RN";
+//		}
+//
+//	}
 }
