@@ -9,6 +9,7 @@ public class CrisisInterface : MonoBehaviour {
 	//Fields
 	public GUI_Button situation, solution1, solution2, solution3, solution4;
 	public bool enabled;
+	public NaturalHazards crisisManager;
 
 
 	// Use this for initialization
@@ -22,6 +23,7 @@ public class CrisisInterface : MonoBehaviour {
 		CheckEnabled ();
 		if (GameManager.instance.gameState == GameVariableManager.GameState.Crisis) {
 			enabled = true;
+			situation.buttonText.text = crisisManager.hazardSentence;
 			if (situation.clicked) {
 				GameManager.instance.gameState = GameVariableManager.GameState.BeginWeekUpdate;
 			}
