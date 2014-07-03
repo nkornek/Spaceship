@@ -4,17 +4,23 @@ using System.Collections;
 public class WarOrPeaceBar : MonoBehaviour {
 
 	int civilizeMeter;
+	bool civilized; 
 
+	Country[] players; // 
+	NaturalHazards nh;
 
-	Country[] players;
 	// Use this for initialization
 	void Start () {
-
+		civilizeMeter = 100;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+		if(civilizeMeter < 50)
+		{
+			civilized = false;
+		}
 	}
 
 	void setPlayerArray(Country []p) // copies the country array from the scene 
