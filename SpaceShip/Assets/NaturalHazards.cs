@@ -165,7 +165,7 @@ public class NaturalHazards : MonoBehaviour {
 			else
 				if((hazardName == "Contaminated Crops") )//&& (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil))
 			{
-				hazardSentence = "United Agrarian's previous food export was contaminated and "+"\n"+
+				hazardSentence = "United Agrarian Territories's previous food export was contaminated and "+"\n"+
 					" every country that imported it lost 1/3 \n of their population.";
 			}
 			}
@@ -205,15 +205,7 @@ public class NaturalHazards : MonoBehaviour {
 		else
 			if(hazardName == "Riot")
 		{
-//			switch(player[arrIndex[0]].countryType)
-//			{
-//			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire " ;break;
-//			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories " ; break;
-//			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation " ; break;
-//			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia " ; break;
-//			}
-			//hazardSentence += "is undergoing a riot. Their resources will cost 1.5x more for 3 weeks.";
-			hazardSentence = "Riot disaster not implemented!";
+				hazardSentence = "Riot disaster not implemented!";
 		}
 		else
 			hazardSentence = "It is a peaceful week... for now.";
@@ -544,26 +536,14 @@ public class NaturalHazards : MonoBehaviour {
 		r2.limitHarvestRateCounter = 4;
 	}
 
-	/*
-	void setAffectedPlayers()
-	{
-		int affectedPlayer = Random.Range (0, 5);
-		setHazardOfTheWeek(determineAffectedPlayers(affectedPlayer));
-	}
-*/
 
 	//algorithm to make sure each array has unique value for more (number of people between 2-3) 
-	//hasn't been tested yet.
-
 	public int [] determineAffectedPlayers(int nOfPl){
 
 		int []tempPpl;
-		//int num = -1;
-		//num = Random.Range(0,5);
 		tempPpl = new int[nOfPl];
 		bool repeated;
 
-		//bool [] pplIndex = {false,false,false,false};
 		if(nOfPl > 0 && nOfPl != 4)
 		{
 
