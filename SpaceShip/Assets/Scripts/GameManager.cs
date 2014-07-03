@@ -172,6 +172,23 @@ public class GameManager : MonoBehaviour {
 		_pInstance.ship.shipWater = _pInstance.FE.waterToShip + _pInstance.OF.waterToShip + _pInstance.UAT.waterToShip + _pInstance.RN.waterToShip;
 		_pInstance.ship.shipOil = _pInstance.FE.oilToShip + _pInstance.OF.oilToShip + _pInstance.UAT.oilToShip + _pInstance.RN.oilToShip;
 		_pInstance.ship.shipMetal = _pInstance.FE.metalToShip + _pInstance.OF.metalToShip + _pInstance.UAT.metalToShip + _pInstance.RN.metalToShip;
+
+		//move armies
+		_pInstance.FE.troopsFromOF = _pInstance.OF.troopsToFE;
+		_pInstance.FE.troopsFromUAT = _pInstance.UAT.troopsToFE;
+		_pInstance.FE.troopsFromRN = _pInstance.RN.troopsToFE;
+
+		_pInstance.OF.troopsFromOF = _pInstance.FE.troopsToOF;
+		_pInstance.OF.troopsFromUAT = _pInstance.UAT.troopsToOF;
+		_pInstance.OF.troopsFromRN = _pInstance.RN.troopsToOF;
+
+		_pInstance.UAT.troopsFromOF = _pInstance.FE.troopsToUAT;
+		_pInstance.UAT.troopsFromUAT = _pInstance.OF.troopsToUAT;
+		_pInstance.UAT.troopsFromRN = _pInstance.RN.troopsToUAT;
+
+		_pInstance.RN.troopsFromOF = _pInstance.FE.troopsToRN;
+		_pInstance.RN.troopsFromUAT = _pInstance.OF.troopsToRN;
+		_pInstance.RN.troopsFromRN = _pInstance.UAT.troopsToRN;
 	}
 
 
