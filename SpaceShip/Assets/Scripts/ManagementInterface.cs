@@ -9,7 +9,7 @@ public class ManagementInterface : MonoBehaviour {
 	public resource_alloc_military militaryPrompt;
 	public GUITexture background;
 	public GUI_Button endManagement;
-	public GameObject ship, C1, C2, C3;
+	public GameObject ship, C1, C2, C3, stuff;
 	public Country chosenCountry;
 	public int sentFood, sentWater, sentOil, sentMetal;
 
@@ -62,6 +62,7 @@ public class ManagementInterface : MonoBehaviour {
 			countryPrompt2.gameObject.SetActive (true);
 			countryPrompt3.gameObject.SetActive (true);
 			militaryPrompt.gameObject.SetActive (true);
+			stuff.gameObject.SetActive (true);
 			background.enabled = endManagement.enabled = true;
 
 			//Resets resources to zero if there's not enough
@@ -125,6 +126,7 @@ public class ManagementInterface : MonoBehaviour {
 			countryPrompt2.gameObject.SetActive (false);
 			countryPrompt3.gameObject.SetActive (false);
 			militaryPrompt.gameObject.SetActive (false);
+			stuff.gameObject.SetActive (false);
 			background.enabled = endManagement.enabled = false;
 		}
 	
