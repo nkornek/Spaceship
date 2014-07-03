@@ -41,4 +41,8 @@ public class ShipScript : MonoBehaviour {
 		shipBarScale.y = (float)shipCompletion / shipCap * shipBarCap;
 		shipBar.transform.localScale = shipBarScale;
 	}
+
+	void CheckCompletion () {
+
+	}
 }

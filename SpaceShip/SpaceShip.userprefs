@@ -1,13 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/WarOrPeaceBar.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ShipScript.cs">
     <Files>
+      <File FileName="Assets/Scripts/GameManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/WarOrPeaceBar.cs" Line="78" Column="1" />
-      <File FileName="Assets/Scripts/WarOrPeaceBar.cs" Line="71" Column="30" />
       <File FileName="Assets/Scripts/BeginWeekReport.cs" Line="26" Column="64" />
       <File FileName="Assets/Scripts/PlayerScript.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Country.cs" Line="23" Column="8" />
-      <File FileName="Assets/Scripts/ShipScript.cs" Line="39" Column="3" />
+      <File FileName="Assets/Scripts/ShipScript.cs" Line="46" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
