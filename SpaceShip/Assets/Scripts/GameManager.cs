@@ -54,8 +54,8 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//print (_pInstance.weekNumber);
-		//print (_pInstance.gameState);
+		print (_pInstance.weekNumber);
+		print (_pInstance.gameState);
 		switch (_pInstance.gameState) {
 		case GameVariableManager.GameState.TransferResources:
 			TransferResources ();

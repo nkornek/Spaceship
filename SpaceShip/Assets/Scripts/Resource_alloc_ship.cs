@@ -11,15 +11,18 @@ public class Resource_alloc_ship : MonoBehaviour {
 	public GUITexture backgroundTexture;
 
 	// Use this for initialization
-	void OnEnable () {	
-		chosenCountry = GameObject.Find ("Player").GetComponent<PlayerScript> ().country;
-	}
+//	void OnEnable () {	
+//		if (GameManager.instance.gameState == GameVariableManager.GameState.Management) {
+//			chosenCountry = GameObject.Find ("Player").GetComponent<PlayerScript> ().country;
+//		}
+//	}
 	
 	// Update is called once per frame
 	void Update () {
-		//if (GameManager.instance.gameState == GameVariableManager.GameState.Management) {
+		if (GameManager.instance.gameState == GameVariableManager.GameState.Management) {
 			//gameObject.SetActive(true);
 			//backgroundTexture.enabled = true;
+			chosenCountry = GameObject.Find ("Player").GetComponent<PlayerScript> ().country;
 			sentFood = chosenCountry.foodToShip + chosenCountry.foodToFE + chosenCountry.foodToOF + chosenCountry.foodToUAT + chosenCountry.foodToRN;
 			sentWater = chosenCountry.waterToShip + chosenCountry.waterToFE + chosenCountry.waterToOF + chosenCountry.waterToUAT + chosenCountry.waterToRN;	
 			sentMetal = chosenCountry.metalToShip + chosenCountry.metalToFE + chosenCountry.metalToOF + chosenCountry.metalToUAT + chosenCountry.metalToRN;	
@@ -59,7 +62,7 @@ public class Resource_alloc_ship : MonoBehaviour {
 //		else {
 //			gameObject.SetActive (false);
 //			backgroundTexture.enabled = false;
-//		}
+		}
 	}
 
 //	void OnGUI (){
