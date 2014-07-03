@@ -39,30 +39,18 @@ public class NaturalHazards : MonoBehaviour {
 		numOfPlayers = 0; // no one is affected by anything yet
 		hazardName = " ";
 		ppl = new int[0];
-		//player = new Country[totalPlayers];
-		
-//		for(int i = 0; i < player.Length; i++)
-//		{
-//			player[i] = new Country();
-//		}
-		
-		
+	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//Random.seed = (int)(Time.timeSinceLevelLoad*10);
 
-		//old system.
-		//setAffectedPlayers();
-		//new system.
 		if (GameManager.instance.gameState == GameVariableManager.GameState.Crisis) {
 			if (!hazardOccured) {
 				setHazard();
 				getHazardString(ppl);
 				hazardOccured = true;
 			}
-			//getHazardString(ppl);
 		}
 		else {
 			hazardOccured = false;
@@ -70,108 +58,6 @@ public class NaturalHazards : MonoBehaviour {
 
 		
 	}
-	//just in case we need it again
-	/*
-	void setHazardOfTheWeek(int [] plrArr){
-		if(plrArr.Length ==1)
-		{
-			if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal){
-				EarthQuakeDamage(player[plrArr[0]]);
-				newHazardOfTheWeek(4);
-			}
-			else
-				if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Water){
-				StagnantWaterDamage(player[plrArr[0]]);
-				newHazardOfTheWeek(10);
-			}
-			else
-				if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil){
-				SolarFlareDamage(player[plrArr[0]]);
-				newHazardOfTheWeek(11);
-			}
-			else 
-			{
-				RiotDamage(player[plrArr[0]]);
-				newHazardOfTheWeek(14);
-			}
-		}
-		else
-		if(plrArr.Length == 2){
-		
-
-				if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Water ||
-				   player[plrArr[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Water)
-					{
-						if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Water)
-							DroughtDamage(player[plrArr[0]],player[plrArr[1]]);
-						else
-						DroughtDamage(player[plrArr[1]],player[plrArr[0]]);
-						newHazardOfTheWeek(2);
-					}
-				else
-				if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Food ||
-				   player[plrArr[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Food)
-				{
-					if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Food)
-						FloodDamage(player[plrArr[0]],player[plrArr[1]]);
-					else
-						FloodDamage(player[plrArr[1]],player[plrArr[0]]);
-					newHazardOfTheWeek(7);
-				}
-				else
-				if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal ||
-				   player[plrArr[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
-				{
-					if(player[plrArr[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
-						HeatwaveDamage(player[plrArr[0]],player[plrArr[1]]);
-					else
-						HeatwaveDamage(player[plrArr[1]],player[plrArr[0]]);
-						newHazardOfTheWeek(8);
-				}
-				else
-				{
-					int randomDamage = Random.Range(1, 4);
-					if(randomDamage == 1)
-					{
-						HurricaineDamage(player[plrArr[0]], player[plrArr[1]]); // random
-					newHazardOfTheWeek(9);
-					}	
-					else
-					if(randomDamage == 2){
-						ReVoltDamage(player[plrArr[1]],player[plrArr[0]]); // random
-						newHazardOfTheWeek(15);
-					}
-					else
-					{
-						TornadoDamage(player[plrArr[0]], player[plrArr[1]]); // random
-						newHazardOfTheWeek(1);
-					}
-			}
-
-		}
-		else
-		if(plrArr.Length == 3)
-		{
-			PlagueDamage(player[plrArr[0]], player[plrArr[1]], player[plrArr[2]]);
-			newHazardOfTheWeek(5);
-		}
-		else
-		if(plrArr.Length ==4)
-		{
-				MassLootDamage(player[plrArr[0]], player[plrArr[1]], player[plrArr[2]], player[plrArr[3]]);
-			newHazardOfTheWeek(13);
-		}
-		else
-			newHazardOfTheWeek(0);
-	}
-*/
-	/*
-	void setNumPlayersAffected(){ //make crisis generate random affected country + possible default affect
-		//country with it.
-		numOfPlayers = Random.Range (0,totalPlayers+1);
-
-
-	}*/
 
 	public string getHazardString(int [] arrIndex)
 	{
@@ -196,28 +82,28 @@ public class NaturalHazards : MonoBehaviour {
 			}
 			if(hazardName == "Tornado")
 			{
-			hazardSentence+= " was stuck by a Tornado and both have lost 1/2 their food supply.";
+				hazardSentence+= " was stuck by a Tornado."+"\n"+"Both have lost 1/2 their food supply.";
 			}
 			else
 			if(hazardName == "Hurricane")
 			{
 
-				hazardSentence+= " was stuck by a Hurricane and both have lost 1/2 their oil supply.";
+				hazardSentence+= " was stuck by a Hurricane."+"\n"+ "Both have lost 1/2 their oil supply.";
 			}
 			else
 				if(hazardName == "Volcano Eruption")
 			{
 
-				hazardSentence+= " sufferred from a Volcanic Eruption and both have lost 1/2 their metal supply.";
+				hazardSentence+= " sufferred from a Volcanic Eruption." +"\n"+"Both have lost 1/2 their metal supply.";
 			}
 			else
 				if(hazardName == "Wildfire"){
-				hazardSentence+= " sufferred from a Wildfire and both have lost 1/2 their water supply.";
+				hazardSentence+= " sufferred from a Wildfire."+'\n'+"Both have lost 1/2 their water supply.";
 			}
 			else
 				if(hazardName == "Revolt")
 			{
-				hazardSentence += " is going through a Revolt. They will produce 50% of their resources for 4 weeks.";
+				hazardSentence += " is going through a Revolt."+'\n'+"They will produce 50% of their resources for 4 weeks.";
 			}
 		}
 
@@ -295,17 +181,17 @@ public class NaturalHazards : MonoBehaviour {
 
 			switch(player[arrIndex[1]].countryType)
 			{
-			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire, " ;break;
-			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories, " ; break;
-			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation, " ; break;
-			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia," ; break;
+			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire, \n" ;break;
+			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories, \n" ; break;
+			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation, \n" ; break;
+			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia, \n" ; break;
 			}
 
 			switch(player[arrIndex[2]].countryType)
 			{
-			case GameVariableManager.CountryType.FE: hazardSentence += " and Ferrous Empire  " ;break;
+			case GameVariableManager.CountryType.FE: hazardSentence += " and Ferrous Empire " ;break;
 			case GameVariableManager.CountryType.UAT: hazardSentence += " and United Agrarian Territories " ; break;
-			case GameVariableManager.CountryType.OF: hazardSentence += " and Oceanic Federation  " ; break;
+			case GameVariableManager.CountryType.OF: hazardSentence += " and Oceanic Federation " ; break;
 			case GameVariableManager.CountryType.RN: hazardSentence += "and Republic of Naphthalia " ; break;
 			}
 			hazardSentence += "will produce nothing for 3 weeks.";
@@ -334,8 +220,8 @@ public class NaturalHazards : MonoBehaviour {
 	}
 
 	public void setHazard(){
-		int die = Random.Range (0, 17);
-		//int die = 16;
+		//int die = Random.Range (0, 17);
+		int die = 1;
 		newHazardOfTheWeek(die);
 		switch(die)
 		{
