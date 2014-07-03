@@ -12,15 +12,19 @@ public class NaturalHazards : MonoBehaviour {
 	public int numOfPlayers; //affected by the hazard
 	public string hazardName;
 	public string hazardSentence;
+	public int[] ppl;
 
 	public int numOil;
 	public int numFood;
 	public int numMetal;
 	public int numWater;
+	bool hazardOccured;
+
 
 	// Use this for initialization
 	void Start () {
-		Random.seed = 3123;
+		//Random.seed = (int)(Time.timeSinceLevelLoad*10);
+		Random.seed = (int)System.DateTime.Now.Ticks;
 		numOil= 0;
 		numFood= 0;
 		numMetal= 0;
@@ -30,27 +34,40 @@ public class NaturalHazards : MonoBehaviour {
 		hazardSentence = " ";	
 		totalPlayers = 4;
 		hazardOfTheWeek = 0; // default, nothing happens
-		maxHarzardOfWeek = 13;
+		maxHarzardOfWeek = 17;
 		playerAffected = -1;//no one is affected.
 		numOfPlayers = 0; // no one is affected by anything yet
 		hazardName = " ";
-		player = new Country[totalPlayers];
+		ppl = new int[0];
+		//player = new Country[totalPlayers];
 		
-		for(int i = 0; i < player.Length; i++)
-		{
-			player[i] = new Country();
-		}
+//		for(int i = 0; i < player.Length; i++)
+//		{
+//			player[i] = new Country();
+//		}
 		
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		//Random.seed = (int)(Time.timeSinceLevelLoad*10);
+
 		//old system.
 		//setAffectedPlayers();
 		//new system.
-		setHazard();
+		if (GameManager.instance.gameState == GameVariableManager.GameState.Crisis) {
+			if (!hazardOccured) {
+				setHazard();
+				getHazardString(ppl);
+				hazardOccured = true;
+			}
+			//getHazardString(ppl);
+		}
+		else {
+			hazardOccured = false;
+		}
+
 		
 	}
 	//just in case we need it again
@@ -160,7 +177,7 @@ public class NaturalHazards : MonoBehaviour {
 	{
 		hazardSentence = "";
 
-		if(hazardName == "Tornado" || hazardName == "Hurricane" || hazardName == "Volcano" || hazardName == "Wildfire" || hazardName =="Revolt")
+		if(hazardName == "Tornado" || hazardName == "Hurricane" || hazardName == "Volcano Eruption" || hazardName == "Wildfire" || hazardName =="Revolt")
 		{
 			switch(player[arrIndex[0]].countryType)
 			{
@@ -215,53 +232,53 @@ public class NaturalHazards : MonoBehaviour {
 			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia " ; break;
 			}
 
-			if( (hazardName == "Flood") && (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Food) )
+			if( (hazardName == "Flood")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Food) )
 			{
-				hazardSentence += " lost 1/2 their food stock."+ "/n"
+				hazardSentence += " lost 1/2 their food stock."+ "\n"
 					+"United Agrarian Territories will produce 1/2 the amount of food for 3 weeks.";
 			}
 			else
-				if( (hazardName == "Drought") && (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Water) )
+				if( (hazardName == "Drought")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Water) )
 			{
-				hazardSentence += " lost 1/2 their water stock."+ "/n"
+				hazardSentence += " lost 1/2 their water stock."+ "\n"
 					+"Oceanic Federation will produce 1/2 the amount of water for 3 weeks.";
 			}
 			else
-				if( (hazardName == "Tsunami") && (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil) )
+				if( (hazardName == "Tsunami")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil) )
 			{
-				hazardSentence += " lost 1/2 their oil stock."+ "/n"
+				hazardSentence += " lost 1/2 their oil stock."+ "\n"
 					+"Republic of Naphthalia will produce 1/2 the amount of oil for 3 weeks.";
 			}
 			else
-				if( (hazardName == "Heatwave") && (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal) )
+				if( (hazardName == "Heatwave")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal) )
 			{
-				hazardSentence += " lost 1/2 their metal stock."+ "/n"
+				hazardSentence += " lost 1/2 their metal stock."+ "\n"
 					+"Ferrous Empire will produce 1/2 the amount of metal for 3 weeks.";
 			}
 		}
 		else
 			if(hazardName == "Earthquake" || hazardName == "Stagnant Water" || hazardName == "Solar Flare" || hazardName == "Contaminated Crops")
 			{
-			if( (hazardName == "Earthquake") && (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal))
+			if( (hazardName == "Earthquake")) //&& (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal))
 				{
 				hazardSentence = "Ferrous Empire's  metal production dropped by 25% for 4 weeks.";
 				}
 			else
 				
-				if((hazardName == "Stagnant Water") && (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal))
+				if((hazardName == "Stagnant Water") )//&& (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal))
 			{
 				hazardSentence = "Oceanic Federation's water production will stop for 3 weeks.";
 			}
 			else
-				if((hazardName == "Solar Flare") && (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil))
+				if((hazardName == "Solar Flare") )//&& (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil))
 			{
-				hazardSentence = "Republic of Naphthalia's oil lost their entire oil stock and "+"/n"+
+				hazardSentence = "Republic of Naphthalia's oil lost their entire oil stock and "+"\n"+
 						" oil production will stop for 2 weeks.";
 			}
 			else
-				if((hazardName == "Contaminated Crops") && (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil))
+				if((hazardName == "Contaminated Crops") )//&& (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil))
 			{
-				hazardSentence = "United Agrarian's previous food export was contaminated and "+"/n"+
+				hazardSentence = "United Agrarian's previous food export was contaminated and "+"\n"+
 					" every country that imported it lost 1/3 of their population.";
 			}
 			}
@@ -291,7 +308,7 @@ public class NaturalHazards : MonoBehaviour {
 			case GameVariableManager.CountryType.OF: hazardSentence += " and Oceanic Federation  " ; break;
 			case GameVariableManager.CountryType.RN: hazardSentence += "and Republic of Naphthalia " ; break;
 			}
-			hazardSentence = "will produce nothing for 3 weeks.";
+			hazardSentence += "will produce nothing for 3 weeks.";
 		}
 		else
 			if(hazardName == "Mass Looting")
@@ -301,14 +318,15 @@ public class NaturalHazards : MonoBehaviour {
 		else
 			if(hazardName == "Riot")
 		{
-			switch(player[arrIndex[0]].countryType)
-			{
-			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire " ;break;
-			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories " ; break;
-			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation " ; break;
-			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia " ; break;
-			}
-			hazardSentence = "is undergoing a riot. Their resources will cost 1.5x more for 3 weeks.";
+//			switch(player[arrIndex[0]].countryType)
+//			{
+//			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire " ;break;
+//			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories " ; break;
+//			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation " ; break;
+//			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia " ; break;
+//			}
+			//hazardSentence += "is undergoing a riot. Their resources will cost 1.5x more for 3 weeks.";
+			hazardSentence = "Riot disaster not implemented!";
 		}
 
 		return hazardSentence;
@@ -316,12 +334,13 @@ public class NaturalHazards : MonoBehaviour {
 	}
 
 	public void setHazard(){
-		int die = Random.Range (0, 16);
+		int die = Random.Range (0, 17);
+		//int die = 16;
 		newHazardOfTheWeek(die);
 		switch(die)
 		{
 			case 1: Tornado(); break;
-			case 2: Drought(); break;
+			case 2: Drought(); break; 
 			case 3: Volcano(); break;
 			case 4: Earthquake(); break;
 			case 5: Plague(); break;
@@ -331,16 +350,16 @@ public class NaturalHazards : MonoBehaviour {
 			case 9: Hurricane(); break;
 			case 10: StagnantWater(); break;
 			case 11: SolarFlare(); break;
-			case 12: ContaminatedCrops(); break;
-			case 13: MassLooting(); break;
-			case 14: Riot(); break;
+			case 12: ContaminatedCrops(); break; //Not implemented
+			case 13: MassLooting(); break; //Not implemented
+			case 14: Riot(); break;    //Not implemented
 			case 15: Revolt(); break;
-		case 16:	Tsunami(); break;
+			case 16: Tsunami(); break;
 			default: Peace(); break;
 		}
 	}
 	
-	public void resetLostResources()
+	public void resetLostResources() //Not implemented
 	{
 		numOil = 0;
 		numWater = 0;
@@ -351,7 +370,7 @@ public class NaturalHazards : MonoBehaviour {
 	public void Tsunami()
 	{
 		resetLostResources();
-		int [] ppl = determineAffectedPlayers(1);
+		ppl = determineAffectedPlayers(1);
 		for(int i = 0; i < 4; i++)
 		{
 			if(player[i].ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
@@ -365,13 +384,13 @@ public class NaturalHazards : MonoBehaviour {
 	{
 		resetLostResources();
 
-		int [] ppl = determineAffectedPlayers(2);
+		ppl = determineAffectedPlayers(2);
 		TornadoDamage(player[ppl[0]],player[ppl[1]]);
 	}
 
 	public void Drought(){
 		resetLostResources();
-		int [] ppl = determineAffectedPlayers(1);
+		ppl = determineAffectedPlayers(1);
 		for(int i = 0; i < 4; i++)
 		{
 			if(player[i].ownedResourceType == GameVariableManager.OwnedResourceType.Water)
@@ -383,7 +402,7 @@ public class NaturalHazards : MonoBehaviour {
 
 	public void Volcano(){
 		resetLostResources();
-		int [] ppl = determineAffectedPlayers(2);
+		ppl = determineAffectedPlayers(2);
 		VolcanoDamage(player[ppl[0]], player[ppl[1]]);
 	}
 
@@ -400,19 +419,19 @@ public class NaturalHazards : MonoBehaviour {
 
 	public void Plague(){
 		resetLostResources();
-		int [] ppl = determineAffectedPlayers(3);
+		ppl = determineAffectedPlayers(3);
 		PlagueDamage(player[ppl[0]], player[ppl[1]], player[ppl[2]]);
 	}
 
 	public void WildFire(){
 		resetLostResources();
-		int [] ppl = determineAffectedPlayers(2);
+		ppl = determineAffectedPlayers(2);
 		WildFireDamage(player[ppl[0]], player[ppl[1]]);
 	}
 
 	public void Flood(){
 		resetLostResources();
-		int [] ppl = determineAffectedPlayers(1);
+		ppl = determineAffectedPlayers(1);
 		for(int i = 0; i < 4; i++)
 		{
 			if(player[i].ownedResourceType == GameVariableManager.OwnedResourceType.Food)
@@ -424,7 +443,7 @@ public class NaturalHazards : MonoBehaviour {
 
 	public void HeatWave(){
 		resetLostResources();
-		int [] ppl = determineAffectedPlayers(1);
+		ppl = determineAffectedPlayers(1);
 		for(int i = 0; i < 4; i++)
 		{
 			if(player[i].ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
@@ -436,7 +455,7 @@ public class NaturalHazards : MonoBehaviour {
 
 	public void Hurricane(){
 		resetLostResources();
-		int [] ppl = determineAffectedPlayers(2);
+		ppl = determineAffectedPlayers(2);
 		HurricaneDamage(player[ppl[0]], player[ppl[1]]);
 	}
 
@@ -477,7 +496,7 @@ public class NaturalHazards : MonoBehaviour {
 
 	public void Revolt(){
 		resetLostResources();
-		int [] ppl = determineAffectedPlayers(2);
+		ppl = determineAffectedPlayers(2);
 		RevoltDamage(player[ppl[0]], player[ppl[1]]);
 	}
 
@@ -557,7 +576,7 @@ public class NaturalHazards : MonoBehaviour {
 	{
 		r1.population -= (r1.population/2);
 		r2.population -= (r2.population/2);
-		r2.population -= (r2.population/2);
+		r3.population -= (r3.population/2);
 	}
 
 	void WildFireDamage(Country r1, Country r2){
@@ -631,36 +650,43 @@ public class NaturalHazards : MonoBehaviour {
 
 	public int [] determineAffectedPlayers(int nOfPl){
 
-		int []ppl;
-		int num = -1;
-		num = Random.Range(0,5);
-		ppl = new int[ num ];
+		int []tempPpl;
+		//int num = -1;
+		//num = Random.Range(0,5);
+		tempPpl = new int[nOfPl];
+		bool repeated;
 
-		bool [] pplIndex = {false,false,false,false};
+		//bool [] pplIndex = {false,false,false,false};
 		if(nOfPl > 0 && nOfPl != 4)
 		{
 
-			for(int i = 0; i < ppl.Length; i++)
+			for(int i = 0; i < tempPpl.Length; i++)
 			{
-				ppl[i] = Random.Range(0,4);
+				tempPpl[i] = Random.Range(0,4);
 			}
 
 			//check if there are duplicate numbers
-			for(int i = 0; i < pplIndex.Length; i++)
-			{
-					   while(pplIndex[ppl[i]] == true){
-							ppl[i] = Random.Range(0,4);
-					}
-
-				if(pplIndex[ppl[i]] == false)
+			if (tempPpl.Length > 1) {
+				for(int i = 0; i < tempPpl.Length; i++)
 				{
-					pplIndex[ppl[i]] = true;
-				}
+					repeated = false;
+					do {
+						repeated = false;
+						for (int j = 0; j < tempPpl.Length; j++) {
+							if (i != j) {
+								if (tempPpl[i] == tempPpl[j]) {
+									repeated = true;
+									tempPpl[i] = Random.Range(0, 4);
+								}
+							}
+						}
+					} while (repeated);
 
+				}
 			}
 		}
 		//if ppl.length = 0, it will be an empty array
-		return ppl;
+		return tempPpl;
 	}
 
 
