@@ -15,7 +15,7 @@ public class ManagementInterface : MonoBehaviour {
 	void OnEnable () {
 		chosenCountry = GameObject.Find ("Player").GetComponent<PlayerScript>().country;
 		//reset stocks if sent is greater than stock
-		if (ship.GetComponent<Resource_alloc_ship>().sentFood > chosenCountry.stockFood)
+		if (chosenCountry.GetComponent<Country>().sentFood > chosenCountry.stockFood)
 		{
 			chosenCountry.foodToShip = 0;
 			chosenCountry.foodToFE = 0;
@@ -23,7 +23,7 @@ public class ManagementInterface : MonoBehaviour {
 			chosenCountry.foodToUAT = 0;
 			chosenCountry.foodToRN = 0;
 		}
-		if (ship.GetComponent<Resource_alloc_ship>().sentWater > chosenCountry.stockWater)
+		if (chosenCountry.GetComponent<Country>().sentWater > chosenCountry.stockWater)
 		{
 			chosenCountry.waterToShip = 0;
 			chosenCountry.waterToFE = 0;
@@ -31,7 +31,7 @@ public class ManagementInterface : MonoBehaviour {
 			chosenCountry.waterToUAT = 0;
 			chosenCountry.waterToRN = 0;
 		}
-		if (ship.GetComponent<Resource_alloc_ship>().sentMetal > chosenCountry.stockMetal)
+		if (chosenCountry.GetComponent<Country>().sentMetal > chosenCountry.stockMetal)
 		{
 			chosenCountry.metalToShip = 0;
 			chosenCountry.metalToFE = 0;
@@ -39,7 +39,7 @@ public class ManagementInterface : MonoBehaviour {
 			chosenCountry.metalToUAT = 0;
 			chosenCountry.metalToRN = 0;
 		}
-		if (ship.GetComponent<Resource_alloc_ship>().sentOil > chosenCountry.stockOil)
+		if (chosenCountry.GetComponent<Country>().sentOil > chosenCountry.stockOil)
 		{
 			chosenCountry.oilToShip = 0;
 			chosenCountry.oilToFE = 0;
