@@ -89,6 +89,7 @@ public class ManagementInterface : MonoBehaviour {
 				chosenCountry.metalToOF = 0;
 				chosenCountry.metalToUAT = 0;
 				chosenCountry.metalToRN = 0;
+				chosenCountry.metalToMilitary = 0;
 			}
 			if (chosenCountry.GetComponent<Country>().sentOil > chosenCountry.stockOil)
 			{
@@ -97,6 +98,7 @@ public class ManagementInterface : MonoBehaviour {
 				chosenCountry.oilToOF = 0;
 				chosenCountry.oilToUAT = 0;
 				chosenCountry.oilToRN = 0;
+				chosenCountry.oilToMilitary = 0;
 			}
 
 			if (endManagement.clicked) {
