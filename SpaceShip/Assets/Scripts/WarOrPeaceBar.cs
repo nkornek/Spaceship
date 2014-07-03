@@ -26,7 +26,8 @@ public class WarOrPeaceBar : MonoBehaviour {
 		}
 	}
 
-	void updateBar(
+	void updateBar()
+	{}
 
 
 
