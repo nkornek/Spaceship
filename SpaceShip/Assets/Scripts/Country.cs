@@ -20,7 +20,7 @@ public class Country : MonoBehaviour {
 	bool hasUpdated;
 	//Determine how much the population increases/decreases every week
 	//prevPopulationStat: <0: decreasing / >0: increasing / =0: no change
-	int prevPopulationStat, populationChange;
+	public int prevPopulationStat, populationChange;
 	//Amount transfered to other countries and the ship
 	public int foodToFE, waterToFE, oilToFE, metalToFE;
 	public int foodToOF, waterToOF, oilToOF, metalToOF;
@@ -38,6 +38,7 @@ public class Country : MonoBehaviour {
 	string food;
 	string oil;
 	public float militaryMetalReserve, militaryOilReserve, metalToMilitary, oilToMilitary, militaryBuilt;
+	public int reserveTroops, sentTroops, troopsFromFE, troopsFromOF, troopsFromUAT, troopsFromRN, occupyingTroops;
 
 	//troop deployment variables
 	public int troopsToFE, troopsToOF, troopsToUAT, troopsToRN;
@@ -154,6 +155,7 @@ public class Country : MonoBehaviour {
 		}
 
 		//Update military numbers
+
 		if (militaryMetalReserve > 5 & militaryOilReserve > 5)
 		{
 			if (militaryMetalReserve >= militaryOilReserve)
@@ -171,6 +173,8 @@ public class Country : MonoBehaviour {
 				militaryOilReserve -= militaryBuilt * 5;
 			}
 		}
+		sentTroops = troopsToFE + troopsToOF + troopsToUAT + troopsToRN;
+		reserveTroops = military - sentTroops;
 
 		//Update population
 		//Population Increased
@@ -273,6 +277,29 @@ public class Country : MonoBehaviour {
 			}
 		}
 	}
+
+	void CombatPhase (){
+		sentTroops = troopsToFE + troopsToOF + troopsToUAT + troopsToRN;
+		reserveTroops = military - sentTroops;
+		occupyingTroops = troopsFromFE + troopsFromOF + troopsFromRN + troopsFromUAT;
+		//kill troops on both sides
+		if (occupyingTroops > reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
+		{
+			occupyingTroops -= (int) Mathf.Ceil(occupyingTroops/5);
+			military -= (int) Mathf.Floor(reserveTroops/3);
+		}
+		if (occupyingTroops < reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
+		{
+			occupyingTroops -= (int) Mathf.Ceil(occupyingTroops/3);
+			military -= (int) Mathf.Floor(reserveTroops/5);
+		}
+		//kill population
+		if (occupyingTroops > 0)
+		{
+
+		}
+
+		}
 
 
 }
