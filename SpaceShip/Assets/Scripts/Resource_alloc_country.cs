@@ -31,7 +31,7 @@ public class Resource_alloc_country : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		if (GameManager.instance.gameState == GameVariableManager.GameState.Management) {
+		if (GameManager.instance.gameState == GameVariableManager.GameState.Management) {
 			//gameObject.SetActive (true);
 			CountryResources(selfCountry);
 			sentFood = chosenCountry.foodToShip + chosenCountry.foodToFE + chosenCountry.foodToOF + chosenCountry.foodToUAT + chosenCountry.foodToRN;
@@ -76,7 +76,7 @@ public class Resource_alloc_country : MonoBehaviour {
 				cntryLabel.text = "RN";
 				cntryPic.texture = cntryPic.GetComponent<Pic>().Textures[2];
 			}
-		//}
+		}
 //		else {
 //			gameObject.SetActive (false);
 //		}

@@ -178,96 +178,95 @@ public class GameManager : MonoBehaviour {
 	//Update the relationships between the countries
 	void UpdateRelationShips () {
 		if (_pInstance.FE.metalToOF < 50 || _pInstance.OF.waterToFE < 50) {
-			_pInstance.FE_OF -= 25;
+			_pInstance.FE_OF -= 5;
 			if (_pInstance.FE_OF < 0) {
 				_pInstance.FE_OF = 0;
 			}
 		}
 		else if (_pInstance.FE.metalToOF > 75 || _pInstance.OF.waterToFE > 75) {
-			if (_pInstance.FE_OF < 75) {
-				_pInstance.FE_OF += 25;
-			}
-			else {
+				_pInstance.FE_OF += 5;
+
+			if (_pInstance.FE_OF > 100) {
 				_pInstance.FE_OF = 100;
 			}
 		}
 		if (_pInstance.FE.metalToUAT < 50 || _pInstance.UAT.foodToFE < 50) {
-			if (_pInstance.FE_UAT > 25) {
-				_pInstance.FE_UAT -= 25;
-			}
-			else {
+
+				_pInstance.FE_UAT -= 5;
+
+			if (_pInstance.FE_UAT < 0) {
 				_pInstance.FE_UAT = 0;
 			}
 		}
 		else if (_pInstance.FE.metalToUAT > 75 || _pInstance.UAT.foodToFE > 75) {
-			if (_pInstance.FE_UAT < 75) {
-				_pInstance.FE_UAT += 25;
-			}
-			else {
+
+				_pInstance.FE_UAT += 5;
+
+			if (_pInstance.FE_UAT > 100) {
 				_pInstance.FE_UAT = 100;
 			}
 		}
 		if (_pInstance.FE.metalToRN < 50 || _pInstance.RN.oilToFE < 50) {
-			if (_pInstance.FE_RN > 25) {
-				_pInstance.FE_RN -= 25;
-			}
-			else {
+
+				_pInstance.FE_RN -= 5;
+
+			if (_pInstance.FE_RN < 0) {
 				_pInstance.FE_RN = 0;
 			}
 		}
 		else if (_pInstance.FE.metalToRN > 75 || _pInstance.RN.oilToFE > 75) {
-			if (_pInstance.FE_RN < 75) {
-				_pInstance.FE_RN += 25;
-			}
-			else {
+
+				_pInstance.FE_RN += 5;
+
+			if (_pInstance.FE_RN > 100) {
 				_pInstance.FE_RN = 100;
 			}
 		}
 		if (_pInstance.OF.waterToRN < 50 || _pInstance.RN.oilToOF < 50) {
-			if (_pInstance.OF_RN > 25) {
-				_pInstance.OF_RN -= 25;
-			}
-			else {
+
+				_pInstance.OF_RN -= 5;
+
+			if (_pInstance.OF_RN < 0) {
 				_pInstance.OF_RN = 0;
 			}
 		}
 		else if (_pInstance.OF.waterToRN > 75 || _pInstance.RN.oilToOF > 75) {
-			if (_pInstance.OF_RN < 75) {
-				_pInstance.OF_RN += 25;
-			}
-			else {
+
+				_pInstance.OF_RN += 5;
+
+			if (_pInstance.OF_RN > 100) {
 				_pInstance.OF_RN = 100;
 			}
 		}
 		if (_pInstance.OF.waterToUAT < 50 || _pInstance.UAT.foodToOF < 50) {
-			if (_pInstance.OF_UAT > 25) {
-				_pInstance.OF_UAT -= 25;
-			}
-			else {
+
+				_pInstance.OF_UAT -= 5;
+
+			if (_pInstance.OF_UAT < 0) {
 				_pInstance.OF_UAT = 0;
 			}
 		}
 		else if (_pInstance.OF.waterToUAT > 75 || _pInstance.UAT.foodToOF > 75) {
-			if (_pInstance.OF_UAT < 75) {
-				_pInstance.OF_UAT += 25;
-			}
-			else {
+
+				_pInstance.OF_UAT += 5;
+
+			if (_pInstance.OF_UAT > 100) {
 				_pInstance.OF_UAT = 100;
 			}
 		}
 		if (_pInstance.UAT.foodToRN < 50 || _pInstance.RN.oilToUAT < 50) {
-			if (_pInstance.UAT_RN > 25) {
-				_pInstance.UAT_RN -= 25;
-			}
-			else {
+
+				_pInstance.UAT_RN -= 5;
+
+			if (_pInstance.UAT_RN < 0) {
 				_pInstance.UAT_RN = 0;
 			}
 		}
 		else if (_pInstance.UAT.foodToRN > 75 || _pInstance.RN.oilToUAT > 75) {
-			if (_pInstance.UAT_RN < 75) {
-				_pInstance.UAT_RN += 25;
-			}
-			else {
+
+				_pInstance.UAT_RN += 5;
+
+			if (_pInstance.UAT_RN > 100) {
 				_pInstance.UAT_RN = 100;
 			}
 		}
