@@ -25,8 +25,8 @@ public class Resource_alloc_ship : MonoBehaviour {
 			chosenCountry = GameObject.Find ("Player").GetComponent<PlayerScript> ().country;
 			sentFood = chosenCountry.foodToShip + chosenCountry.foodToFE + chosenCountry.foodToOF + chosenCountry.foodToUAT + chosenCountry.foodToRN;
 			sentWater = chosenCountry.waterToShip + chosenCountry.waterToFE + chosenCountry.waterToOF + chosenCountry.waterToUAT + chosenCountry.waterToRN;	
-			sentMetal = chosenCountry.metalToShip + chosenCountry.metalToFE + chosenCountry.metalToOF + chosenCountry.metalToUAT + chosenCountry.metalToRN;	
-			sentOil = chosenCountry.oilToShip + chosenCountry.oilToFE + chosenCountry.oilToOF + chosenCountry.oilToUAT + chosenCountry.oilToRN;
+			sentMetal = chosenCountry.metalToShip + chosenCountry.metalToFE + chosenCountry.metalToOF + chosenCountry.metalToUAT + chosenCountry.metalToRN + (int)chosenCountry.metalToMilitary;	
+			sentOil = chosenCountry.oilToShip + chosenCountry.oilToFE + chosenCountry.oilToOF + chosenCountry.oilToUAT + chosenCountry.oilToRN + (int)chosenCountry.oilToMilitary;
 
 			if (fdUP.hold & chosenCountry.stockFood > 0 & sentFood < chosenCountry.stockFood) 
 			{
