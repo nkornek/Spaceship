@@ -20,7 +20,7 @@ public class Country : MonoBehaviour {
 	bool hasUpdated;
 	//Determine how much the population increases/decreases every week
 	//prevPopulationStat: <0: decreasing / >0: increasing / =0: no change
-	int prevPopulationStat, populationChange;
+	public int prevPopulationStat, populationChange;
 	//Amount transfered to other countries and the ship
 	public int foodToFE, waterToFE, oilToFE, metalToFE;
 	public int foodToOF, waterToOF, oilToOF, metalToOF;
@@ -38,6 +38,7 @@ public class Country : MonoBehaviour {
 	string food;
 	string oil;
 	public float militaryMetalReserve, militaryOilReserve, metalToMilitary, oilToMilitary, militaryBuilt;
+	public int reserveTroops, sentTroops, troopsFromFE, troopsFromOF, troopsFromUAT, troopsFromRN, occupyingTroops;
 
 	//troop deployment variables
 	public int troopsToFE, troopsToOF, troopsToUAT, troopsToRN;
@@ -154,6 +155,7 @@ public class Country : MonoBehaviour {
 		}
 
 		//Update military numbers
+
 		if (militaryMetalReserve > 5 & militaryOilReserve > 5)
 		{
 			if (militaryMetalReserve >= militaryOilReserve)
@@ -171,6 +173,8 @@ public class Country : MonoBehaviour {
 				militaryOilReserve -= militaryBuilt * 5;
 			}
 		}
+		sentTroops = troopsToFE + troopsToOF + troopsToUAT + troopsToRN;
+		reserveTroops = military - sentTroops;
 
 		//Update population
 		//Population Increased
@@ -250,25 +254,52 @@ public class Country : MonoBehaviour {
 				metalToOF = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_OF / 100);
 				metalToUAT = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_UAT / 100);
 				metalToRN = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_RN / 100);
+				metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
 				break;
 			case GameVariableManager.CountryType.OF:
 				waterToFE = (int)((stockWater - 75f) / 4 * GameManager.instance.FE_OF / 100);
 				waterToUAT = (int)((stockWater - 75f) / 4 * GameManager.instance.OF_UAT / 100);
 				waterToRN = (int)((stockWater - 75f) / 4 * GameManager.instance.OF_RN / 100);
+				waterToShip = (int)(stockWater - 75 - waterToFE - waterToUAT - waterToRN);
 				break;
 			case GameVariableManager.CountryType.UAT:
 				foodToFE = (int)((stockFood - 75f) / 4 * GameManager.instance.FE_UAT / 100);
 				foodToOF = (int)((stockFood - 75f) / 4 * GameManager.instance.OF_UAT / 100);
 				foodToRN = (int)((stockFood - 75f) / 4 * GameManager.instance.UAT_RN / 100);
+				foodToShip = (int)(stockFood - 75 - foodToFE - foodToOF - foodToRN);
 				break;
 			case GameVariableManager.CountryType.RN:
 				oilToFE = (int)((stockOil - 75f) / 4 * GameManager.instance.FE_RN / 100);
 				oilToOF = (int)((stockOil - 75f) / 4 * GameManager.instance.OF_RN / 100);
 				oilToUAT = (int)((stockOil - 75f) / 4 * GameManager.instance.UAT_RN / 100);
+				oilToShip = (int)(stockOil - 75 - oilToFE - oilToOF - oilToUAT);
 				break;
 			}
 		}
 	}
+
+	void CombatPhase (){
+		sentTroops = troopsToFE + troopsToOF + troopsToUAT + troopsToRN;
+		reserveTroops = military - sentTroops;
+		occupyingTroops = troopsFromFE + troopsFromOF + troopsFromRN + troopsFromUAT;
+		//kill troops on both sides
+		if (occupyingTroops > reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
+		{
+			occupyingTroops -= (int) Mathf.Ceil(occupyingTroops/5);
+			military -= (int) Mathf.Floor(reserveTroops/3);
+		}
+		if (occupyingTroops < reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
+		{
+			occupyingTroops -= (int) Mathf.Ceil(occupyingTroops/3);
+			military -= (int) Mathf.Floor(reserveTroops/5);
+		}
+		//kill population
+		if (occupyingTroops > 0)
+		{
+
+		}
+
+		}
 
 
 }
