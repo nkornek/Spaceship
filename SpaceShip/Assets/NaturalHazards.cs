@@ -62,6 +62,7 @@ public class NaturalHazards : MonoBehaviour {
 	public string getHazardString(int [] arrIndex)
 	{
 		hazardSentence = "";
+		hazardSentence += "Hazard of the week: "+hazardName+"! \n";
 
 		if(hazardName == "Tornado" || hazardName == "Hurricane" || hazardName == "Volcano Eruption" || hazardName == "Wildfire" || hazardName =="Revolt")
 		{
@@ -69,8 +70,8 @@ public class NaturalHazards : MonoBehaviour {
 			{
 			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire and " ;break;
 			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation and " ; break;
-			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories and" ; break;
-			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia and" ; break;
+			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories and " ; break;
+			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia and " ; break;
 			}
 
 			switch(player[arrIndex[1]].countryType)
@@ -82,28 +83,28 @@ public class NaturalHazards : MonoBehaviour {
 			}
 			if(hazardName == "Tornado")
 			{
-				hazardSentence+= " was stuck by a Tornado."+"\n"+"Both have lost 1/2 their food supply.";
+				hazardSentence+= "was stuck \n by a Tornado. Both have lost 1/2 their food supply.";
 			}
 			else
 			if(hazardName == "Hurricane")
 			{
 
-				hazardSentence+= " was stuck by a Hurricane."+"\n"+ "Both have lost 1/2 their oil supply.";
+				hazardSentence+= " was stuck \n by a Hurricane. Both have lost 1/2 their oil supply.";
 			}
 			else
 				if(hazardName == "Volcano Eruption")
 			{
 
-				hazardSentence+= " sufferred from a Volcanic Eruption." +"\n"+"Both have lost 1/2 their metal supply.";
+				hazardSentence+= " sufferred from \n a Volcanic Eruption. Both have lost 1/2 their metal supply.";
 			}
 			else
 				if(hazardName == "Wildfire"){
-				hazardSentence+= " sufferred from a Wildfire."+'\n'+"Both have lost 1/2 their water supply.";
+				hazardSentence+= " sufferred from \n a Wildfire. Both have lost 1/2 their water supply.";
 			}
 			else
 				if(hazardName == "Revolt")
 			{
-				hazardSentence += " is going through a Revolt."+'\n'+"They will produce 50% of their resources for 4 weeks.";
+				hazardSentence += " is going through a Revolt."+'\n'+"They will produce 50% of their resources \n for 4 weeks.";
 			}
 		}
 
@@ -112,34 +113,34 @@ public class NaturalHazards : MonoBehaviour {
 		{
 			switch(player[arrIndex[0]].countryType)
 			{
-			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire  " ;break;
+			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire " ;break;
 			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories " ; break;
-			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation  " ; break;
+			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation " ; break;
 			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia " ; break;
 			}
 
 			if( (hazardName == "Flood")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Food) )
 			{
-				hazardSentence += " lost 1/2 their food stock."+ "\n"
-					+"United Agrarian Territories will produce 1/2 the amount of food for 3 weeks.";
+				hazardSentence += "lost 1/2 their food stock."+ "\n"
+					+"United Agrarian Territories will produce 1/2 the amount of food \n for 3 weeks.";
 			}
 			else
 				if( (hazardName == "Drought")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Water) )
 			{
-				hazardSentence += " lost 1/2 their water stock."+ "\n"
+				hazardSentence += "lost 1/2 their water stock."+ "\n"
 					+"Oceanic Federation will produce 1/2 the amount of water for 3 weeks.";
 			}
 			else
 				if( (hazardName == "Tsunami")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil) )
 			{
-				hazardSentence += " lost 1/2 their oil stock."+ "\n"
+				hazardSentence += "lost 1/2 their oil stock."+ "\n"
 					+"Republic of Naphthalia will produce 1/2 the amount of oil for 3 weeks.";
 			}
 			else
 				if( (hazardName == "Heatwave")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal) )
 			{
-				hazardSentence += " lost 1/2 their metal stock."+ "\n"
-					+"Ferrous Empire will produce 1/2 the amount of metal for 3 weeks.";
+				hazardSentence += "lost 1/2 their metal stock."+ "\n"
+					+"Ferrous Empire will produce 1/2 the amount of metal \n for 3 weeks.";
 			}
 		}
 		else
@@ -165,7 +166,7 @@ public class NaturalHazards : MonoBehaviour {
 				if((hazardName == "Contaminated Crops") )//&& (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil))
 			{
 				hazardSentence = "United Agrarian's previous food export was contaminated and "+"\n"+
-					" every country that imported it lost 1/3 of their population.";
+					" every country that imported it lost 1/3 \n of their population.";
 			}
 			}
 		else
@@ -181,10 +182,10 @@ public class NaturalHazards : MonoBehaviour {
 
 			switch(player[arrIndex[1]].countryType)
 			{
-			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire, \n" ;break;
-			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories, \n" ; break;
-			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation, \n" ; break;
-			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia, \n" ; break;
+			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire,\n" ;break;
+			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories,\n" ; break;
+			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation,\n" ; break;
+			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia,\n" ; break;
 			}
 
 			switch(player[arrIndex[2]].countryType)
@@ -199,7 +200,7 @@ public class NaturalHazards : MonoBehaviour {
 		else
 			if(hazardName == "Mass Looting")
 		{
-			hazardSentence = "Every country's export were stolen for 3 weeks.";
+			hazardSentence = "An export hijack occured in every country.\n Every will receive 1/2 of their exports for 3 weeks.";
 		}
 		else
 			if(hazardName == "Riot")
@@ -214,14 +215,34 @@ public class NaturalHazards : MonoBehaviour {
 			//hazardSentence += "is undergoing a riot. Their resources will cost 1.5x more for 3 weeks.";
 			hazardSentence = "Riot disaster not implemented!";
 		}
-
+		else
+			hazardSentence = "It is a peaceful week... for now.";
 		return hazardSentence;
 
 	}
 
 	public void setHazard(){
-		//int die = Random.Range (0, 17);
-		int die = 1;
+		int disasterHappen, die;
+		if (GameManager.instance.weekNumber < 5) {
+			disasterHappen = Random.Range (1, 15);
+		}
+		else if (GameManager.instance.weekNumber < 10) {
+			disasterHappen = Random.Range (1, 7);
+		}
+		else if (GameManager.instance.weekNumber < 20) {
+			disasterHappen = Random.Range (1, 5);
+		}
+		else {
+			disasterHappen = Random.Range (1, 3);
+		}
+		if (disasterHappen == 1) {
+			die = Random.Range (1, 17);
+		}
+		else {
+			die = 0;
+		}
+
+		//int die = 1;
 		newHazardOfTheWeek(die);
 		switch(die)
 		{
