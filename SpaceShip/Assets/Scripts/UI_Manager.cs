@@ -43,14 +43,14 @@ public class UI_Manager : MonoBehaviour {
 				waterBar.renderer.material.color = waterColor;
 			}
 
-			if (oilReserve < 50) {
+			if (oilReserve < 25) {
 				oilBar.renderer.material.color = Color.red;
 			}
 			else {
 				oilBar.renderer.material.color = oilColor;
 			}
 
-			if (metalReserve < 50) {
+			if (metalReserve < 25) {
 				metalBar.renderer.material.color = Color.red;
 			}
 			else {
