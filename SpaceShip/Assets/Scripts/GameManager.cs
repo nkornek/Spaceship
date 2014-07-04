@@ -238,7 +238,7 @@ public class GameManager : MonoBehaviour {
 
 	//Update the relationships between the countries
 	void UpdateRelationShips () {
-		if (_pInstance.FE.metalToOF < 50 || _pInstance.OF.waterToFE < 50) {
+		if (_pInstance.FE.metalToOF < 50 || _pInstance.OF.waterToFE < 50 || _pInstance.FE.troopsFromOF > 0 || _pInstance.OF.troopsFromFE > 0) {
 			_pInstance.FE_OF -= 10;
 			if (_pInstance.FE_OF < 0) {
 				_pInstance.FE_OF = 0;
@@ -251,7 +251,7 @@ public class GameManager : MonoBehaviour {
 				_pInstance.FE_OF = 100;
 			}
 		}
-		if (_pInstance.FE.metalToUAT < 50 || _pInstance.UAT.foodToFE < 50) {
+		if (_pInstance.FE.metalToUAT < 50 || _pInstance.UAT.foodToFE < 50 || _pInstance.FE.troopsFromUAT > 0 || _pInstance.UAT.troopsFromFE > 0) {
 
 				_pInstance.FE_UAT -= 10;
 
@@ -267,7 +267,7 @@ public class GameManager : MonoBehaviour {
 				_pInstance.FE_UAT = 100;
 			}
 		}
-		if (_pInstance.FE.metalToRN < 50 || _pInstance.RN.oilToFE < 50) {
+		if (_pInstance.FE.metalToRN < 50 || _pInstance.RN.oilToFE < 50 || _pInstance.FE.troopsFromRN > 0 || _pInstance.RN.troopsFromFE > 0) {
 
 				_pInstance.FE_RN -= 10;
 
@@ -283,7 +283,7 @@ public class GameManager : MonoBehaviour {
 				_pInstance.FE_RN = 100;
 			}
 		}
-		if (_pInstance.OF.waterToRN < 50 || _pInstance.RN.oilToOF < 50) {
+		if (_pInstance.OF.waterToRN < 50 || _pInstance.RN.oilToOF < 50 || _pInstance.OF.troopsFromRN > 0 || _pInstance.RN.troopsFromOF > 0) {
 
 				_pInstance.OF_RN -= 10;
 
@@ -299,7 +299,7 @@ public class GameManager : MonoBehaviour {
 				_pInstance.OF_RN = 100;
 			}
 		}
-		if (_pInstance.OF.waterToUAT < 50 || _pInstance.UAT.foodToOF < 50) {
+		if (_pInstance.OF.waterToUAT < 50 || _pInstance.UAT.foodToOF < 50 || _pInstance.OF.troopsFromUAT > 0 || _pInstance.UAT.troopsFromOF > 0) {
 
 				_pInstance.OF_UAT -= 10;
 
@@ -315,7 +315,7 @@ public class GameManager : MonoBehaviour {
 				_pInstance.OF_UAT = 100;
 			}
 		}
-		if (_pInstance.UAT.foodToRN < 50 || _pInstance.RN.oilToUAT < 50) {
+		if (_pInstance.UAT.foodToRN < 50 || _pInstance.RN.oilToUAT < 50  || _pInstance.UAT.troopsFromRN > 0 || _pInstance.RN.troopsFromUAT > 0) {
 
 				_pInstance.UAT_RN -= 10;
 
