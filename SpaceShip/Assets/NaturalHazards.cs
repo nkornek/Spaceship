@@ -58,7 +58,6 @@ public class NaturalHazards : MonoBehaviour {
 	public string getHazardString(int [] arrIndex)
 	{
 		hazardSentence = "";
-		hazardSentence += "Hazard of the week: "+hazardName+"! \n";
 
 		if(hazardName == "Tornado" || hazardName == "Hurricane" || hazardName == "Volcano Eruption" || hazardName == "Wildfire" || hazardName =="Revolt")
 		{
@@ -85,13 +84,13 @@ public class NaturalHazards : MonoBehaviour {
 			if(hazardName == "Hurricane")
 			{
 
-				hazardSentence+= " have been struck \n by a category 5 Hurricane. Catastrophic infrastructure damage \n cost them half of their oil supply.";
+				hazardSentence+= "have been struck \n by a category 5 Hurricane. Catastrophic infrastructure damage \n cost them half of their oil supply.";
 			}
 			else
 				if(hazardName == "Volcano Eruption")
 			{
 
-				hazardSentence+= " experienced \n unprecedented Volcanic activity. The intense heat has melted half of their metal supply.";
+				hazardSentence+= "experienced \n unprecedented Volcanic activity. The intense heat has melted half of their metal supply.";
 			}
 			else
 				if(hazardName == "Wildfire"){
@@ -100,7 +99,7 @@ public class NaturalHazards : MonoBehaviour {
 			else
 				if(hazardName == "Revolt")
 			{
-				hazardSentence += " is going through a Revolt."+'\n'+"Half of their workers have gone on strike \n for 4 weeks.";
+				hazardSentence += "are going through a Revolt."+'\n'+"Half of their workers have gone on strike \n for 4 weeks.";
 			}
 		}
 
@@ -135,8 +134,8 @@ public class NaturalHazards : MonoBehaviour {
 			else
 				if( (hazardName == "Heatwave")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal) )
 			{
-				hazardSentence += "lost 1/2 their metal stock."+ "\n"
-					+"Ferrous Empire will produce 1/2 the amount of metal \n for 3 weeks.";
+				hazardSentence += "recorded record-breaking heat in several areas. \n Half of the metal in their stockpile has melted."+ "\n"
+					+"The Heat Wave has  also made many of the Ferrous Empire's \n mines unworkable, and they will produce only half as \n much metal as usual for 3 weeks.";
 			}
 		}
 		else
@@ -144,25 +143,25 @@ public class NaturalHazards : MonoBehaviour {
 			{
 			if( (hazardName == "Earthquake")) //&& (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal))
 				{
-				hazardSentence = "Ferrous Empire's  metal production dropped by 25% for 4 weeks.";
+				hazardSentence = "The earth shook, cracked, and ruptured under the \n force of a massive Earthquake. Many of the Ferrous Empire's \n mines have collapsed, and they will produce 75% less metal for 4 weeks.";
 				}
 			else
 				
 				if((hazardName == "Stagnant Water") )//&& (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal))
 			{
-				hazardSentence = "Oceanic Federation's water production will stop for 3 weeks.";
+				hazardSentence = "Atmospheric anomalies have caused the Oceanic Federation's \n reservoirs to turn stagnant. They will be unable \n to produce any water for 3 weeks.";
 			}
 			else
 				if((hazardName == "Solar Flare") )//&& (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil))
 			{
-				hazardSentence = "Republic of Naphthalia's oil lost their entire oil stock and "+"\n"+
-						" oil production will stop for 2 weeks.";
+				hazardSentence = "Radiation from a large Solar Flare has caused the \n Republic of Naphthalia's oil wells to explode, and they \n have lost their entire fuel stockpile."+"\n"+
+						"Oil production will stop for 2 weeks while repairs take place.";
 			}
 			else
 				if((hazardName == "Contaminated Crops") )//&& (player[arrIndex[0]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil))
 			{
-				hazardSentence = "United Agrarian Territories's previous food export was contaminated and "+"\n"+
-					" every country that imported it lost 1/3 \n of their population.";
+				hazardSentence = "An unknown pathogen was discovered in the United Agrarian Territories's \n crops. The food that they have recently exported was contaminated,"+"\n"+
+					" every country that imported it has \n seen a third of their population perish.";
 			}
 			}
 		else
@@ -170,33 +169,33 @@ public class NaturalHazards : MonoBehaviour {
 		{
 			switch(player[arrIndex[0]].countryType)
 			{
-			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire, " ;break;
-			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories, " ; break;
-			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation, " ; break;
-			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia, " ; break;
+			case GameVariableManager.CountryType.FE: hazardSentence += "The Ferrous Empire, " ;break;
+			case GameVariableManager.CountryType.UAT: hazardSentence += "The United Agrarian Territories, " ; break;
+			case GameVariableManager.CountryType.OF: hazardSentence += "The Oceanic Federation, " ; break;
+			case GameVariableManager.CountryType.RN: hazardSentence += "The Republic of Naphthalia, " ; break;
 			}
 
 			switch(player[arrIndex[1]].countryType)
 			{
-			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire,\n" ;break;
-			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories,\n" ; break;
-			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation,\n" ; break;
-			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia,\n" ; break;
+			case GameVariableManager.CountryType.FE: hazardSentence += "the Ferrous Empire,\n" ;break;
+			case GameVariableManager.CountryType.UAT: hazardSentence += "the United Agrarian Territories,\n" ; break;
+			case GameVariableManager.CountryType.OF: hazardSentence += "the Oceanic Federation,\n" ; break;
+			case GameVariableManager.CountryType.RN: hazardSentence += "the Republic of Naphthalia,\n" ; break;
 			}
 
 			switch(player[arrIndex[2]].countryType)
 			{
-			case GameVariableManager.CountryType.FE: hazardSentence += " and Ferrous Empire " ;break;
-			case GameVariableManager.CountryType.UAT: hazardSentence += " and United Agrarian Territories " ; break;
-			case GameVariableManager.CountryType.OF: hazardSentence += " and Oceanic Federation " ; break;
-			case GameVariableManager.CountryType.RN: hazardSentence += "and Republic of Naphthalia " ; break;
+			case GameVariableManager.CountryType.FE: hazardSentence += "and the Ferrous Empire " ;break;
+			case GameVariableManager.CountryType.UAT: hazardSentence += "and the United Agrarian Territories " ; break;
+			case GameVariableManager.CountryType.OF: hazardSentence += "and the Oceanic Federation " ; break;
+			case GameVariableManager.CountryType.RN: hazardSentence += "and the Republic of Naphthalia " ; break;
 			}
-			hazardSentence += "will produce nothing for 3 weeks.";
+			hazardSentence += "have suffered from an outbreak of disease, \n resulting in the loss of half of their citizens.";
 		}
 		else
 			if(hazardName == "Mass Looting")
 		{
-			hazardSentence = "An export hijack occured in every country.\n Every will receive 1/2 of their exports for 3 weeks.";
+			hazardSentence = "Highway bandits have set up along the major roadways.\n Half of all exports will be stolen for the next 3 weeks \n until law enforcement can deal with them.";
 		}
 		else
 			if(hazardName == "Riot")
@@ -204,7 +203,7 @@ public class NaturalHazards : MonoBehaviour {
 				hazardSentence = "Riot disaster not implemented!";
 		}
 		else
-			hazardSentence = "It is a peaceful week... for now.";
+			hazardSentence = "The skies are clear, but the shadow of the dying star draws ever closer...";
 		return hazardSentence;
 
 	}
@@ -459,7 +458,7 @@ public class NaturalHazards : MonoBehaviour {
 		//modifier to add where country prod. only 1 metal per country. 
 	//ex: 100 ppl, prod. 100 metal
 		m.limitHarvestRateCounter = 4;
-		m.limitedPercentage = 0.75f;
+		m.limitedPercentage = 0.25f;
 	}
 
 	void PlagueDamage(Country r1, Country r2, Country r3) // 3 random countries lose 1/2 population
