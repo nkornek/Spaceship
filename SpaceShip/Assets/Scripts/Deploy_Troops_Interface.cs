@@ -175,9 +175,9 @@ public class Deploy_Troops_Interface : MonoBehaviour {
 
 	//display numbers
 	void OnGUI() {
-		troops1.text = troopsToC1.ToString ();
-		troops2.text = troopsToC2.ToString ();
-		troops3.text = troopsToC3.ToString ();
-		troopReserves.text = reserveTroops.ToString ();
+		troops1.text = troopsToC1.ToString () + " Troops";
+		troops2.text = troopsToC2.ToString () + " Troops";
+		troops3.text = troopsToC3.ToString () + " Troops";
+		troopReserves.text = reserveTroops.ToString () + " Troops Remaining";
 	}
 }
