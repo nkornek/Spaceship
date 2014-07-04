@@ -65,6 +65,9 @@ public class GameManager : MonoBehaviour {
 		print (_pInstance.FE_UAT);
 		print (_pInstance.OF_UAT);
 		print (_pInstance.UAT_RN);
+		if (_pInstance.player.country.population <= 0) {
+			_pInstance.gameState = GameVariableManager.GameState.EndGame;
+		}
 		switch (_pInstance.gameState) {
 		case GameVariableManager.GameState.LookAtStar:
 			CheckWinningCountry ();
