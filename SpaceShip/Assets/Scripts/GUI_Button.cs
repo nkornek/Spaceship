@@ -24,7 +24,7 @@ public class GUI_Button : MonoBehaviour {
 		if (hoverTexture) {
 			Hover();
 		}
-		if (hoverTexture){
+		if (holdTexture){
 			CheckClickedHold();
 		}
 //		if (clicked) {
