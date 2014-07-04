@@ -193,6 +193,9 @@ public class Country : MonoBehaviour {
 		if (population > populationCap) {
 			population = populationCap;
 		}
+		else if (population < 0) {
+			population = 0;
+		}
 
 		//Consume resources
 		if (stockFood >= 50) {
