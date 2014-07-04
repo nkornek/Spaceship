@@ -7,7 +7,7 @@ public class UI_Manager : MonoBehaviour {
 	public GameObject foodBar, waterBar, oilBar, metalBar;
 	public PlayerScript player;
 	public float resourceCap, resourceBarCap;
-	public float foodReserve, waterReserve, oilReserve, metalReserve;
+	public float foodReserve, waterReserve, oilReserve, metalReserve ;
 	Color foodColor, waterColor, oilColor, metalColor;
 
 
@@ -23,10 +23,10 @@ public class UI_Manager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (GameManager.instance.gameState == GameVariableManager.GameState.Management) {
-			foodReserve = player.country.stockFood - player.country.foodToFE - player.country.foodToOF - player.country.foodToUAT - player.country.foodToRN;
-			waterReserve = player.country.stockWater - player.country.waterToFE - player.country.waterToOF - player.country.waterToUAT - player.country.waterToRN;
-			oilReserve = player.country.stockOil - player.country.oilToFE - player.country.oilToOF - player.country.oilToUAT - player.country.oilToRN;
-			metalReserve = player.country.stockMetal - player.country.metalToFE - player.country.metalToOF - player.country.metalToUAT - player.country.metalToRN;
+			foodReserve = player.country.stockFood - player.country.foodToFE - player.country.foodToOF - player.country.foodToUAT - player.country.foodToRN - player.country.foodToShip;
+			waterReserve = player.country.stockWater - player.country.waterToFE - player.country.waterToOF - player.country.waterToUAT - player.country.waterToRN - player.country.waterToShip;
+			oilReserve = player.country.stockOil - player.country.oilToFE - player.country.oilToOF - player.country.oilToUAT - player.country.oilToRN - player.country.oilToShip - player.country.oilToMilitary;
+			metalReserve = player.country.stockMetal - player.country.metalToFE - player.country.metalToOF - player.country.metalToUAT - player.country.metalToRN - player.country.metalToShip - player.country.metalToMilitary;
 			UpdateGraphicsBars ();
 			if (foodReserve < 50) {
 				foodBar.renderer.material.color = Color.red;
