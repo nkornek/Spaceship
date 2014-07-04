@@ -41,7 +41,8 @@ public class Country : MonoBehaviour {
 	public int reserveTroops, sentTroops, troopsFromFE, troopsFromOF, troopsFromUAT, troopsFromRN, occupyingTroops, foodStolen, waterStolen, metalStolen, oilStolen;
 
 	//troop deployment variables
-	public int troopsToFE, troopsToOF, troopsToUAT, troopsToRN;
+	public int troopsToFE, troopsToOF, troopsToUAT, troopsToRN, collateralDamage, soldiersLost, totalSoldierDead;
+	public bool combatCalled;
 
 	//Civilization Scale
 	public WarOrPeaceBar civilizationScale;
@@ -54,6 +55,7 @@ public class Country : MonoBehaviour {
 		relationshipFE = relationshipOF = relationshipRN = relationshipUAT = 100;
 		population = 100;
 		military = 0;
+		combatCalled = false;
 		//--------------------------------------------------------------------
 
 		switch (countryType) {
@@ -90,6 +92,14 @@ public class Country : MonoBehaviour {
 		case GameVariableManager.GameState.Management:
 			DistributeResources ();
 			hasUpdated = false;
+			combatCalled = false;
+			break;
+		case GameVariableManager.GameState.Combat:
+			if (!combatCalled)
+			{
+				CombatPhase();
+				combatCalled = true;
+			}
 			break;
 		}
 	}
@@ -133,31 +143,6 @@ public class Country : MonoBehaviour {
 	//Update the resource stats, population and military values of the country at the beginning of a new week
 	//And consumes resources for population
 	public void NewWeekUpdate () {
-		//Consume resources
-		if (stockFood >= 50) {
-			stockFood -= 50;
-		}
-		else {
-			stockFood = 0;
-		}
-		if (stockWater >= 50) {
-			stockWater -= 50;
-		}
-		else {
-			stockWater = 0;
-		}
-		if (stockOil >= 25) {
-			stockOil -= 25;
-		}
-		else {
-			stockOil = 0;
-		}
-		if (stockMetal >= 25) {
-			stockMetal -= 25;
-		}
-		else {
-			stockMetal = 0;
-		}
 
 		//Update military numbers
 
@@ -192,7 +177,7 @@ public class Country : MonoBehaviour {
 			}
 		}
 		//Population Decreased
-		else if (stockFood <= 50 || stockWater <= 50 || stockMetal <= 25 || stockOil <= 25) {
+		else if (stockFood < 50 || stockWater < 50 || stockMetal < 25 || stockOil < 25) {
 			if (populationChange < 0) {
 				populationChange *= 2;
 			}
@@ -207,6 +192,32 @@ public class Country : MonoBehaviour {
 		population += populationChange;
 		if (population > populationCap) {
 			population = populationCap;
+		}
+
+		//Consume resources
+		if (stockFood >= 50) {
+			stockFood -= 50;
+		}
+		else {
+			stockFood = 0;
+		}
+		if (stockWater >= 50) {
+			stockWater -= 50;
+		}
+		else {
+			stockWater = 0;
+		}
+		if (stockOil >= 25) {
+			stockOil -= 25;
+		}
+		else {
+			stockOil = 0;
+		}
+		if (stockMetal >= 25) {
+			stockMetal -= 25;
+		}
+		else {
+			stockMetal = 0;
 		}
 
 		//Update resources harvested
@@ -256,9 +267,9 @@ public class Country : MonoBehaviour {
 		if (isAI) {
 			switch (countryType) {
 			case GameVariableManager.CountryType.FE:
-				metalToOF = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_OF / 100);
-				metalToUAT = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_UAT / 100);
-				metalToRN = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_RN / 100);
+				metalToOF = (int)((stockMetal - 75f) / 3 * (float)GameManager.instance.FE_OF / 100f);
+				metalToUAT = (int)((stockMetal - 75f) / 3 * (float)GameManager.instance.FE_UAT / 100f);
+				metalToRN = (int)((stockMetal - 75f) / 3 * (float)GameManager.instance.FE_RN / 100f);
 				int restOfMetal = stockMetal - 75 - metalToOF - metalToUAT - metalToRN;
 				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
 				metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
@@ -269,9 +280,9 @@ public class Country : MonoBehaviour {
 
 				break;
 			case GameVariableManager.CountryType.OF:
-				waterToFE = (int)((stockWater - 75f) / 4 * GameManager.instance.FE_OF / 100);
-				waterToUAT = (int)((stockWater - 75f) / 4 * GameManager.instance.OF_UAT / 100);
-				waterToRN = (int)((stockWater - 75f) / 4 * GameManager.instance.OF_RN / 100);
+				waterToFE = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.FE_OF / 100f);
+				waterToUAT = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.OF_UAT / 100f);
+				waterToRN = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.OF_RN / 100f);
 				waterToShip = (int)(stockWater - 75 - waterToFE - waterToUAT - waterToRN);
 				restOfMetal = stockMetal - 75 - metalToFE - metalToUAT - metalToRN;
 				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
@@ -282,9 +293,9 @@ public class Country : MonoBehaviour {
 				oilToMilitary = restOfOil - metalToMilitary;
 				break;
 			case GameVariableManager.CountryType.UAT:
-				foodToFE = (int)((stockFood - 75f) / 4 * GameManager.instance.FE_UAT / 100);
-				foodToOF = (int)((stockFood - 75f) / 4 * GameManager.instance.OF_UAT / 100);
-				foodToRN = (int)((stockFood - 75f) / 4 * GameManager.instance.UAT_RN / 100);
+				foodToFE = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.FE_UAT / 100f);
+				foodToOF = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.OF_UAT / 100f);
+				foodToRN = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.UAT_RN / 100f);
 				foodToShip = (int)(stockFood - 75 - foodToFE - foodToOF - foodToRN);
 				restOfMetal = stockMetal - 75 - metalToFE - metalToOF - metalToRN;
 				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
@@ -295,9 +306,9 @@ public class Country : MonoBehaviour {
 				oilToMilitary = restOfOil - metalToMilitary;
 				break;
 			case GameVariableManager.CountryType.RN:
-				oilToFE = (int)((stockOil - 75f) / 4 * GameManager.instance.FE_RN / 100);
-				oilToOF = (int)((stockOil - 75f) / 4 * GameManager.instance.OF_RN / 100);
-				oilToUAT = (int)((stockOil - 75f) / 4 * GameManager.instance.UAT_RN / 100);
+				oilToFE = (int)((stockOil - 75f) / 3 * (float)GameManager.instance.FE_RN / 100f);
+				oilToOF = (int)((stockOil - 75f) / 3 * (float)GameManager.instance.OF_RN / 100f);
+				oilToUAT = (int)((stockOil - 75f) / 3 * (float)GameManager.instance.UAT_RN / 100f);
 				oilToShip = (int)(stockOil - 75 - oilToFE - oilToOF - oilToUAT);
 				restOfMetal = stockMetal - 75 - metalToFE - metalToOF - metalToUAT;
 				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
@@ -320,39 +331,273 @@ public class Country : MonoBehaviour {
 		{
 			if (troopsFromFE > 0)
 			{
-				GameObject.Find ("FE").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
-				troopsFromFE -= (int) Mathf.Ceil(troopsFromFE/5);
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+					{
+					GameManager.instance.FE.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.FE.GetComponent<Country>().troopsToUAT/5);
+					GameManager.instance.FE.GetComponent<Country>().military -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().troopsToUAT -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().totalSoldierDead += GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameManager.instance.FE.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.FE.GetComponent<Country>().troopsToOF/5);
+					GameManager.instance.FE.GetComponent<Country>().military -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().troopsToOF -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().totalSoldierDead += GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameManager.instance.FE.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.FE.GetComponent<Country>().troopsToRN/5);
+					GameManager.instance.FE.GetComponent<Country>().military -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().troopsToRN -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().totalSoldierDead += GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+				}
 			}
 			if (troopsFromOF > 0)
 			{
-				GameObject.Find ("OF").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
-				troopsFromOF -= (int) Mathf.Ceil(troopsFromOF/5);
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+				{
+					GameManager.instance.OF.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.OF.GetComponent<Country>().troopsToUAT/5);
+					GameManager.instance.OF.GetComponent<Country>().military -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().troopsToUAT -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().totalSoldierDead += GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameManager.instance.OF.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.OF.GetComponent<Country>().troopsToFE/5);
+					GameManager.instance.OF.GetComponent<Country>().military -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().troopsToFE -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().totalSoldierDead += GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameManager.instance.OF.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.OF.GetComponent<Country>().troopsToRN/5);
+					GameManager.instance.OF.GetComponent<Country>().military -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().troopsToRN -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().totalSoldierDead += GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+				}
 			}
 			if (troopsFromUAT > 0)
 			{
-				GameObject.Find ("UAT").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
-				troopsFromUAT -= (int) Mathf.Ceil(troopsFromUAT/5);
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameManager.instance.UAT.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.UAT.GetComponent<Country>().troopsToFE/5);
+					GameManager.instance.UAT.GetComponent<Country>().military -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					GameManager.instance.UAT.GetComponent<Country>().troopsToFE -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					GameManager.instance.UAT.GetComponent<Country>().totalSoldierDead += GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameManager.instance.UAT.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.UAT.GetComponent<Country>().troopsToOF/5);
+					GameManager.instance.UAT.GetComponent<Country>().military -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;				
+					GameManager.instance.UAT.GetComponent<Country>().troopsToOF -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					GameManager.instance.UAT.GetComponent<Country>().totalSoldierDead += GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameManager.instance.UAT.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.UAT.GetComponent<Country>().troopsToRN/5);
+					GameManager.instance.UAT.GetComponent<Country>().military -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;					
+					GameManager.instance.UAT.GetComponent<Country>().troopsToRN -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					GameManager.instance.UAT.GetComponent<Country>().totalSoldierDead += GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+				}
 			}
 			if (troopsFromRN > 0)
 			{
-				GameObject.Find ("RN").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
-				troopsFromRN -= (int) Mathf.Ceil(troopsFromRN/5);
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameManager.instance.RN.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.RN.GetComponent<Country>().troopsToFE/5);
+					GameManager.instance.RN.GetComponent<Country>().military -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().troopsToFE -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().totalSoldierDead += GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameManager.instance.RN.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.RN.GetComponent<Country>().troopsToOF/5);
+					GameManager.instance.RN.GetComponent<Country>().military -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().troopsToOF -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().totalSoldierDead += GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+				{
+					GameManager.instance.RN.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.RN.GetComponent<Country>().troopsToUAT/5);
+					GameManager.instance.RN.GetComponent<Country>().military -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().troopsToUAT -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().totalSoldierDead += GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+				}
 			}
-			military -= (int) Mathf.Floor(reserveTroops/3);
+			soldiersLost = (int) Mathf.Floor(reserveTroops/4);
+			reserveTroops -= soldiersLost;
+			military -= soldiersLost;
 		}
+		//invading army is smaller than reserve
+
 		else if (occupyingTroops < reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
 		{
-			occupyingTroops -= (int) Mathf.Ceil(occupyingTroops/3);
-			military -= (int) Mathf.Floor(reserveTroops/5);
+			if (troopsFromFE > 0)
+			{
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+				{
+					GameManager.instance.FE.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.FE.GetComponent<Country>().troopsToUAT/4);
+					GameManager.instance.FE.GetComponent<Country>().military -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().troopsToUAT -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().totalSoldierDead += GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameManager.instance.FE.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.FE.GetComponent<Country>().troopsToOF/4);
+					GameManager.instance.FE.GetComponent<Country>().military -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().troopsToOF -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().totalSoldierDead += GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameManager.instance.FE.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.FE.GetComponent<Country>().troopsToRN/4);
+					GameManager.instance.FE.GetComponent<Country>().military -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().troopsToRN -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					GameManager.instance.FE.GetComponent<Country>().totalSoldierDead += GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameManager.instance.FE.GetComponent<Country>().soldiersLost;
+				}
+			}
+			if (troopsFromOF > 0)
+			{
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+				{
+					GameManager.instance.OF.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.OF.GetComponent<Country>().troopsToUAT/4);
+					GameManager.instance.OF.GetComponent<Country>().military -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().troopsToUAT -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().totalSoldierDead += GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameManager.instance.OF.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.OF.GetComponent<Country>().troopsToFE/4);
+					GameManager.instance.OF.GetComponent<Country>().military -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().troopsToFE -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().totalSoldierDead += GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameManager.instance.OF.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.OF.GetComponent<Country>().troopsToRN/4);
+					GameManager.instance.OF.GetComponent<Country>().military -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().troopsToRN -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					GameManager.instance.OF.GetComponent<Country>().totalSoldierDead += GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.OF.GetComponent<Country>().soldiersLost;
+				}
+			}
+			if (troopsFromUAT > 0)
+			{
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameManager.instance.UAT.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.UAT.GetComponent<Country>().troopsToFE/4);
+					GameManager.instance.UAT.GetComponent<Country>().military -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					GameManager.instance.UAT.GetComponent<Country>().troopsToFE -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					GameManager.instance.UAT.GetComponent<Country>().totalSoldierDead += GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameManager.instance.UAT.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.UAT.GetComponent<Country>().troopsToOF/4);
+					GameManager.instance.UAT.GetComponent<Country>().military -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					GameManager.instance.UAT.GetComponent<Country>().troopsToOF -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					GameManager.instance.UAT.GetComponent<Country>().totalSoldierDead += GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameManager.instance.UAT.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.UAT.GetComponent<Country>().troopsToRN/4);
+					GameManager.instance.UAT.GetComponent<Country>().military -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					GameManager.instance.UAT.GetComponent<Country>().troopsToRN -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					GameManager.instance.UAT.GetComponent<Country>().totalSoldierDead += GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.UAT.GetComponent<Country>().soldiersLost;
+				}
+			}
+			if (troopsFromRN > 0)
+			{
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameManager.instance.RN.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.RN.GetComponent<Country>().troopsToFE/4);
+					GameManager.instance.RN.GetComponent<Country>().military -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().troopsToFE -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().totalSoldierDead += GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameManager.instance.RN.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.RN.GetComponent<Country>().troopsToOF/4);
+					GameManager.instance.RN.GetComponent<Country>().military -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().troopsToOF -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().totalSoldierDead += GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+				{
+					GameManager.instance.RN.GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(GameManager.instance.RN.GetComponent<Country>().troopsToUAT/4);
+					GameManager.instance.RN.GetComponent<Country>().military -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().troopsToUAT -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					GameManager.instance.RN.GetComponent<Country>().totalSoldierDead += GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameManager.instance.RN.GetComponent<Country>().soldiersLost;
+				}
+			}
+
+			soldiersLost = (int) Mathf.Floor(reserveTroops/5);
+			reserveTroops -= soldiersLost;
+			military -= soldiersLost;
 		}
 		//kill population
-		if (occupyingTroops > 0 & reserveTroops > 0 & population > 2)
+		if (occupyingTroops > 0 & reserveTroops > 0 & population > 4)
 		{
-			population -= 2;
+			population -= 4;
+			if (troopsFromFE >0)
+			{
+				GameObject.Find("FE").GetComponent<Country>().collateralDamage += 4;
+			}
+			if (troopsFromOF >0)
+			{
+				GameObject.Find("OF").GetComponent<Country>().collateralDamage += 4;
+			}
+			if (troopsFromUAT >0)
+			{
+				GameObject.Find("UAT").GetComponent<Country>().collateralDamage += 4;
+			}
+			if (troopsFromRN >0)
+			{
+				GameObject.Find("RN").GetComponent<Country>().collateralDamage += 4;
+			}
 		}
-		else if (occupyingTroops > 0 & population > 5)
+		else if (occupyingTroops > 0 & population > 8)
 		{
-			population -= 5;
+			population -= 8;
+			if (troopsFromFE >0)
+			{
+				GameObject.Find("FE").GetComponent<Country>().collateralDamage += 8;
+			}
+			if (troopsFromOF >0)
+			{
+				GameObject.Find("OF").GetComponent<Country>().collateralDamage += 8;
+			}
+			if (troopsFromUAT >0)
+			{
+				GameObject.Find("UAT").GetComponent<Country>().collateralDamage += 8;
+			}
+			if (troopsFromRN >0)
+			{
+				GameObject.Find("RN").GetComponent<Country>().collateralDamage += 8;
+			}
 		}
 		//steal resources
 
@@ -361,17 +606,17 @@ public class Country : MonoBehaviour {
 			{
 			if (troopsFromOF > troopsFromUAT & troopsFromOF > troopsFromRN)
 				{
-				GameObject.Find ("OF").GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
+				GameManager.instance.OF.GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
 				stockMetal = (int) Mathf.Ceil(stockMetal / 2);
 				}
 			else if (troopsFromUAT > troopsFromOF & troopsFromUAT > troopsFromRN)
 				{
-				GameObject.Find ("UAT").GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
+				GameManager.instance.UAT.GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
 				stockMetal = (int) Mathf.Ceil(stockMetal / 2);
 				}
 			else if (troopsFromRN > troopsFromOF & troopsFromRN > troopsFromUAT)
 				{
-				GameObject.Find ("RN").GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
+				GameManager.instance.RN.GetComponent<Country>().metalStolen = (int) Mathf.Floor(stockMetal / 2);
 				stockMetal = (int) Mathf.Ceil(stockMetal / 2);
 				}
 			}
@@ -380,17 +625,17 @@ public class Country : MonoBehaviour {
 		{
 			if (troopsFromFE > troopsFromUAT & troopsFromFE > troopsFromRN)
 			{
-				GameObject.Find ("FE").GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
+				GameManager.instance.FE.GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
 				stockWater = (int) Mathf.Ceil(stockWater / 2);
 			}
 			else if (troopsFromUAT > troopsFromFE & troopsFromUAT > troopsFromRN)
 			{
-				GameObject.Find ("UAT").GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
+				GameManager.instance.UAT.GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
 				stockWater = (int) Mathf.Ceil(stockWater / 2);
 			}
 			else if (troopsFromRN > troopsFromFE & troopsFromRN > troopsFromUAT)
 			{
-				GameObject.Find ("RN").GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
+				GameManager.instance.RN.GetComponent<Country>().waterStolen = (int) Mathf.Floor(stockWater / 2);
 				stockWater = (int) Mathf.Ceil(stockWater / 2);
 			}
 		}
@@ -399,17 +644,17 @@ public class Country : MonoBehaviour {
 		{
 			if (troopsFromFE > troopsFromOF & troopsFromFE > troopsFromRN)
 			{
-				GameObject.Find ("FE").GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
+				GameManager.instance.FE.GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
 				stockFood = (int) Mathf.Ceil(stockFood / 2);
 			}
 			else if (troopsFromOF > troopsFromFE & troopsFromOF > troopsFromRN)
 			{
-				GameObject.Find ("OF").GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
+				GameManager.instance.OF.GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
 				stockFood = (int) Mathf.Ceil(stockFood / 2);
 			}
 			else if (troopsFromRN > troopsFromFE & troopsFromRN > troopsFromOF)
 			{
-				GameObject.Find ("RN").GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
+				GameManager.instance.RN.GetComponent<Country>().foodStolen = (int) Mathf.Floor(stockFood / 2);
 				stockFood = (int) Mathf.Ceil(stockFood / 2);
 			}
 		}
@@ -418,17 +663,17 @@ public class Country : MonoBehaviour {
 		{
 			if (troopsFromFE > troopsFromOF & troopsFromFE > troopsFromUAT)
 			{
-				GameObject.Find ("FE").GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
+				GameManager.instance.FE.GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
 				stockOil = (int) Mathf.Ceil(stockOil / 2);
 			}
 			else if (troopsFromOF > troopsFromFE & troopsFromOF > troopsFromUAT)
 			{
-				GameObject.Find ("OF").GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
+				GameManager.instance.OF.GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
 				stockOil = (int) Mathf.Ceil(stockOil / 2);
 			}
 			else if (troopsFromUAT > troopsFromFE & troopsFromUAT > troopsFromOF)
 			{
-				GameObject.Find ("UAT").GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
+				GameManager.instance.UAT.GetComponent<Country>().oilStolen = (int) Mathf.Floor(stockOil / 2);
 				stockOil = (int) Mathf.Ceil(stockOil / 2);
 			}
 		}

@@ -20,9 +20,13 @@ public class Combat_Report : MonoBehaviour {
 				"\n\t\t\tFood Stolen: " + player.country.foodStolen + 
 					"\n\t\t\tWater Stolen: " + player.country.waterStolen +
 						"\n\t\t\tMetal Stolen: " + player.country.metalStolen +
-							"\n\t\t\tFuel Stolen: " + player.country.oilStolen ;
+							"\n\t\t\tFuel Stolen: " + player.country.oilStolen +
+								"\n\t\t\tTroops Lost: " + player.country.totalSoldierDead +
+									"\n\t\t\tCivillian Collateral: " + player.country.collateralDamage;
 			if (reportPrompt.clicked) {
 				GameManager.instance.gameState = GameVariableManager.GameState.Management;
+				player.country.collateralDamage = 0;
+				player.country.totalSoldierDead = 0;
 			}
 		}
 		else {
