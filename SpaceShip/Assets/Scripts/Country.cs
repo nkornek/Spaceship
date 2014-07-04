@@ -41,7 +41,8 @@ public class Country : MonoBehaviour {
 	public int reserveTroops, sentTroops, troopsFromFE, troopsFromOF, troopsFromUAT, troopsFromRN, occupyingTroops, foodStolen, waterStolen, metalStolen, oilStolen;
 
 	//troop deployment variables
-	public int troopsToFE, troopsToOF, troopsToUAT, troopsToRN;
+	public int troopsToFE, troopsToOF, troopsToUAT, troopsToRN, collateralDamage, soldiersLost, totalSoldierDead;
+	public bool combatCalled;
 
 	//Civilization Scale
 	public WarOrPeaceBar civilizationScale;
@@ -54,6 +55,7 @@ public class Country : MonoBehaviour {
 		relationshipFE = relationshipOF = relationshipRN = relationshipUAT = 100;
 		population = 100;
 		military = 0;
+		combatCalled = false;
 		//--------------------------------------------------------------------
 
 		switch (countryType) {
@@ -90,6 +92,14 @@ public class Country : MonoBehaviour {
 		case GameVariableManager.GameState.Management:
 			DistributeResources ();
 			hasUpdated = false;
+			combatCalled = false;
+			break;
+		case GameVariableManager.GameState.Combat:
+			if (!combatCalled)
+			{
+				CombatPhase();
+				combatCalled = true;
+			}
 			break;
 		}
 	}
@@ -320,39 +330,249 @@ public class Country : MonoBehaviour {
 		{
 			if (troopsFromFE > 0)
 			{
-				GameObject.Find ("FE").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
-				troopsFromFE -= (int) Mathf.Ceil(troopsFromFE/5);
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+					{
+					GameObject.Find ("FE").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToUAT/5);
+					GameObject.Find ("FE").GetComponent<Country>().military -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("FE").GetComponent<Country>().totalSoldierDead += GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameObject.Find ("FE").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToOF/5);
+					GameObject.Find ("FE").GetComponent<Country>().military -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("FE").GetComponent<Country>().totalSoldierDead += GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameObject.Find ("FE").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToRN/5);
+					GameObject.Find ("FE").GetComponent<Country>().military -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("FE").GetComponent<Country>().totalSoldierDead += GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+				}
 			}
 			if (troopsFromOF > 0)
 			{
-				GameObject.Find ("OF").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
-				troopsFromOF -= (int) Mathf.Ceil(troopsFromOF/5);
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+				{
+					GameObject.Find ("OF").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToUAT/5);
+					GameObject.Find ("OF").GetComponent<Country>().military -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("OF").GetComponent<Country>().totalSoldierDead += GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameObject.Find ("OF").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToFE/5);
+					GameObject.Find ("OF").GetComponent<Country>().military -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("OF").GetComponent<Country>().totalSoldierDead += GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameObject.Find ("OF").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToRN/5);
+					GameObject.Find ("OF").GetComponent<Country>().military -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("OF").GetComponent<Country>().totalSoldierDead += GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+				}
 			}
 			if (troopsFromUAT > 0)
 			{
-				GameObject.Find ("UAT").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
-				troopsFromUAT -= (int) Mathf.Ceil(troopsFromUAT/5);
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameObject.Find ("UAT").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToFE/5);
+					GameObject.Find ("UAT").GetComponent<Country>().military -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("UAT").GetComponent<Country>().totalSoldierDead += GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameObject.Find ("UAT").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToOF/5);
+					GameObject.Find ("UAT").GetComponent<Country>().military -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("UAT").GetComponent<Country>().totalSoldierDead += GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameObject.Find ("UAT").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToRN/5);
+					GameObject.Find ("UAT").GetComponent<Country>().military -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("UAT").GetComponent<Country>().totalSoldierDead += GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+				}
 			}
 			if (troopsFromRN > 0)
 			{
-				GameObject.Find ("RN").GetComponent<Country>().military -= (int) Mathf.Ceil(troopsFromFE/5);
-				troopsFromRN -= (int) Mathf.Ceil(troopsFromRN/5);
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameObject.Find ("RN").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToFE/5);
+					GameObject.Find ("RN").GetComponent<Country>().military -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("RN").GetComponent<Country>().totalSoldierDead += GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameObject.Find ("RN").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToOF/5);
+					GameObject.Find ("RN").GetComponent<Country>().military -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("RN").GetComponent<Country>().totalSoldierDead += GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+				{
+					GameObject.Find ("RN").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToUAT/5);
+					GameObject.Find ("RN").GetComponent<Country>().military -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("RN").GetComponent<Country>().totalSoldierDead += GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+				}
 			}
-			military -= (int) Mathf.Floor(reserveTroops/3);
+			soldiersLost = (int) Mathf.Floor(reserveTroops/4);
+			reserveTroops -= soldiersLost;
+			military -= soldiersLost;
 		}
+		//invading army is smaller than reserve
+
 		else if (occupyingTroops < reserveTroops & occupyingTroops != 0 & reserveTroops != 0) 
 		{
-			occupyingTroops -= (int) Mathf.Ceil(occupyingTroops/3);
-			military -= (int) Mathf.Floor(reserveTroops/5);
+			if (troopsFromFE > 0)
+			{
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+				{
+					GameObject.Find ("FE").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToUAT/4);
+					GameObject.Find ("FE").GetComponent<Country>().military -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("FE").GetComponent<Country>().totalSoldierDead += GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameObject.Find ("FE").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToOF/4);
+					GameObject.Find ("FE").GetComponent<Country>().military -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("FE").GetComponent<Country>().totalSoldierDead += GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameObject.Find ("FE").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToRN/4);
+					GameObject.Find ("FE").GetComponent<Country>().military -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("FE").GetComponent<Country>().totalSoldierDead += GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+					troopsFromFE -= GameObject.Find ("FE").GetComponent<Country>().soldiersLost;
+				}
+			}
+			if (troopsFromOF > 0)
+			{
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+				{
+					GameObject.Find ("OF").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToUAT/4);
+					GameObject.Find ("OF").GetComponent<Country>().military -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("OF").GetComponent<Country>().totalSoldierDead += GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameObject.Find ("OF").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToFE/4);
+					GameObject.Find ("OF").GetComponent<Country>().military -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("OF").GetComponent<Country>().totalSoldierDead += GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameObject.Find ("OF").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToRN/4);
+					GameObject.Find ("OF").GetComponent<Country>().military -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("OF").GetComponent<Country>().totalSoldierDead += GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("OF").GetComponent<Country>().soldiersLost;
+				}
+			}
+			if (troopsFromUAT > 0)
+			{
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameObject.Find ("UAT").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToFE/4);
+					GameObject.Find ("UAT").GetComponent<Country>().military -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("UAT").GetComponent<Country>().totalSoldierDead += GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameObject.Find ("UAT").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToOF/4);
+					GameObject.Find ("UAT").GetComponent<Country>().military -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("UAT").GetComponent<Country>().totalSoldierDead += GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Oil)
+				{
+					GameObject.Find ("UAT").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToRN/4);
+					GameObject.Find ("UAT").GetComponent<Country>().military -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("UAT").GetComponent<Country>().totalSoldierDead += GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("UAT").GetComponent<Country>().soldiersLost;
+				}
+			}
+			if (troopsFromRN > 0)
+			{
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Metal)
+				{
+					GameObject.Find ("RN").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToFE/4);
+					GameObject.Find ("RN").GetComponent<Country>().military -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("RN").GetComponent<Country>().totalSoldierDead += GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Water)
+				{
+					GameObject.Find ("RN").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToOF/4);
+					GameObject.Find ("RN").GetComponent<Country>().military -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("RN").GetComponent<Country>().totalSoldierDead += GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+				}
+				if (ownedResourceType == GameVariableManager.OwnedResourceType.Food)
+				{
+					GameObject.Find ("RN").GetComponent<Country>().soldiersLost = (int) Mathf.Ceil(troopsToUAT/4);
+					GameObject.Find ("RN").GetComponent<Country>().military -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					GameObject.Find ("RN").GetComponent<Country>().totalSoldierDead += GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+					troopsFromOF -= GameObject.Find ("RN").GetComponent<Country>().soldiersLost;
+				}
+			}
+
+			soldiersLost = (int) Mathf.Floor(reserveTroops/5);
+			reserveTroops -= soldiersLost;
+			military -= soldiersLost;
 		}
 		//kill population
 		if (occupyingTroops > 0 & reserveTroops > 0 & population > 2)
 		{
 			population -= 2;
+			if (troopsFromFE >0)
+			{
+				GameObject.Find("FE").GetComponent<Country>().collateralDamage += 2;
+			}
+			if (troopsFromOF >0)
+			{
+				GameObject.Find("OF").GetComponent<Country>().collateralDamage += 2;
+			}
+			if (troopsFromUAT >0)
+			{
+				GameObject.Find("UAT").GetComponent<Country>().collateralDamage += 2;
+			}
+			if (troopsFromRN >0)
+			{
+				GameObject.Find("RN").GetComponent<Country>().collateralDamage += 2;
+			}
 		}
 		else if (occupyingTroops > 0 & population > 5)
 		{
 			population -= 5;
+			if (troopsFromFE >0)
+			{
+				GameObject.Find("FE").GetComponent<Country>().collateralDamage += 5;
+			}
+			if (troopsFromOF >0)
+			{
+				GameObject.Find("OF").GetComponent<Country>().collateralDamage += 5;
+			}
+			if (troopsFromUAT >0)
+			{
+				GameObject.Find("UAT").GetComponent<Country>().collateralDamage += 5;
+			}
+			if (troopsFromRN >0)
+			{
+				GameObject.Find("RN").GetComponent<Country>().collateralDamage += 5;
+			}
 		}
 		//steal resources
 
