@@ -271,12 +271,16 @@ public class Country : MonoBehaviour {
 				metalToUAT = (int)((stockMetal - 75f) / 3 * (float)GameManager.instance.FE_UAT / 100f);
 				metalToRN = (int)((stockMetal - 75f) / 3 * (float)GameManager.instance.FE_RN / 100f);
 				int restOfMetal = stockMetal - 50 - metalToOF - metalToUAT - metalToRN;
+				if (restOfMetal > 0) {
 				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
-				metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
-				metalToMilitary = restOfMetal - metalToShip;
+					metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
+					metalToMilitary = restOfMetal - metalToShip;
+				}
 				int restOfOil = stockOil - 50 - oilToOF - oilToUAT - oilToRN;
-				oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
-				oilToMilitary = restOfOil - oilToShip;
+				if (restOfOil > 0) {
+					oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
+					oilToMilitary = restOfOil - oilToShip;
+				}
 				break;
 			case GameVariableManager.CountryType.OF:
 				waterToFE = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.FE_OF / 100f);
@@ -284,12 +288,15 @@ public class Country : MonoBehaviour {
 				waterToRN = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.OF_RN / 100f);
 				waterToShip = (int)(stockWater - 75 - waterToFE - waterToUAT - waterToRN);
 				restOfMetal = stockMetal - 50 - metalToFE - metalToUAT - metalToRN;
-				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
-				metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
-				metalToMilitary = restOfMetal - metalToShip;
+				if (restOfMetal > 0) {
+					metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
+					metalToMilitary = restOfMetal - metalToShip;
+				}
 				restOfOil = stockOil - 50 - oilToFE - oilToUAT - oilToRN;
-				oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
-				oilToMilitary = restOfOil - oilToShip;
+				if (restOfOil > 0) {
+					oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
+					oilToMilitary = restOfOil - oilToShip;
+				}
 				break;
 			case GameVariableManager.CountryType.UAT:
 				foodToFE = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.FE_UAT / 100f);
@@ -297,12 +304,15 @@ public class Country : MonoBehaviour {
 				foodToRN = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.UAT_RN / 100f);
 				foodToShip = (int)(stockFood - 75 - foodToFE - foodToOF - foodToRN);
 				restOfMetal = stockMetal - 50 - metalToFE - metalToOF - metalToRN;
-				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
-				metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
-				metalToMilitary = restOfMetal - metalToShip;
+				if (restOfMetal > 0) {
+					metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
+					metalToMilitary = restOfMetal - metalToShip;
+				}
 				restOfOil = stockOil - 50 - oilToFE - oilToOF - oilToRN;
-				oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
-				oilToMilitary = restOfOil - oilToShip;
+				if (restOfOil > 0) {
+					oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
+					oilToMilitary = restOfOil - oilToShip;
+				}
 				break;
 			case GameVariableManager.CountryType.RN:
 				oilToFE = (int)((stockOil - 75f) / 3 * (float)GameManager.instance.FE_RN / 100f);
@@ -310,14 +320,37 @@ public class Country : MonoBehaviour {
 				oilToUAT = (int)((stockOil - 75f) / 3 * (float)GameManager.instance.UAT_RN / 100f);
 				oilToShip = (int)(stockOil - 75 - oilToFE - oilToOF - oilToUAT);
 				restOfMetal = stockMetal - 50 - metalToFE - metalToOF - metalToUAT;
-				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
-				metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
-				metalToMilitary = restOfMetal - metalToShip;
+				if (restOfMetal > 0) {
+					metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
+					metalToMilitary = restOfMetal - metalToShip;
+				}
 				restOfOil = stockOil - 50 - oilToFE - oilToOF - oilToUAT;
-				oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
-				oilToMilitary = restOfOil - oilToShip;
+				if (restOfOil > 0) {
+					oilToShip = (int)(restOfOil * ((float)civilizationScale.civilizedMeter / 100f));
+					oilToMilitary = restOfOil - oilToShip;
+				}
 				break;
 			}
+
+			foodToFE = (foodToOF<0)? 0: foodToFE;
+			foodToOF = (foodToOF<0)? 0: foodToOF;
+			foodToUAT = (foodToOF<0)? 0: foodToUAT;
+			foodToRN = (foodToOF<0)? 0: foodToRN;
+
+			waterToFE = (waterToOF<0)? 0: waterToFE;
+			waterToOF = (waterToOF<0)? 0: waterToOF;
+			waterToUAT = (waterToOF<0)? 0: waterToUAT;
+			waterToRN = (waterToOF<0)? 0: waterToRN;
+
+			oilToFE = (oilToOF<0)? 0: oilToFE;
+			oilToOF = (oilToOF<0)? 0: oilToOF;
+			oilToUAT = (oilToOF<0)? 0: oilToUAT;
+			oilToRN = (oilToOF<0)? 0: oilToRN;
+
+			metalToFE = (metalToOF<0)? 0: metalToFE;
+			metalToOF = (metalToOF<0)? 0: metalToOF;
+			metalToUAT = (metalToOF<0)? 0: metalToUAT;
+			metalToRN = (metalToOF<0)? 0: metalToRN;
 
 			if (population < 75) {
 				int lowestResource = Mathf.Min (stockFood, stockWater, stockOil, stockMetal);

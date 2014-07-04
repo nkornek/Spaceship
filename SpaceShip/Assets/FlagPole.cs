@@ -18,16 +18,30 @@ public class FlagPole : MonoBehaviour {
 		RNtotal = RN.GetComponent<Country>().population+RN.GetComponent<Country>().military;
 
 
-	if (FEtotal > OFtotal && FEtotal > UATtotal && FEtotal > RNtotal){
-		render.sprite = winnerFlag[0];
-	} else if (OFtotal > FEtotal && OFtotal > UATtotal && OFtotal > RNtotal){
-		render.sprite = winnerFlag[1];
-	} else if (UATtotal > FEtotal && UATtotal > OFtotal && UATtotal > RNtotal){
-		render.sprite = winnerFlag[2];
-	} else if (RNtotal > FEtotal && RNtotal > OFtotal && RNtotal > UATtotal){
-		render.sprite = winnerFlag[3];
-	} else {
-		render.sprite = winnerFlag[4];
+	//	if (FEtotal > OFtotal && FEtotal > UATtotal && FEtotal > RNtotal){
+	//		render.sprite = winnerFlag[0];
+	//	} else if (OFtotal > FEtotal && OFtotal > UATtotal && OFtotal > RNtotal){
+	//		render.sprite = winnerFlag[1];
+	//	} else if (UATtotal > FEtotal && UATtotal > OFtotal && UATtotal > RNtotal){
+	//		render.sprite = winnerFlag[2];
+	//	} else if (RNtotal > FEtotal && RNtotal > OFtotal && RNtotal > UATtotal){
+	//		render.sprite = winnerFlag[3];
+	//	} else {
+	//		render.sprite = winnerFlag[4];
+	//	}
+		if (!GameManager.instance.WonCountry) {
+			render.sprite = winnerFlag[4];
+		}
+		else if (GameManager.instance.WonCountry.countryType == GameVariableManager.CountryType.FE){
+			render.sprite = winnerFlag[0];
+		} else if (GameManager.instance.WonCountry.countryType == GameVariableManager.CountryType.OF){
+			render.sprite = winnerFlag[1];
+		} else if (GameManager.instance.WonCountry.countryType == GameVariableManager.CountryType.UAT){
+			render.sprite = winnerFlag[2];
+		} else if (GameManager.instance.WonCountry.countryType == GameVariableManager.CountryType.RN){
+			render.sprite = winnerFlag[3];
+		} else {
+			render.sprite = winnerFlag[4];
+		}
 	}
-}
 }

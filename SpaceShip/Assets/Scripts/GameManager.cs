@@ -65,7 +65,13 @@ public class GameManager : MonoBehaviour {
 		print (_pInstance.FE_UAT);
 		print (_pInstance.OF_UAT);
 		print (_pInstance.UAT_RN);
+		if (_pInstance.gameState != GameVariableManager.GameState.StartGame && _pInstance.player.country.population <= 0) {
+			_pInstance.gameState = GameVariableManager.GameState.EndGame;
+		}
 		switch (_pInstance.gameState) {
+		case GameVariableManager.GameState.LookAtStar:
+			CheckWinningCountry ();
+			break;
 		case GameVariableManager.GameState.TransferResources:
 			TransferResources ();
 			if (_pInstance.shipCompleted) {
@@ -76,30 +82,30 @@ public class GameManager : MonoBehaviour {
 					UATScore = _pInstance.FE_UAT + _pInstance.OF_UAT + _pInstance.UAT_RN;
 					RNScore = _pInstance.FE_RN + _pInstance.OF_RN + _pInstance.UAT_RN;
 					if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == FEScore) {
-						WonCountry = FE;
+						_pInstance.WonCountry = FE;
 					}
 					else if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == OFScore) {
-						WonCountry = OF;
+						_pInstance.WonCountry = OF;
 					}
 					else if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == UATScore) {
-						WonCountry = UAT;
+						_pInstance.WonCountry = UAT;
 					}
 					else if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == RNScore) {
-						WonCountry = RN;
+						_pInstance.WonCountry = RN;
 					}
 				}
 				else {
 					if (Mathf.Max (FE.military , OF.military, UAT.military, RN.military) == FE.military) {
-						WonCountry = FE;
+						_pInstance.WonCountry = FE;
 					}
 					else if (Mathf.Max (FE.military , OF.military, UAT.military, RN.military) == OF.military) {
-						WonCountry = OF;
+						_pInstance.WonCountry = OF;
 					}
 					else if (Mathf.Max (FE.military , OF.military, UAT.military, RN.military) == UAT.military) {
-						WonCountry = UAT;
+						_pInstance.WonCountry = UAT;
 					}
 					else if (Mathf.Max (FE.military , OF.military, UAT.military, RN.military) == RN.military) {
-						WonCountry = RN;
+						_pInstance.WonCountry = RN;
 					}
 				}
 				_pInstance.gameState = GameVariableManager.GameState.EndGame;
@@ -112,6 +118,44 @@ public class GameManager : MonoBehaviour {
 			UpdateRelationShips();
 			_pInstance.gameState = GameVariableManager.GameState.LookAtStar;
 			break;
+		}
+	}
+
+
+	//Check winning country
+	void CheckWinningCountry () {
+		if (_pInstance.civilized) {
+			int FEScore, OFScore, UATScore, RNScore;
+			FEScore = _pInstance.FE_OF + _pInstance.FE_RN + _pInstance.FE_UAT;
+			OFScore = _pInstance.OF_RN + _pInstance.OF_UAT + _pInstance.FE_OF;
+			UATScore = _pInstance.FE_UAT + _pInstance.OF_UAT + _pInstance.UAT_RN;
+			RNScore = _pInstance.FE_RN + _pInstance.OF_RN + _pInstance.UAT_RN;
+			if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == FEScore) {
+				_pInstance.WonCountry = _pInstance.FE;
+			}
+			else if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == OFScore) {
+				_pInstance.WonCountry = _pInstance.OF;
+			}
+			else if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == UATScore) {
+				_pInstance.WonCountry = _pInstance.UAT;
+			}
+			else if (Mathf.Max(FEScore, OFScore, UATScore, RNScore) == RNScore) {
+				_pInstance.WonCountry = _pInstance.RN;
+			}
+		}
+		else {
+			if (Mathf.Max (_pInstance.FE.military , _pInstance.OF.military, _pInstance.UAT.military, _pInstance.RN.military) == _pInstance.FE.military) {
+				_pInstance.WonCountry = _pInstance.FE;
+			}
+			else if (Mathf.Max (_pInstance.FE.military , _pInstance.OF.military, _pInstance.UAT.military, _pInstance.RN.military) == _pInstance.OF.military) {
+				_pInstance.WonCountry = _pInstance.OF;
+			}
+			else if (Mathf.Max (_pInstance.FE.military , _pInstance.OF.military, _pInstance.UAT.military, _pInstance.RN.military) == _pInstance.UAT.military) {
+				_pInstance.WonCountry = _pInstance.UAT;
+			}
+			else if (Mathf.Max (_pInstance.FE.military , _pInstance.OF.military, _pInstance.UAT.military, _pInstance.RN.military) == _pInstance.RN.military) {
+				_pInstance.WonCountry = _pInstance.RN;
+			}
 		}
 	}
 
