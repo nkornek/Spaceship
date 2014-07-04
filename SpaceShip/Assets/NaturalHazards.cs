@@ -124,13 +124,13 @@ public class NaturalHazards : MonoBehaviour {
 				if( (hazardName == "Drought")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Water) )
 			{
 				hazardSentence += "was hit by an unseasonal Drought and had to consume half \n of their water stock just to stay alive."+ "\n"
-					+"The Oceanic Federation will produce 1/2 the amount of water for 3 weeks.";
+					+"The Oceanic Federation's reservoirs are running low, and they will \n produce only half of the usual amount of water for 3 weeks.";
 			}
 			else
 				if( (hazardName == "Tsunami")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil) )
 			{
-				hazardSentence += "lost 1/2 their oil stock."+ "\n"
-					+"Republic of Naphthalia will produce 1/2 the amount of oil for 3 weeks.";
+				hazardSentence += "was struck by the largest Tsunami yet recorded. \n Their fuel storage was nearly destroyed, and half of \n their oil stock was lost."+ "\n"
+					+"The Republic of Naphthalia's oil fields were also \n  hit by  the wave, and will produce half of the \n usual amount of oil for 3 weeks.";
 			}
 			else
 				if( (hazardName == "Heatwave")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Metal) )
