@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour {
 	public int FE_RN, FE_OF, FE_UAT, OF_UAT, OF_RN, UAT_RN;
 	//If the ship is completed and civilized or not
 	public bool shipCompleted, civilized;
+	//Civilization meter
+	public WarOrPeaceBar CivilizationScale;
 
 
 
@@ -52,13 +54,17 @@ public class GameManager : MonoBehaviour {
 		_pInstance.FE_OF = _pInstance.FE_RN = _pInstance.FE_UAT = _pInstance.OF_RN =
 			_pInstance.OF_UAT = _pInstance.UAT_RN = 100;
 		_pInstance.civilized = true;
+		_pInstance.CivilizationScale = GameObject.Find ("Civilization_Scale").GetComponent<WarOrPeaceBar> ();
 	}
 
 
 	// Update is called once per frame
 	void Update () {
-		print (_pInstance.weekNumber);
-		print (_pInstance.gameState);
+		//print (_pInstance.weekNumber);
+		//print (_pInstance.gameState);
+		print (_pInstance.FE_UAT);
+		print (_pInstance.OF_UAT);
+		print (_pInstance.UAT_RN);
 		switch (_pInstance.gameState) {
 		case GameVariableManager.GameState.TransferResources:
 			TransferResources ();
@@ -235,22 +241,22 @@ public class GameManager : MonoBehaviour {
 
 	//Update the relationships between the countries
 	void UpdateRelationShips () {
-		if (_pInstance.FE.metalToOF < 50 || _pInstance.OF.waterToFE < 50) {
-			_pInstance.FE_OF -= 5;
+		if (_pInstance.FE.metalToOF < 50 || _pInstance.OF.waterToFE < 50 || _pInstance.FE.troopsFromOF > 0 || _pInstance.OF.troopsFromFE > 0) {
+			_pInstance.FE_OF -= 10;
 			if (_pInstance.FE_OF < 0) {
 				_pInstance.FE_OF = 0;
 			}
 		}
 		else if (_pInstance.FE.metalToOF > 75 || _pInstance.OF.waterToFE > 75) {
-				_pInstance.FE_OF += 5;
+				_pInstance.FE_OF += 10;
 
 			if (_pInstance.FE_OF > 100) {
 				_pInstance.FE_OF = 100;
 			}
 		}
-		if (_pInstance.FE.metalToUAT < 50 || _pInstance.UAT.foodToFE < 50) {
+		if (_pInstance.FE.metalToUAT < 50 || _pInstance.UAT.foodToFE < 50 || _pInstance.FE.troopsFromUAT > 0 || _pInstance.UAT.troopsFromFE > 0) {
 
-				_pInstance.FE_UAT -= 5;
+				_pInstance.FE_UAT -= 10;
 
 			if (_pInstance.FE_UAT < 0) {
 				_pInstance.FE_UAT = 0;
@@ -258,15 +264,15 @@ public class GameManager : MonoBehaviour {
 		}
 		else if (_pInstance.FE.metalToUAT > 75 || _pInstance.UAT.foodToFE > 75) {
 
-				_pInstance.FE_UAT += 5;
+				_pInstance.FE_UAT += 10;
 
 			if (_pInstance.FE_UAT > 100) {
 				_pInstance.FE_UAT = 100;
 			}
 		}
-		if (_pInstance.FE.metalToRN < 50 || _pInstance.RN.oilToFE < 50) {
+		if (_pInstance.FE.metalToRN < 50 || _pInstance.RN.oilToFE < 50 || _pInstance.FE.troopsFromRN > 0 || _pInstance.RN.troopsFromFE > 0) {
 
-				_pInstance.FE_RN -= 5;
+				_pInstance.FE_RN -= 10;
 
 			if (_pInstance.FE_RN < 0) {
 				_pInstance.FE_RN = 0;
@@ -274,15 +280,15 @@ public class GameManager : MonoBehaviour {
 		}
 		else if (_pInstance.FE.metalToRN > 75 || _pInstance.RN.oilToFE > 75) {
 
-				_pInstance.FE_RN += 5;
+				_pInstance.FE_RN += 10;
 
 			if (_pInstance.FE_RN > 100) {
 				_pInstance.FE_RN = 100;
 			}
 		}
-		if (_pInstance.OF.waterToRN < 50 || _pInstance.RN.oilToOF < 50) {
+		if (_pInstance.OF.waterToRN < 50 || _pInstance.RN.oilToOF < 50 || _pInstance.OF.troopsFromRN > 0 || _pInstance.RN.troopsFromOF > 0) {
 
-				_pInstance.OF_RN -= 5;
+				_pInstance.OF_RN -= 10;
 
 			if (_pInstance.OF_RN < 0) {
 				_pInstance.OF_RN = 0;
@@ -290,15 +296,15 @@ public class GameManager : MonoBehaviour {
 		}
 		else if (_pInstance.OF.waterToRN > 75 || _pInstance.RN.oilToOF > 75) {
 
-				_pInstance.OF_RN += 5;
+				_pInstance.OF_RN += 10;
 
 			if (_pInstance.OF_RN > 100) {
 				_pInstance.OF_RN = 100;
 			}
 		}
-		if (_pInstance.OF.waterToUAT < 50 || _pInstance.UAT.foodToOF < 50) {
+		if (_pInstance.OF.waterToUAT < 50 || _pInstance.UAT.foodToOF < 50 || _pInstance.OF.troopsFromUAT > 0 || _pInstance.UAT.troopsFromOF > 0) {
 
-				_pInstance.OF_UAT -= 5;
+				_pInstance.OF_UAT -= 10;
 
 			if (_pInstance.OF_UAT < 0) {
 				_pInstance.OF_UAT = 0;
@@ -306,15 +312,15 @@ public class GameManager : MonoBehaviour {
 		}
 		else if (_pInstance.OF.waterToUAT > 75 || _pInstance.UAT.foodToOF > 75) {
 
-				_pInstance.OF_UAT += 5;
+				_pInstance.OF_UAT += 10;
 
 			if (_pInstance.OF_UAT > 100) {
 				_pInstance.OF_UAT = 100;
 			}
 		}
-		if (_pInstance.UAT.foodToRN < 50 || _pInstance.RN.oilToUAT < 50) {
+		if (_pInstance.UAT.foodToRN < 50 || _pInstance.RN.oilToUAT < 50  || _pInstance.UAT.troopsFromRN > 0 || _pInstance.RN.troopsFromUAT > 0) {
 
-				_pInstance.UAT_RN -= 5;
+				_pInstance.UAT_RN -= 10;
 
 			if (_pInstance.UAT_RN < 0) {
 				_pInstance.UAT_RN = 0;
@@ -322,7 +328,7 @@ public class GameManager : MonoBehaviour {
 		}
 		else if (_pInstance.UAT.foodToRN > 75 || _pInstance.RN.oilToUAT > 75) {
 
-				_pInstance.UAT_RN += 5;
+				_pInstance.UAT_RN += 10;
 
 			if (_pInstance.UAT_RN > 100) {
 				_pInstance.UAT_RN = 100;
