@@ -3,7 +3,6 @@ using System.Collections;
 
 public class NaturalHazards : MonoBehaviour {
 
-
 	public	Country []player;
 	public int totalPlayers; //how many countries
 	public int hazardOfTheWeek; // range 0-8, 0 meaning safe week
@@ -20,7 +19,6 @@ public class NaturalHazards : MonoBehaviour {
 	public int numWater;
 	bool hazardOccured;
 
-
 	// Use this for initialization
 	void Start () {
 		//Random.seed = (int)(Time.timeSinceLevelLoad*10);
@@ -29,8 +27,6 @@ public class NaturalHazards : MonoBehaviour {
 		numFood= 0;
 		numMetal= 0;
 		numWater = 0;
-
-
 		hazardSentence = " ";	
 		totalPlayers = 4;
 		hazardOfTheWeek = 0; // default, nothing happens
@@ -216,19 +212,19 @@ public class NaturalHazards : MonoBehaviour {
 	public void setHazard(){
 		int disasterHappen, die;
 		if (GameManager.instance.weekNumber < 5) {
-			disasterHappen = Random.Range (1, 15);
-		}
-		else if (GameManager.instance.weekNumber < 10) {
-			disasterHappen = Random.Range (1, 7);
-		}
-		else if (GameManager.instance.weekNumber < 20) {
 			disasterHappen = Random.Range (1, 5);
 		}
-		else {
+		else if (GameManager.instance.weekNumber < 10) {
 			disasterHappen = Random.Range (1, 3);
 		}
+		else if (GameManager.instance.weekNumber < 20) {
+			disasterHappen = Random.Range (1, 2);
+		}
+		else {
+			disasterHappen = Random.Range (1, 2);
+		}
 		if (disasterHappen == 1) {
-			die = Random.Range (1, 17);
+			die = Random.Range (1, 14);
 		}
 		else {
 			die = 0;
@@ -249,11 +245,11 @@ public class NaturalHazards : MonoBehaviour {
 			case 9: Hurricane(); break;
 			case 10: StagnantWater(); break;
 			case 11: SolarFlare(); break;
-			case 12: ContaminatedCrops(); break; //Not implemented
-			case 13: MassLooting(); break; //Not implemented
-			case 14: Riot(); break;    //Not implemented
-			case 15: Revolt(); break;
-			case 16: Tsunami(); break;
+		//	case 12: ContaminatedCrops(); break; //Not implemented
+		//	case 13: MassLooting(); break; //Not implemented
+		//	case 14: Riot(); break;    //Not implemented
+			case 13: Revolt(); break;
+			case 14: Tsunami(); break;
 			default: Peace(); break;
 		}
 	}
@@ -418,17 +414,16 @@ public class NaturalHazards : MonoBehaviour {
 		case 9: hazardName = "Hurricane"; break;
 		case 10: hazardName = "Stagnant Water"; break;
 		case 11: hazardName = "Solar Flare"; break;
-		case 12: hazardName = "Contaminated Crops"; break;
-		case 13: hazardName = "Mass Looting"; break;
-		case 14: hazardName = "Riot"; break;
-		case 15: hazardName = "Revolt"; break;
-		case 16: hazardName = "Tsunami";break;
+		//case 12: hazardName = "Contaminated Crops"; break; //not done yet
+		//case 13: hazardName = "Mass Looting"; break; //not done yet
+		//case 14: hazardName = "Riot"; break; // not done yet
+		case 12: hazardName = "Revolt"; break;
+		case 13: hazardName = "Tsunami";break;
 
 		default: hazardName = "Quiet"; break;
 		}
 	}
 		
-
 	void TsunamiDamage(Country r, Country c)
 	{
 		r.stockOil -= (r.stockOil/2);
@@ -443,7 +438,6 @@ public class NaturalHazards : MonoBehaviour {
 		r.stockFood -= (r.stockFood/2);
 		c.stockFood -= (c.stockFood/2);
 	}
-
 	
 	void DroughtDamage(Country r, Country w) 
 	{
@@ -453,24 +447,21 @@ public class NaturalHazards : MonoBehaviour {
 		w.limitedPercentage = 0.5f;
 
 	}
-
-	
+		
 	void VolcanoDamage(Country r1, Country r2)
 	{
 		r2.stockMetal -= (r2.stockMetal/2);
 		r1.stockMetal -= (r1.stockMetal/2);
 	}
-
 	
 	void EarthQuakeDamage(Country m) //only metal country
 	{
 		//modifier to add where country prod. only 1 metal per country. 
 	//ex: 100 ppl, prod. 100 metal
 		m.limitHarvestRateCounter = 4;
-		m.limitedPercentage = 0.25f;
+		m.limitedPercentage = 0.75f;
 	}
 
-	
 	void PlagueDamage(Country r1, Country r2, Country r3) // 3 random countries lose 1/2 population
 	{
 		r1.population -= (r1.population/2);
@@ -482,8 +473,7 @@ public class NaturalHazards : MonoBehaviour {
 		r1.stockWater -= (r1.stockWater/2);	
 		r2.stockWater -= (r2.stockWater/2);
 	}
-
-	
+		
 	void FloodDamage(Country r1, Country f){
 		r1.stockFood -= (r1.stockFood/2); // random country loses 1/2 their food supply
 		//modifier: food prod. country will prod. 1/2 their amount of food for 3 weeks
@@ -536,7 +526,6 @@ public class NaturalHazards : MonoBehaviour {
 		r2.limitHarvestRateCounter = 4;
 	}
 
-
 	//algorithm to make sure each array has unique value for more (number of people between 2-3) 
 	public int [] determineAffectedPlayers(int nOfPl){
 
@@ -551,7 +540,6 @@ public class NaturalHazards : MonoBehaviour {
 			{
 				tempPpl[i] = Random.Range(0,4);
 			}
-
 			//check if there are duplicate numbers
 			if (tempPpl.Length > 1) {
 				for(int i = 0; i < tempPpl.Length; i++)
@@ -575,8 +563,5 @@ public class NaturalHazards : MonoBehaviour {
 		//if ppl.length = 0, it will be an empty array
 		return tempPpl;
 	}
-
-
-
 
 }
