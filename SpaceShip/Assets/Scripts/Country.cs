@@ -264,7 +264,7 @@ public class Country : MonoBehaviour {
 
 	//Calculate how to distribute the resources
 	void DistributeResources () {
-		if (isAI) {
+		if (isAI && population > 0) {
 			switch (countryType) {
 			case GameVariableManager.CountryType.FE:
 				metalToOF = (int)((stockMetal - 75f) / 3 * (float)GameManager.instance.FE_OF / 100f);
