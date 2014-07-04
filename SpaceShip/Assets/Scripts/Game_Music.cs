@@ -3,11 +3,12 @@ using System.Collections;
 
 public class Game_Music : MonoBehaviour {
 
-	public AudioClip weeks1, weeks2, weeks3, weeks4, victM, victC;
+	public AudioClip weeks1, weeks2, weeks3, weeks4, victM, victC, Defeat;
 	public AudioSource gameMusic;
 	public bool canfade;
 	public int weekNum;
 	public bool canSwitch;
+	public bool win, war;
 
 	// Use this for initialization
 	void Start () {
@@ -61,11 +62,7 @@ public class Game_Music : MonoBehaviour {
 			}
 			else if (weekNum == 21)
 			{
-				/*
-				 * change music based on either Civilized or Military victory
-				ChangeMusic(4);
-				ChangeMusic(5);
-				*/
+
 			}
 		}
 
@@ -106,6 +103,26 @@ public class Game_Music : MonoBehaviour {
 			canSwitch = false;
 			audio.Play ();
 			break;
+		case 6:
+			gameMusic.clip = Defeat;
+			canfade = false;
+			canSwitch = false;
+			audio.Play ();
+			break;
+		}
+	}
+	void endMusic(){
+		if (win & !war)
+		{
+			ChangeMusic(4);
+		}
+		else if (win & war)
+		{
+			ChangeMusic(5);
+		}
+		else if (!win)
+		{
+			ChangeMusic(6);
 		}
 	}
 }
