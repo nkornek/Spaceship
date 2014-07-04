@@ -333,15 +333,17 @@ public class Country : MonoBehaviour {
 				}
 				else if (lowestResource == stockOil) {
 					if (ownedResourceType != GameVariableManager.OwnedResourceType.Oil) {
-
+						troopsToRN = reserveTroops;
 					}
 				}
 				else if (lowestResource == stockMetal) {
 					if (ownedResourceType != GameVariableManager.OwnedResourceType.Metal) {
-						
+						troopsToFE = reserveTroops;
 					}
 				}
-
+			}
+			else {
+				troopsToFE = troopsToOF = troopsToRN = troopsToUAT = 0;
 			}
 		}
 	}

@@ -49,6 +49,12 @@ public class WarOrPeaceBar : MonoBehaviour {
 
 	//Update the civilization scale according to the relationships
 	public void updateBar() {
+		if (civilizedMeter > 100) {
+			civilizedMeter = 100;
+		}
+		else if (civilizedMeter < 0) {
+			civilizedMeter = 0;
+		}
 		if (GameManager.instance.FE_OF < 15 || GameManager.instance.FE_RN < 15 ||
 		    GameManager.instance.FE_UAT < 15 || GameManager.instance.OF_UAT < 15 ||
 		    GameManager.instance.OF_RN < 15 || GameManager.instance.UAT_RN < 15) {
@@ -63,6 +69,14 @@ public class WarOrPeaceBar : MonoBehaviour {
 		         GameManager.instance.FE_UAT < 50 || GameManager.instance.OF_UAT < 50 ||
 		         GameManager.instance.OF_RN < 50 || GameManager.instance.UAT_RN < 50) {
 			civilizedMeter -= 3;
+		}
+		else if (GameManager.instance.FE_OF < 75 || GameManager.instance.FE_RN < 75 ||
+		         GameManager.instance.FE_UAT < 75 || GameManager.instance.OF_UAT < 75 ||
+		         GameManager.instance.OF_RN < 75 || GameManager.instance.UAT_RN < 75) {
+			civilizedMeter -= 2;
+		}
+		else {
+			civilizedMeter += 5;
 		}
 	}
 
