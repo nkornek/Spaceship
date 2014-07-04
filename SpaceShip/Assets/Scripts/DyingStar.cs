@@ -48,8 +48,14 @@ public class DyingStar : MonoBehaviour {
 			if (!coroutineStarted) {
 				coroutineStarted = true;
 				StartCoroutine(backToLand());
-				UICam.SetActive(false);
 			}
+		}
+
+		if (GameManager.instance.gameState == GameVariableManager.GameState.Management) {
+			UICam.SetActive(true);
+		}
+		else {
+			UICam.SetActive(false);
 		}
 	}
 
@@ -64,7 +70,7 @@ public class DyingStar : MonoBehaviour {
 		//Invoke ("resetUI", 3);
 		yield return new WaitForSeconds(3.0f);
 		GameManager.instance.gameState = GameVariableManager.GameState.Crisis;
-		UICam.SetActive(true);
+		//UICam.SetActive(true);
 		coroutineStarted = false;
 	}
 
