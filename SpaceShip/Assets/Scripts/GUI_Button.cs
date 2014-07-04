@@ -6,6 +6,7 @@ public class GUI_Button : MonoBehaviour {
 	//Fields
 	public GUITexture buttonTexture;
 	public GUITexture hoverTexture;
+	public GUITexture holdTexture;
 	public GUIText buttonText;
 	public bool enabled, clicked, hold, hovered;
 
@@ -22,6 +23,9 @@ public class GUI_Button : MonoBehaviour {
 		CheckClickedHold ();
 		if (hoverTexture) {
 			Hover();
+		}
+		if (hoverTexture){
+			CheckClickedHold();
 		}
 //		if (clicked) {
 //			print ("Clicked");
@@ -57,17 +61,21 @@ public class GUI_Button : MonoBehaviour {
 		if (enabled && buttonTexture.HitTest (Input.mousePosition)
 		    && Input.GetMouseButtonDown(0)) {
 			clicked = true;
+			holdTexture.enabled = true;
 		}
 		else {
 			clicked = false;
+			holdTexture.enabled = false;
 		}
 
 		if (enabled && buttonTexture.HitTest (Input.mousePosition)
 		    && Input.GetMouseButton(0)) {
 			hold = true;
+			holdTexture.enabled = true;
 		}
 		else {
 			hold = false;
+			holdTexture.enabled = false;
 		}
 	}
 
