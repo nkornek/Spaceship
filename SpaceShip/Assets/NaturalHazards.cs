@@ -64,43 +64,43 @@ public class NaturalHazards : MonoBehaviour {
 		{
 			switch(player[arrIndex[0]].countryType)
 			{
-			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire and " ;break;
-			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation and " ; break;
-			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories and " ; break;
-			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia and " ; break;
+			case GameVariableManager.CountryType.FE: hazardSentence += "The Ferrous Empire and " ;break;
+			case GameVariableManager.CountryType.OF: hazardSentence += "The Oceanic Federation and " ; break;
+			case GameVariableManager.CountryType.UAT: hazardSentence += "The United Agrarian Territories and " ; break;
+			case GameVariableManager.CountryType.RN: hazardSentence += "The Republic of Naphthalia and " ; break;
 			}
 
 			switch(player[arrIndex[1]].countryType)
 			{
-			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire "  ;break;
-			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation " ; break;
-			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories " ; break;
-			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia " ; break;
+			case GameVariableManager.CountryType.FE: hazardSentence += "the Ferrous Empire "  ;break;
+			case GameVariableManager.CountryType.OF: hazardSentence += "the Oceanic Federation " ; break;
+			case GameVariableManager.CountryType.UAT: hazardSentence += "the United Agrarian Territories " ; break;
+			case GameVariableManager.CountryType.RN: hazardSentence += "the Republic of Naphthalia " ; break;
 			}
 			if(hazardName == "Tornado")
 			{
-				hazardSentence+= "was stuck \n by a Tornado. Both have lost 1/2 their food supply.";
+				hazardSentence+= "were ravaged \n by a massive Tornado which carried away half of their food supply.";
 			}
 			else
 			if(hazardName == "Hurricane")
 			{
 
-				hazardSentence+= " was stuck \n by a Hurricane. Both have lost 1/2 their oil supply.";
+				hazardSentence+= " have been struck \n by a category 5 Hurricane. Catastrophic infrastructure damage \n cost them half of their oil supply.";
 			}
 			else
 				if(hazardName == "Volcano Eruption")
 			{
 
-				hazardSentence+= " sufferred from \n a Volcanic Eruption. Both have lost 1/2 their metal supply.";
+				hazardSentence+= " experienced \n unprecedented Volcanic activity. The intense heat has melted half of their metal supply.";
 			}
 			else
 				if(hazardName == "Wildfire"){
-				hazardSentence+= " sufferred from \n a Wildfire. Both have lost 1/2 their water supply.";
+				hazardSentence+= " watched as their \n forests burned in a Wildfire. It took each of them half of their \n Water supply to extinguish the inferno.";
 			}
 			else
 				if(hazardName == "Revolt")
 			{
-				hazardSentence += " is going through a Revolt."+'\n'+"They will produce 50% of their resources \n for 4 weeks.";
+				hazardSentence += " is going through a Revolt."+'\n'+"Half of their workers have gone on strike \n for 4 weeks.";
 			}
 		}
 
@@ -109,22 +109,22 @@ public class NaturalHazards : MonoBehaviour {
 		{
 			switch(player[arrIndex[0]].countryType)
 			{
-			case GameVariableManager.CountryType.FE: hazardSentence += "Ferrous Empire " ;break;
-			case GameVariableManager.CountryType.UAT: hazardSentence += "United Agrarian Territories " ; break;
-			case GameVariableManager.CountryType.OF: hazardSentence += "Oceanic Federation " ; break;
-			case GameVariableManager.CountryType.RN: hazardSentence += "Republic of Naphthalia " ; break;
+			case GameVariableManager.CountryType.FE: hazardSentence += "The Ferrous Empire " ;break;
+			case GameVariableManager.CountryType.UAT: hazardSentence += "The United Agrarian Territories " ; break;
+			case GameVariableManager.CountryType.OF: hazardSentence += "The Oceanic Federation " ; break;
+			case GameVariableManager.CountryType.RN: hazardSentence += "The Republic of Naphthalia " ; break;
 			}
 
 			if( (hazardName == "Flood")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Food) )
 			{
-				hazardSentence += "lost 1/2 their food stock."+ "\n"
-					+"United Agrarian Territories will produce 1/2 the amount of food \n for 3 weeks.";
+				hazardSentence += "lost half of their food stock to the rising tides."+ "\n"
+					+"Many of the United Agrarian Territories' fields were flooded and \n will produce only half of the usual amount of food \n for 3 weeks.";
 			}
 			else
 				if( (hazardName == "Drought")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Water) )
 			{
-				hazardSentence += "lost 1/2 their water stock."+ "\n"
-					+"Oceanic Federation will produce 1/2 the amount of water for 3 weeks.";
+				hazardSentence += "was hit by an unseasonal Drought and had to consume half \n of their water stock just to stay alive."+ "\n"
+					+"The Oceanic Federation will produce 1/2 the amount of water for 3 weeks.";
 			}
 			else
 				if( (hazardName == "Tsunami")) //&& (player[arrIndex[1]].ownedResourceType == GameVariableManager.OwnedResourceType.Oil) )
