@@ -5,6 +5,7 @@ public class UI_Manager : MonoBehaviour {
 
 	//Fields
 	public GameObject foodBar, waterBar, oilBar, metalBar;
+	public GUIText foodUpdate, waterUpdate, oilUpdate, metalUpdate;
 	public PlayerScript player;
 	public float resourceCap, resourceBarCap;
 	public float foodReserve, waterReserve, oilReserve, metalReserve ;
@@ -92,6 +93,11 @@ public class UI_Manager : MonoBehaviour {
 		Vector3 metalBarScale = metalBar.transform.localScale;
 		metalBarScale.y = (float)metalReserve / resourceCap * resourceBarCap;
 		metalBar.transform.localScale = metalBarScale;
+
+		foodUpdate.text = foodReserve.ToString();
+		waterUpdate.text = waterReserve.ToString();
+		oilUpdate.text = oilReserve.ToString();
+		metalUpdate.text = metalReserve.ToString();
 		
 //		Vector3 populationBarScale = player.country.populationBar.transform.localScale;
 //		populationBarScale.y = (float)player.country.population / player.country.populationCap * player.country.populationBarCap;
