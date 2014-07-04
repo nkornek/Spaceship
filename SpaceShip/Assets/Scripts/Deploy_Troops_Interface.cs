@@ -6,13 +6,13 @@ public class Deploy_Troops_Interface : MonoBehaviour {
 	public Country chosenCountry;
 	public GUI_Button endDeploy;
 	public GUI_Button c1Inc, c1Dec, c2Inc, c2Dec, c3Inc, c3Dec;
-	public GUIText c1Label, c2Label, c3Label;
 	public GUIText troops1, troops2, troops3, troopReserves, reserveLabel, screenTitle;
 	public GameObject c1, c2, c3;
 	public GUITexture background;
 	public int C1, C2, C3;
 	public int troopsToC1, troopsToC2, troopsToC3;
 	public int sentTroops, reserveTroops;
+	public GUITexture cntryPicC1, cntryPicC2, cntryPicC3;
 
 	// Use this for initialization
 	void Start () {
@@ -38,6 +38,55 @@ public class Deploy_Troops_Interface : MonoBehaviour {
 				C1 = GameObject.Find("Player").GetComponent<PlayerScript>().C1;
 				C2 = GameObject.Find("Player").GetComponent<PlayerScript>().C2;
 				C3 = GameObject.Find("Player").GetComponent<PlayerScript>().C3;
+
+				if (C1 == 1)
+				{
+					cntryPicC1.texture = cntryPicC1.GetComponent<Pic>().Textures[0];
+				}
+				else if (C1 == 2)
+				{
+					cntryPicC1.texture = cntryPicC1.GetComponent<Pic>().Textures[1];
+				}
+				else if (C1 == 3)
+				{
+					cntryPicC1.texture = cntryPicC1.GetComponent<Pic>().Textures[3];
+				}
+				else if (C1 == 4)
+				{
+					cntryPicC1.texture = cntryPicC1.GetComponent<Pic>().Textures[2];
+				}
+				if (C2 == 1)
+				{
+					cntryPicC2.texture = cntryPicC2.GetComponent<Pic>().Textures[0];
+				}
+				else if (C2 == 2)
+				{
+					cntryPicC2.texture = cntryPicC2.GetComponent<Pic>().Textures[1];
+				}
+				else if (C2 == 3)
+				{
+					cntryPicC2.texture = cntryPicC2.GetComponent<Pic>().Textures[3];
+				}
+				else if (C2 == 4)
+				{
+					cntryPicC2.texture = cntryPicC2.GetComponent<Pic>().Textures[2];
+				}
+				if (C3 == 1)
+				{
+					cntryPicC3.texture = cntryPicC3.GetComponent<Pic>().Textures[0];
+				}
+				else if (C3 == 2)
+				{
+					cntryPicC3.texture = cntryPicC3.GetComponent<Pic>().Textures[1];
+				}
+				else if (C3 == 3)
+				{
+					cntryPicC3.texture = cntryPicC3.GetComponent<Pic>().Textures[3];
+				}
+				else if (C3 == 4)
+				{
+					cntryPicC3.texture = cntryPicC3.GetComponent<Pic>().Textures[2];
+				}
 			}
 
 			//calculate maximum

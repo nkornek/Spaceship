@@ -11,6 +11,6 @@ public class Splash : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	if (Input.anyKey)
-			Application.LoadLevel ("Test"); 
+			Application.LoadLevel ("Main"); 
 	}
 }
