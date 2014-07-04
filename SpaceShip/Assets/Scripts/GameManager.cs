@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour {
 	public int FE_RN, FE_OF, FE_UAT, OF_UAT, OF_RN, UAT_RN;
 	//If the ship is completed and civilized or not
 	public bool shipCompleted, civilized;
+	//Civilization meter
+	public WarOrPeaceBar CivilizationScale;
 
 
 
@@ -52,6 +54,7 @@ public class GameManager : MonoBehaviour {
 		_pInstance.FE_OF = _pInstance.FE_RN = _pInstance.FE_UAT = _pInstance.OF_RN =
 			_pInstance.OF_UAT = _pInstance.UAT_RN = 100;
 		_pInstance.civilized = true;
+		_pInstance.CivilizationScale = GameObject.Find ("Civilization_Scale").GetComponent<WarOrPeaceBar> ();
 	}
 
 
