@@ -9,6 +9,7 @@ public class Game_Music : MonoBehaviour {
 	public int weekNum;
 	public bool canSwitch;
 	public bool win, war;
+	public bool gameOver;
 
 	// Use this for initialization
 	void Start () {
@@ -18,12 +19,19 @@ public class Game_Music : MonoBehaviour {
 		audio.volume = 0.0f;
 		audio.Play ();
 		audio.loop = true;
+		gameOver = false;
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		weekNum = GameObject.Find ("_GameManager").GetComponent<GameManager>().weekNumber;
+		if (gameOver == true)
+		{
+			war = !GameManager.instance.civilized;
+			win = (GameManager.instance.WonCountry == GameManager.instance.player.country) ? true : false;
+			endMusic();
+		}
 
 	//fade out and switch tracks
 	if (weekNum == 5 || weekNum == 10 || weekNum == 15 || weekNum == 21)
