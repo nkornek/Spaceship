@@ -25,7 +25,14 @@ public class BeginWeekReport : MonoBehaviour {
 				"\n\t\t\tPopulation Change: " + player.country.populationChange + 
 					"\n\t\t\tMilitary Built: " + player.country.militaryBuilt;
 			if (reportPrompt.clicked) {
-				GameManager.instance.gameState = GameVariableManager.GameState.Management;
+				if (player.country.sentTroops == 0)
+				{
+					GameManager.instance.gameState = GameVariableManager.GameState.Management;
+				}
+				else
+				{
+					GameManager.instance.gameState = GameVariableManager.GameState.Combat;
+				}
 			}
 		}
 		else {

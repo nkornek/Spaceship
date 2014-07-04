@@ -219,17 +219,17 @@ public class GameManager : MonoBehaviour {
 		_pInstance.FE.troopsFromUAT = _pInstance.UAT.troopsToFE;
 		_pInstance.FE.troopsFromRN = _pInstance.RN.troopsToFE;
 
-		_pInstance.OF.troopsFromOF = _pInstance.FE.troopsToOF;
+		_pInstance.OF.troopsFromFE = _pInstance.FE.troopsToOF;
 		_pInstance.OF.troopsFromUAT = _pInstance.UAT.troopsToOF;
 		_pInstance.OF.troopsFromRN = _pInstance.RN.troopsToOF;
 
-		_pInstance.UAT.troopsFromOF = _pInstance.FE.troopsToUAT;
-		_pInstance.UAT.troopsFromUAT = _pInstance.OF.troopsToUAT;
+		_pInstance.UAT.troopsFromFE = _pInstance.FE.troopsToUAT;
+		_pInstance.UAT.troopsFromOF = _pInstance.OF.troopsToUAT;
 		_pInstance.UAT.troopsFromRN = _pInstance.RN.troopsToUAT;
 
-		_pInstance.RN.troopsFromOF = _pInstance.FE.troopsToRN;
-		_pInstance.RN.troopsFromUAT = _pInstance.OF.troopsToRN;
-		_pInstance.RN.troopsFromRN = _pInstance.UAT.troopsToRN;
+		_pInstance.RN.troopsFromFE = _pInstance.FE.troopsToRN;
+		_pInstance.RN.troopsFromOF = _pInstance.OF.troopsToRN;
+		_pInstance.RN.troopsFromUAT = _pInstance.UAT.troopsToRN;
 	}
 
 
