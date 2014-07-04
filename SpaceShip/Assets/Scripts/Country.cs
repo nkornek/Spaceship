@@ -143,31 +143,6 @@ public class Country : MonoBehaviour {
 	//Update the resource stats, population and military values of the country at the beginning of a new week
 	//And consumes resources for population
 	public void NewWeekUpdate () {
-		//Consume resources
-		if (stockFood >= 50) {
-			stockFood -= 50;
-		}
-		else {
-			stockFood = 0;
-		}
-		if (stockWater >= 50) {
-			stockWater -= 50;
-		}
-		else {
-			stockWater = 0;
-		}
-		if (stockOil >= 25) {
-			stockOil -= 25;
-		}
-		else {
-			stockOil = 0;
-		}
-		if (stockMetal >= 25) {
-			stockMetal -= 25;
-		}
-		else {
-			stockMetal = 0;
-		}
 
 		//Update military numbers
 
@@ -202,7 +177,7 @@ public class Country : MonoBehaviour {
 			}
 		}
 		//Population Decreased
-		else if (stockFood <= 50 || stockWater <= 50 || stockMetal <= 25 || stockOil <= 25) {
+		else if (stockFood < 50 || stockWater < 50 || stockMetal < 25 || stockOil < 25) {
 			if (populationChange < 0) {
 				populationChange *= 2;
 			}
@@ -217,6 +192,32 @@ public class Country : MonoBehaviour {
 		population += populationChange;
 		if (population > populationCap) {
 			population = populationCap;
+		}
+
+		//Consume resources
+		if (stockFood >= 50) {
+			stockFood -= 50;
+		}
+		else {
+			stockFood = 0;
+		}
+		if (stockWater >= 50) {
+			stockWater -= 50;
+		}
+		else {
+			stockWater = 0;
+		}
+		if (stockOil >= 25) {
+			stockOil -= 25;
+		}
+		else {
+			stockOil = 0;
+		}
+		if (stockMetal >= 25) {
+			stockMetal -= 25;
+		}
+		else {
+			stockMetal = 0;
 		}
 
 		//Update resources harvested
@@ -266,9 +267,9 @@ public class Country : MonoBehaviour {
 		if (isAI) {
 			switch (countryType) {
 			case GameVariableManager.CountryType.FE:
-				metalToOF = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_OF / 100);
-				metalToUAT = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_UAT / 100);
-				metalToRN = (int)((stockMetal - 75f) / 4 * GameManager.instance.FE_RN / 100);
+				metalToOF = (int)((stockMetal - 75f) / 3 * (float)GameManager.instance.FE_OF / 100f);
+				metalToUAT = (int)((stockMetal - 75f) / 3 * (float)GameManager.instance.FE_UAT / 100f);
+				metalToRN = (int)((stockMetal - 75f) / 3 * (float)GameManager.instance.FE_RN / 100f);
 				int restOfMetal = stockMetal - 75 - metalToOF - metalToUAT - metalToRN;
 				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
 				metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
@@ -279,9 +280,9 @@ public class Country : MonoBehaviour {
 
 				break;
 			case GameVariableManager.CountryType.OF:
-				waterToFE = (int)((stockWater - 75f) / 4 * GameManager.instance.FE_OF / 100);
-				waterToUAT = (int)((stockWater - 75f) / 4 * GameManager.instance.OF_UAT / 100);
-				waterToRN = (int)((stockWater - 75f) / 4 * GameManager.instance.OF_RN / 100);
+				waterToFE = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.FE_OF / 100f);
+				waterToUAT = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.OF_UAT / 100f);
+				waterToRN = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.OF_RN / 100f);
 				waterToShip = (int)(stockWater - 75 - waterToFE - waterToUAT - waterToRN);
 				restOfMetal = stockMetal - 75 - metalToFE - metalToUAT - metalToRN;
 				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
@@ -292,9 +293,9 @@ public class Country : MonoBehaviour {
 				oilToMilitary = restOfOil - metalToMilitary;
 				break;
 			case GameVariableManager.CountryType.UAT:
-				foodToFE = (int)((stockFood - 75f) / 4 * GameManager.instance.FE_UAT / 100);
-				foodToOF = (int)((stockFood - 75f) / 4 * GameManager.instance.OF_UAT / 100);
-				foodToRN = (int)((stockFood - 75f) / 4 * GameManager.instance.UAT_RN / 100);
+				foodToFE = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.FE_UAT / 100f);
+				foodToOF = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.OF_UAT / 100f);
+				foodToRN = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.UAT_RN / 100f);
 				foodToShip = (int)(stockFood - 75 - foodToFE - foodToOF - foodToRN);
 				restOfMetal = stockMetal - 75 - metalToFE - metalToOF - metalToRN;
 				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
@@ -305,9 +306,9 @@ public class Country : MonoBehaviour {
 				oilToMilitary = restOfOil - metalToMilitary;
 				break;
 			case GameVariableManager.CountryType.RN:
-				oilToFE = (int)((stockOil - 75f) / 4 * GameManager.instance.FE_RN / 100);
-				oilToOF = (int)((stockOil - 75f) / 4 * GameManager.instance.OF_RN / 100);
-				oilToUAT = (int)((stockOil - 75f) / 4 * GameManager.instance.UAT_RN / 100);
+				oilToFE = (int)((stockOil - 75f) / 3 * (float)GameManager.instance.FE_RN / 100f);
+				oilToOF = (int)((stockOil - 75f) / 3 * (float)GameManager.instance.OF_RN / 100f);
+				oilToUAT = (int)((stockOil - 75f) / 3 * (float)GameManager.instance.UAT_RN / 100f);
 				oilToShip = (int)(stockOil - 75 - oilToFE - oilToOF - oilToUAT);
 				restOfMetal = stockMetal - 75 - metalToFE - metalToOF - metalToUAT;
 				//metalToShip = (int)((stockMetal - 75f - metalToOF - metalToUAT - metalToRN));
