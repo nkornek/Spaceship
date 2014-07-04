@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\ArmyIndicators.cs" />
+     <Compile Include="Assets\FlagPole.cs" />
      <Compile Include="Assets\GuiBar.cs" />
      <Compile Include="Assets\MyFlag.cs" />
      <Compile Include="Assets\NaturalHazards.cs" />
