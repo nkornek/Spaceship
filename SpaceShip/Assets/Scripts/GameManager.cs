@@ -71,6 +71,9 @@ public class GameManager : MonoBehaviour {
 		switch (_pInstance.gameState) {
 		case GameVariableManager.GameState.LookAtStar:
 			CheckWinningCountry ();
+			if (_pInstance.weekNumber >= 21) {
+				_pInstance.gameState = GameVariableManager.GameState.EndGame;
+			}
 			break;
 		case GameVariableManager.GameState.TransferResources:
 			TransferResources ();

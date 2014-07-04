@@ -63,7 +63,7 @@ public class DyingStar : MonoBehaviour {
 		newPos = new Vector3 (0,45,0);
 		//Vector3 starScale = gameObject.transform.localScale;
 		//starScale = new Vector3 (1.1f,1.1f,1.1f);
-		gameObject.transform.localScale += new Vector3 (0.25f, 0.25f, 0.25f);
+		gameObject.transform.localScale += new Vector3 (0.50f, 0.50f, 0.50f);
 		GameManager.instance.weekNumber += 1;
 		yield return new WaitForSeconds(3.0f);
 		newPos = startPos;
