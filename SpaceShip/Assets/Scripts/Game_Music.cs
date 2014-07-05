@@ -25,7 +25,7 @@ public class Game_Music : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		weekNum = GameObject.Find ("_GameManager").GetComponent<GameManager>().weekNumber;
+		weekNum = GameManager.instance.weekNumber;
 		if (gameOver == true)
 		{
 			war = !GameManager.instance.civilized;
@@ -67,10 +67,6 @@ public class Game_Music : MonoBehaviour {
 			else if (weekNum == 15)
 			{
 				ChangeMusic(3);
-			}
-			else if (weekNum == 21)
-			{
-
 			}
 		}
 
