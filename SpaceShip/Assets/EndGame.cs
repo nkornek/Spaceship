@@ -8,7 +8,7 @@ public class EndGame : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		endText.enabled = background.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -40,6 +40,11 @@ public class EndGame : MonoBehaviour {
 		}
 		else {
 			endText.enabled = background.enabled = false;
+		}
+
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			Application.LoadLevel(0);
 		}
 	
 
