@@ -13,9 +13,11 @@ public class EndGame : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		pop = (GameManager.instance.player.country.population > 0) ? true : false;
-		war = !GameManager.instance.civilized;
-		win = (GameManager.instance.WonCountry == GameManager.instance.player.country) ? true : false;
+		if (GameManager.instance.gameState != GameVariableManager.GameState.StartGame) {
+			pop = (GameManager.instance.player.country.population > 0) ? true : false;
+			war = !GameManager.instance.civilized;
+			win = (GameManager.instance.WonCountry == GameManager.instance.player.country) ? true : false;
+		}
 
 		if (GameManager.instance.gameState == GameVariableManager.GameState.EndGame)
 		{	
