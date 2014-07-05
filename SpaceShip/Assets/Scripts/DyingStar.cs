@@ -11,10 +11,11 @@ public class DyingStar : MonoBehaviour {
 
 	private Vector3 explodeScale;
 	public GameObject UICam;
-	bool coroutineStarted;
+	bool coroutineStarted, endGame;
 
 	// Use this for initialization
 	void Start () {
+	endGame = false;
 	startPos = new Vector3 (7,11,-17);
 	newPos = new Vector3 (7,11,-17);
 
@@ -69,7 +70,14 @@ public class DyingStar : MonoBehaviour {
 		newPos = startPos;
 		//Invoke ("resetUI", 3);
 		yield return new WaitForSeconds(3.0f);
-		GameManager.instance.gameState = GameVariableManager.GameState.Crisis;
+		if (endGame == false)
+		{
+			GameManager.instance.gameState = GameVariableManager.GameState.Crisis;
+		}
+		else
+		{
+			GameManager.instance.gameState = GameVariableManager.GameState.EndGame;
+		}
 		//UICam.SetActive(true);
 		coroutineStarted = false;
 	}
