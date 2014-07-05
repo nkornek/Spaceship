@@ -262,10 +262,10 @@ public class GameManager : MonoBehaviour {
 		_pInstance.RN.receivedMetal = _pInstance.RN.stockMetal - prevMetalAmount;
 
 		//Increased the ship's received resources
-		_pInstance.ship.shipFood = _pInstance.FE.foodToShip + _pInstance.OF.foodToShip + _pInstance.UAT.foodToShip + _pInstance.RN.foodToShip;
-		_pInstance.ship.shipWater = _pInstance.FE.waterToShip + _pInstance.OF.waterToShip + _pInstance.UAT.waterToShip + _pInstance.RN.waterToShip;
-		_pInstance.ship.shipOil = _pInstance.FE.oilToShip + _pInstance.OF.oilToShip + _pInstance.UAT.oilToShip + _pInstance.RN.oilToShip;
-		_pInstance.ship.shipMetal = _pInstance.FE.metalToShip + _pInstance.OF.metalToShip + _pInstance.UAT.metalToShip + _pInstance.RN.metalToShip;
+		_pInstance.ship.shipFood += _pInstance.FE.foodToShip + _pInstance.OF.foodToShip + _pInstance.UAT.foodToShip + _pInstance.RN.foodToShip;
+		_pInstance.ship.shipWater += _pInstance.FE.waterToShip + _pInstance.OF.waterToShip + _pInstance.UAT.waterToShip + _pInstance.RN.waterToShip;
+		_pInstance.ship.shipOil += _pInstance.FE.oilToShip + _pInstance.OF.oilToShip + _pInstance.UAT.oilToShip + _pInstance.RN.oilToShip;
+		_pInstance.ship.shipMetal += _pInstance.FE.metalToShip + _pInstance.OF.metalToShip + _pInstance.UAT.metalToShip + _pInstance.RN.metalToShip;
 
 		//move armies
 		_pInstance.FE.troopsFromOF = _pInstance.OF.troopsToFE;

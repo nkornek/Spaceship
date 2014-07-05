@@ -37,15 +37,31 @@ public class ShipScript : MonoBehaviour {
 
 	void UpdateShip () {
 		shipCompletion = (shipWater + shipOil + shipMetal + shipFood) / shipCap * shipBarCap;
-
+		//ensure that values do not surpass limit
+		if (shipFood > 1500)
+		{
+			shipFood = 1500;
+		}
+		if (shipWater > 1500)
+		{
+			shipWater = 1500;
+		}
+		if (shipMetal > 1500)
+		{
+			shipMetal = 1500;
+		}
+		if (shipOil > 1500)
+		{
+			shipOil = 1500;
+		}
 		Vector3 shipBarScale = shipBar.transform.localScale;
 		shipBarScale.y = (float)shipCompletion / shipCap * shipBarCap;
 		shipBar.transform.localScale = shipBarScale;
 	}
 
 	void CheckCompletion () {
-		if (shipWater >= 1000 && shipFood >= 1000
-		    && shipMetal >= 1000 && shipOil >= 1000) {
+		if (shipWater >= 1500 && shipFood >= 1500
+		    && shipMetal >= 1500 && shipOil >= 1500) {
 			GameManager.instance.shipCompleted = true;
 		}
 		else {
