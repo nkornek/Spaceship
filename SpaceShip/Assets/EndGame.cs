@@ -21,7 +21,7 @@ public class EndGame : MonoBehaviour {
 		{	
 			endText.enabled = background.enabled = true;
 			GameObject.Find ("Game Music").GetComponent<Game_Music>().gameOver = true;
-			if (!win & !pop)
+			if ((!win||win) & !pop)
 			{
 				endText.text = "DEFEAT!\n\nTry as we might, the struggles which we faced proved to be too much to bear.\n Our once mighty nation collapsed under the weight of \nits people, and the dying star was only partly to blame.\n\n\nWe have failed each other, and now all of our nations are doomed.";
 			}
