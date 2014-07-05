@@ -171,7 +171,7 @@ public class Deploy_Troops_Interface : MonoBehaviour {
 			}
 			if (endDeploy.clicked) 
 			{
-				GameManager.instance.gameState = GameVariableManager.GameState.TransferResources;
+				GameManager.instance.gameState = GameVariableManager.GameState.View;
 			}
 
 		}
@@ -223,6 +223,6 @@ public class Deploy_Troops_Interface : MonoBehaviour {
 		troops1.text = troopsToC1.ToString () + " Troops";
 		troops2.text = troopsToC2.ToString () + " Troops";
 		troops3.text = troopsToC3.ToString () + " Troops";
-		troopReserves.text = reserveTroops.ToString () + " Troops Remaining";
+		troopReserves.text = reserveTroops.ToString () + " Deathbots Remaining";
 	}
 }

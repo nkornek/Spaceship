@@ -37,7 +37,7 @@ public class Combat_Report : MonoBehaviour {
 					"\n\t\t\tNo Deathbots Built";
 			}
 			if (reportPrompt.clicked) {				
-				GameManager.instance.gameState = GameVariableManager.GameState.Management;
+				GameManager.instance.gameState = GameVariableManager.GameState.View;
 				player.country.collateralDamage = 0;
 				player.country.totalSoldierDead = 0;
 				//reset all stolen resources
