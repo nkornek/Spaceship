@@ -334,6 +334,73 @@ public class Country : MonoBehaviour {
 				}
 				break;
 			}
+			//ensure none are below 0
+			//this is horrible ugly code but its 1:30 am
+			if (foodToFE < 0)
+			{
+				foodToFE = 0;
+			}
+			if (foodToOF < 0)
+			{
+				foodToOF = 0;
+			}
+			if (foodToUAT < 0)
+			{
+				foodToUAT = 0;
+			}
+			if (foodToRN < 0)
+			{
+				foodToRN = 0;
+			}
+			if (waterToFE < 0)
+			{
+				waterToFE = 0;
+			}
+			if (waterToOF < 0)
+			{
+				waterToOF = 0;
+			}
+			if (waterToUAT < 0)
+			{
+				waterToUAT = 0;
+			}
+			if (waterToRN < 0)
+			{
+				waterToRN = 0;
+			}
+			if (oilToFE < 0)
+			{
+				oilToFE = 0;
+			}
+			if (oilToOF < 0)
+			{
+				oilToOF = 0;
+			}
+			if (oilToUAT < 0)
+			{
+				oilToUAT = 0;
+			}
+			if (oilToRN < 0)
+			{
+				oilToRN = 0;
+			}
+			if (metalToFE < 0)
+			{
+				metalToFE = 0;
+			}
+			if (metalToOF < 0)
+			{
+				metalToOF = 0;
+			}
+			if (metalToUAT < 0)
+			{
+				metalToUAT = 0;
+			}
+			if (metalToRN < 0)
+			{
+				metalToRN = 0;
+			}
+
 
 			foodToFE = (foodToOF<0)? 0: foodToFE;
 			foodToOF = (foodToOF<0)? 0: foodToOF;
