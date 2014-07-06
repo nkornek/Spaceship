@@ -286,10 +286,17 @@ public class Country : MonoBehaviour {
 				}
 				break;
 			case GameVariableManager.CountryType.OF:
-				waterToFE = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.FE_OF / 100f);
-				waterToUAT = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.OF_UAT / 100f);
-				waterToRN = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.OF_RN / 100f);
-				waterToShip = (int)(stockWater - 75 - waterToFE - waterToUAT - waterToRN);
+				waterToFE = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.FE_OF / 110f);
+				waterToUAT = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.OF_UAT / 110f);
+				waterToRN = (int)((stockWater - 75f) / 3 * (float)GameManager.instance.OF_RN / 110f);
+				if (population == 100)
+				{
+					waterToShip = (int)(stockWater - 50 - waterToFE - waterToUAT - waterToRN);
+				}
+				else
+				{
+					waterToShip = (int)(stockWater - 75 - waterToFE - waterToUAT - waterToRN);
+				}
 				restOfMetal = stockMetal - 50 - metalToFE - metalToUAT - metalToRN;
 				if (restOfMetal > 0) {
 					metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));
@@ -302,10 +309,17 @@ public class Country : MonoBehaviour {
 				}
 				break;
 			case GameVariableManager.CountryType.UAT:
-				foodToFE = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.FE_UAT / 100f);
-				foodToOF = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.OF_UAT / 100f);
-				foodToRN = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.UAT_RN / 100f);
-				foodToShip = (int)(stockFood - 75 - foodToFE - foodToOF - foodToRN);
+				foodToFE = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.FE_UAT / 110f);
+				foodToOF = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.OF_UAT / 110f);
+				foodToRN = (int)((stockFood - 75f) / 3 * (float)GameManager.instance.UAT_RN / 110f);
+				if (population == 100)
+				{
+					foodToShip = (int)(stockFood - 50 - foodToFE - foodToOF - foodToRN);
+				}
+				else
+				{
+					foodToShip = (int)(stockFood - 75 - foodToFE - foodToOF - foodToRN);
+				}
 				restOfMetal = stockMetal - 50 - metalToFE - metalToOF - metalToRN;
 				if (restOfMetal > 0) {
 					metalToShip = (int)(restOfMetal * ((float)civilizationScale.civilizedMeter / 100f));

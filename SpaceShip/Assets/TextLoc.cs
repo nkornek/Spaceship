@@ -35,7 +35,7 @@ public class TextLoc : MonoBehaviour {
 		} else if (resource == 4){
 			float amount = (thisCountry.population+100)*0.01f;
 			newPos = new Vector3(0,amount,0);
-			gameObject.GetComponent<TextMesh>().text = thisCountry.population.ToString();
+			gameObject.GetComponent<TextMesh>().text = thisCountry.population.ToString()+"%";
 		} else if (resource == 5){
 			float amount = (thisCountry.military+75)*0.007f;
 			newPos = new Vector3(0,(amount),0);

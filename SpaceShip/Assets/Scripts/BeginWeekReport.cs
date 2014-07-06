@@ -22,7 +22,7 @@ public class BeginWeekReport : MonoBehaviour {
 		if (GameManager.instance.gameState == GameVariableManager.GameState.BeginWeekUpdate) {
 			reportPrompt.enabled = true;
 			reportPrompt.buttonText.text = "Weekly Report: " + 
-				"\n\t\t\tPopulation Change: " + player.country.populationChange + 
+				"\n\t\t\tPopulation Change: " + player.country.populationChange + "%" +  
 					"\n\t\t\tDeathbots Built: " + player.country.militaryBuilt;
 			if (reportPrompt.clicked) 
 			{

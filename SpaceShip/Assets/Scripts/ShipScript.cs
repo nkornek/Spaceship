@@ -9,6 +9,7 @@ public class ShipScript : MonoBehaviour {
 	public int shipWater, shipOil, shipMetal, shipFood;
 	public GameObject shipBar;
 	public float shipCap, shipBarCap;
+	public TextMesh labelWater, labelMetal, labelOil, labelFood;
 
 	// Use this for initialization
 	void Start () {
@@ -37,6 +38,10 @@ public class ShipScript : MonoBehaviour {
 
 	void UpdateShip () {
 		shipCompletion = (shipWater + shipOil + shipMetal + shipFood) / shipCap * shipBarCap;
+		labelWater.text = shipWater.ToString() + "/1500";
+		labelMetal.text = shipMetal.ToString() + "/1500";
+		labelOil.text = shipOil.ToString() + "/1500";
+		labelFood.text = shipFood.ToString() + "/1500";
 		//ensure that values do not surpass limit
 		if (shipFood > 1500)
 		{
